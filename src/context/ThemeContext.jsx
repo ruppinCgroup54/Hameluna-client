@@ -12,7 +12,10 @@ export default function ThemeContext({children}) {
         main: 'rgba(131,140,59,0.4)',
 
       },
-
+      info:{
+        main:'#D9CB89',
+        contrastText:"#fff"
+      }
     },
     typography:{
       fontFamily:"'Varela round',san-sarif"

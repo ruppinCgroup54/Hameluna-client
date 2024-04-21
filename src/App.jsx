@@ -1,7 +1,8 @@
 
 import './App.css'
-import LogInPage from './pages/LogInPage'
 import ThemeContext from './context/ThemeContext';
+import AdoptersHomePage from './pages/AdoptersHomePage/index';
+import LogInPage from './pages/LoginSystem/index';
 
 
 
@@ -10,7 +11,8 @@ function App() {
 
   return (
     <ThemeContext>
-      <LogInPage />
+      <AdoptersHomePage/>
+
 
     </ThemeContext>
   );
