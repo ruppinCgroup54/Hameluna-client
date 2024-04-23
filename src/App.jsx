@@ -11,9 +11,7 @@ function App() {
 
   return (
     <ThemeContext>
-      <AdoptersHomePage/>
-
-
+      <LogInPage/>
     </ThemeContext>
   );
 
