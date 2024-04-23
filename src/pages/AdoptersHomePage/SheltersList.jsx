@@ -6,14 +6,15 @@ import SheltersImage from "./SheltersImage";
 
 export default function SheltersList({ ListOfShelters }) {
 
-  const renderList = ListOfShelters.map(shelter =>
+  const firstShelters = ListOfShelters.slice(0,5);
+  const renderList = firstShelters.map(shelter =>
     <SheltersImage {...shelter} key={shelter.name}/>
   )
 
 
   return (
 
-    <div style={{display:'flex',alignContent:'center',flexDirection:'column', gap:'20px',padding:30}}>
+    <div style={{display:'flex',alignContent:'center',flexDirection:'column', gap:'20px',padding:30,backgroundColor:'#D9AA55'}}>
       <Typography variant="h3" textAlign={'center'} color={'white'} pb={5}>כבר חלק מאינו</Typography>
       {renderList}
     </div>
