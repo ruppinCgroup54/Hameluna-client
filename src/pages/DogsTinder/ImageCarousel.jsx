@@ -1,6 +1,6 @@
 import PropTypes, { string } from "prop-types";
 
-import Carousel from "react-material-ui-carousel";
+import Carousel from "react-material-ui-carousel"
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 
 export default function ImageCarousel({ images }) {

@@ -21,7 +21,7 @@ export default function BackgroundLayout({ children, image,dir, style }) {
   
 
   return (
-    <div  style={{ ...style,...LayoutStyle,  }}>
+    <div  style={{ ...LayoutStyle, ...style, }}>
       {children}
 
     </div>

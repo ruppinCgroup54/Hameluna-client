@@ -13,8 +13,7 @@ function App() {
 
   return (
     <ThemeContext>
-
-      <DogsTinder></DogsTinder>
+      <LogInPage></LogInPage>
     </ThemeContext>
   );
 
