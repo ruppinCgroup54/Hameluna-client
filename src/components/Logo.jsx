@@ -29,3 +29,10 @@ Logo.Full = () => {
     </div>
   )
 }
+Logo.Bottom = () => {
+  return (
+    <div style={{...logoStyle,}}>
+      <img src={Slogen} width={'70%'} style={{ maxWidth: '300px' }} alt="לוגו המלונה" />
+    </div>
+  )
+}
