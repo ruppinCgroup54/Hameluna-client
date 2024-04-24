@@ -1,8 +1,10 @@
+import AdoptersLayout from "../../layouts/AdoptersLayout";
+
 
 export default function ChatBot() {
-
-  
   return (
-    <div>ChatBot</div>
-  )
+    <AdoptersLayout>
+      
+    </AdoptersLayout>
+  );
 }
