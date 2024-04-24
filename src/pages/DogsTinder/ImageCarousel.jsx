@@ -13,11 +13,11 @@ export default function ImageCarousel({ images }) {
         autoPlay={false}
         fullHeightHover={false}
         animation="slide"
-        NextIcon={<NavigateNext />}
+        NextIcon={<NavigateNext  />}
         PrevIcon={<NavigateBefore />}
         IndicatorIcon={<span></span>}
         sx={{
-         
+          height:300,
           backdropFilter: "blur(5px)",
           width: "100%",
           textAlign: "center",
@@ -50,9 +50,7 @@ export default function ImageCarousel({ images }) {
       >
         {images.map((image) => (
           <img
-        style={{maxWidth:310,maxHeight:300,objectFit:'cover'}}
-            width={'100%'}
-            height={'100%'}
+        style={{width:'100%',height:'100%',objectFit:'cover'}}
             key={image}
             src={image}
           ></img>
