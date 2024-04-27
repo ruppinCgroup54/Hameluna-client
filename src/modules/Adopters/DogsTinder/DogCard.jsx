@@ -1,6 +1,6 @@
 import PropTypes, { string } from "prop-types";
 import ImageCarousel from "./ImageCarousel";
-import CircleIcons from "../../components/CircleIcons";
+import CircleIcons from "../../../components/CircleIcons";
 
 import {
   Button,
@@ -12,8 +12,6 @@ import {
   styled,
 } from "@mui/material";
 import { Favorite, Share } from "@mui/icons-material";
-
-
 
 const CardStyle = styled(Card)(({ theme }) => ({
   width: "clamp(100px,80dvw,310px)",
@@ -38,7 +36,7 @@ const CardStyle = styled(Card)(({ theme }) => ({
     justifyContent: "space-between",
     flexDirection: "column",
     paddingTop: "10%",
-    zIndex:2,
+    zIndex: 2,
     [`${theme.breakpoints.down("md")} and (orientation: landscape)`]: {
       borderRadius: "0",
       height: "100%",
@@ -50,7 +48,7 @@ const CardStyle = styled(Card)(({ theme }) => ({
   "& .MuiCardMedia-root": {
     height: "50%",
     maxHeight: "300px",
-    position:'relative',
+    position: "relative",
     [`${theme.breakpoints.down("md")} and (orientation: landscape)`]: {
       width: "40%",
       height: "100%",
@@ -70,11 +68,9 @@ const CardStyle = styled(Card)(({ theme }) => ({
 }));
 
 export default function DogCard({ dog }) {
-
-
   return (
-    <CardStyle >
-      <CardMedia >
+    <CardStyle>
+      <CardMedia>
         <ImageCarousel images={dog.images} />
       </CardMedia>
 

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import defaultShelter from "../../assets/images/Shelter1.jpeg"
+import defaultShelter from "../../../assets/images/Shelter1.jpeg"
 import { Box, styled } from '@mui/material';
 import React, { forwardRef } from 'react';
 import { useTheme } from '@emotion/react';

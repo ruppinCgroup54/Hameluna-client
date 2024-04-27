@@ -30,16 +30,16 @@ export default function LogInPage() {
 
   return (
     <>
-      <BackgroundLayout image={LogInImage} style={{display:"block"}} >
+      <BackgroundLayout image={LogInImage} style={{ display: "block" }}>
         <div
           style={{
             padding: "50px 0",
             backgroundImage:
               "radial-gradient( #8C6849 0%, #8C6849 23%,  rgba(140, 104, 73, 0) 100%)",
             ...(isDesktop ? desktopStyle : phoneStyle),
-            display:'flex',
-            alignItems:'center',
-            flexDirection:'column'
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
           }}
         >
           <Logo.Full />
