@@ -10,7 +10,7 @@ const Dogs=[
     "size": "גדול",
     "adopted": true,
     "isReturned": true,
-    "cellId": 1,
+    "cellId": 0,
     "shelter":'תנו לחיות לחיות',
     "note":"צ’דר שלנו הוא כלב חינני וחמוד, כל היום אוהב לשחק עם חברים וכזה הוא מתעייף הוא יכול לעשות לכם קצת פרצופים. אוהב הרבה טיולים וכמובן מחונך לצרכים. כל מי שיקח אותו רק יהנה ממנו. לואי נמצא משוטט בעיר חיפה. הוא כלב מתוק, שקט, מסתדר עם כלבים, קל לגידול. זקוק לטיולים ופריקת אנרגיה. מסורס, מחונך לצרכים. ",
     age:3,
@@ -45,7 +45,7 @@ const Dogs=[
     "size": "גדול",
     "adopted": true,
     "isReturned": true,
-    "cellId": 0,
+    "cellId": 2,
     "color": [],
     "breed": []
   },
@@ -60,7 +60,7 @@ const Dogs=[
     "size": "גדול",
     "adopted": true,
     "isReturned": true,
-    "cellId": 1,
+    "cellId": 3,
     "color": [],
     "breed": []
   },
@@ -75,7 +75,7 @@ const Dogs=[
     "size": "בינוני-גדול",
     "adopted": true,
     "isReturned": true,
-    "cellId": 1,
+    "cellId": 4,
     "color": [],
     "breed": []
   },
@@ -90,7 +90,7 @@ const Dogs=[
     "size": "בינוני-גדול",
     "adopted": true,
     "isReturned": true,
-    "cellId": 1,
+    "cellId": 5,
     "color": [],
     "breed": []
   },
@@ -105,7 +105,7 @@ const Dogs=[
     "size": "קטן",
     "adopted": false,
     "isReturned": false,
-    "cellId": 2,
+    "cellId": 6,
     "color": [],
     "breed": []
   }]
