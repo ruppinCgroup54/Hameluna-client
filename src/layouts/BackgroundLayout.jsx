@@ -2,18 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types';
 
 
-
-
-
 export default function BackgroundLayout({ children, image,dir, style }) {
 
   const LayoutStyle={
     background: `url(${image}) no-repeat center center fixed`,
-    height: "100vh",
+    height: "100lvh",
     width: '100vw', 
     display: 'flex',
     alignItems:'center',
-    overflow:'scroll',
+    overflow:'auto',
     flexDirection: dir === 'col' ? 'column': 'row',
     backgroundSize:'cover',
   };

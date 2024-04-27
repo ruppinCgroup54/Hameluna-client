@@ -28,7 +28,7 @@ Logo.Full = () => {
 Logo.Bottom = () => {
   return (
     <Box sx={{ width:{xs:'100%',sm:'20vw',md:'15vw'} }}>
-      <img src={Slogen} style={{ maxWidth: 300,display:'block' }} alt="לוגו המלונה" />
+      <img src={Slogen} style={{ maxWidth: 150,display:'block' }} alt="לוגו המלונה" />
     </Box>
   )
 }

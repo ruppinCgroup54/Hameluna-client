@@ -1,62 +1,55 @@
 import PropTypes, { string } from "prop-types";
 
-import Carousel from "react-material-ui-carousel"
-import { NavigateBefore, NavigateNext } from "@mui/icons-material";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-flip";
+import "./ImageCarousel.css";
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// import required modules
+import { Pagination, Navigation } from "swiper/modules";
 
 export default function ImageCarousel({ images }) {
-
+  const pagination = {
+    clickable: true,
+    renderBullet: function (index, className) {
+      return "<span key=" + index + " class=" + className + "> </span>";
+    },
+  };
 
   return (
-
-      <Carousel
-      height={300}
-        autoPlay={false}
-        fullHeightHover={false}
-        animation="slide"
-        NextIcon={<NavigateNext  />}
-        PrevIcon={<NavigateBefore />}
-        IndicatorIcon={<span></span>}
-        sx={{
-          height:300,
-          backdropFilter: "blur(5px)",
-          width: "100%",
-          textAlign: "center",
-        }}
-        indicatorIconButtonProps={{
-          style: {
-            height: "10px",
-            width: "10px",
-            backgroundColor: "#afafaf",
-            borderRadius: "5px",
-          },
-        }}
-        activeIndicatorIconButtonProps={{
-          style: {
-            width: "20px",
-          },
-        }}
-        indicatorContainerProps={{
-          style: {
-            zIndex: 2,
-            position: "absolute",
-            top: 10,
-            width: "100%",
-            display: "flex",
-            flexDirection:'row-reverse',
-            justifyContent: "center",
-            gap: 5,
-          },
-        }}
-      >
-        {images.map((image) => (
+    <Swiper
+      grabCursor={true}
+      loop={true}
+      pagination={true}
+      navigation={true}
+      modules={[Pagination, Navigation]}
+      style={{
+        width: "100%",
+        height: "100%",
+        position: "absolute",
+        margin: "auto",
+      }}
+    >
+      {images.map((image) => (
+        <SwiperSlide
+          style={{ backgroundPosition: "center", backgroundSize: "cover" }}
+          key={image}
+        >
           <img
-        style={{width:'100%',height:'100%',objectFit:'cover'}}
-            key={image}
+            style={{
+              display: "block",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
             src={image}
           ></img>
-        ))}
-      </Carousel>
-
+        </SwiperSlide>
+      ))}
+    </Swiper>
   );
 }
 
