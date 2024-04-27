@@ -14,7 +14,8 @@ function App() {
 
   return (
     <ThemeContext>
-      <LogInPage></LogInPage>
+      {/* <LogInPage></LogInPage> */}
+      <Home></Home>
     </ThemeContext>
   );
 
