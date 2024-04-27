@@ -20,7 +20,8 @@ const Dogs = [
       "src/assets/images/Dogs/image 5.png",
       "src/assets/images/Dogs/image 6.png",
     ],
-  },{
+  },
+  {
     chipNumber: "string",
     numberId: 2,
     name: "משה",
@@ -41,7 +42,8 @@ const Dogs = [
       "src/assets/images/Dogs/image 5.png",
       "src/assets/images/Dogs/image 6.png",
     ],
-  },{
+  },
+  {
     chipNumber: "string",
     numberId: 1,
     name: "משה",
@@ -62,7 +64,8 @@ const Dogs = [
       "src/assets/images/Dogs/image 5.png",
       "src/assets/images/Dogs/image 6.png",
     ],
-  },{
+  },
+  {
     chipNumber: "string",
     numberId: 6,
     name: "משה",
