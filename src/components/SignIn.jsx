@@ -33,7 +33,6 @@ export default function SignIn() {
       phone: data.get("phone"),
       password: data.get("password"),
     };
-debugger;
     fetch("https://localhost:7280/api/Admins/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
