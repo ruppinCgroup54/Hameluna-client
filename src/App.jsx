@@ -10,24 +10,29 @@ import lazyLoad from "./utilis/LazyLoad";
 const AdoptersHomePage = lazyLoad("../modules/Adopters/AdoptersHomePage/index");
 const AdminPage = lazyLoad("../modules/Admin/index");
 
-
-
-
-
 //const EmployeesPage= lazyLoad("../modules/Adopters/AdoptersHomePage/index");
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <AdoptersHomePage />,
+
+    children:[
+      {
+        path:'/'
+      }
+    ]
   },
   {
     path: "/admin",
     element: <AdminPage />,
+    
     children:[
       {
-        path:"/admin/",
-        element:<AdopterHomePage/>
+        path:"/admin/shelter/:shelter",
+        element:<AdoptersHomePage/>,
+        loader:async ({ params }) => {
+          return fetch(`https://localhost:7280/api/Cells/shelter/${params.shelter}`);},
 
       }
     ]
