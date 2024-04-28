@@ -4,10 +4,7 @@ import Logo from "../../components/Logo";
 
 import { useMediaQuery } from "react-responsive";
 import { useTheme } from "@mui/material/styles";
-import rtlPlugin from "stylis-plugin-rtl";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
-import { prefixer } from "stylis";
+
 import SignIn from "../../components/SignIn";
 
 const phoneStyle = {
@@ -18,11 +15,6 @@ const desktopStyle = { width: "33%", marginRight: "10%" };
 
 export default function LogInPage() {
   const isDesktop = useMediaQuery({ query: "(min-width:600px )" });
-
-  const cacheRtl = createCache({
-    key: "muirtl",
-    stylisPlugins: [prefixer, rtlPlugin],
-  });
 
   const theme = useTheme();
 
@@ -44,13 +36,10 @@ export default function LogInPage() {
           <h3 style={{ color: "white", marginTop: "5px" }}>
             לנהל את הכלבייה שלך בצורה הפשוטה ביותר.
           </h3>
-          <CacheProvider value={cacheRtl}>
             <SignIn></SignIn>
-          </CacheProvider>
         </div>
       </BackgroundLayout>
-      <br />
-      <br />
+
     </>
   );
 }

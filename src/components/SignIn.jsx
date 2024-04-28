@@ -1,28 +1,52 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Avatar, TextField, styled } from "@mui/material";
+import { FunctionsSharp } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
+const StyledTextfield = {
+  bgcolor: "rgba(255,255,255,0.7)",
+  borderRadius: "10px",
+  "& .MuiInputLabel-root": {
+    fontSize: "14px",
+  },
+  "& .MuiInputBase-root": {
+    background: "none",
+    "&:before": {
+      borderBottom: "none",
+      content: "none",
+    },
+  },
+};
+
 export default function SignIn() {
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
+    let loginDet = {
+      phone: data.get("phone"),
       password: data.get("password"),
-    });
+    };
+debugger;
+    fetch("https://localhost:7280/api/Admins/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(loginDet),
+    })
+      .then((res) => {
+        console.log("res", res);
+  
+        res.ok?res.json(): Promise.reject(res);
+      })
+      .then((data) => {
+        navigate("/admin")
+      }).catch(rej=> console.log('rej', rej));
   };
 
   return (
@@ -30,32 +54,19 @@ export default function SignIn() {
       component="form"
       onSubmit={handleSubmit}
       noValidate
-      sx={{ mt: 1, width:'65%' }}
+      sx={{ mt: 1, width: "65%" }}
     >
       <TextField
         margin="normal"
         required
         fullWidth
-        id="email"
-        label="אימייל או שם משתמש"
-        name="email"
-        autoComplete="email"
+        id="phone"
+        label="מספר פלאפון"
+        name="phone"
+        autoComplete="phone"
         size="small"
         variant="filled"
-        sx={{
-          bgcolor: "rgba(255,255,255,0.7)",
-          borderRadius: "10px",
-          "& .MuiInputLabel-root": {
-            fontSize: "14px",
-          },
-          "& .MuiInputBase-root": {
-            background:'none',
-            "&:before":{
-              borderBottom:'none',
-              content:'none'
-            }
-          }
-        }}
+        sx={StyledTextfield}
       />
       <TextField
         margin="normal"
@@ -68,25 +79,18 @@ export default function SignIn() {
         autoComplete="current-password"
         size="small"
         variant="filled"
-        sx={{
-          bgcolor: "rgba(255,255,255,0.7)",
-          borderRadius: "10px",
-          "& .MuiInputLabel-root": {
-            fontSize: "14px",
-          },
-          "& .MuiInputBase-root": {
-            background:'none',
-            "&:before":{
-              borderBottom:'none',
-              content:'none'
-            }
-          }
-        }}
+        sx={StyledTextfield}
       />
       <Button
         type="submit"
         variant="contained"
-        sx={{ mx: "auto", display: "block", color: "#000", mt:'5px', fontSize:'14px' }}
+        sx={{
+          mx: "auto",
+          display: "block",
+          color: "#000",
+          mt: "5px",
+          fontSize: "14px",
+        }}
         fullWidth
         size="small"
         color="info"
