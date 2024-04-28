@@ -89,11 +89,9 @@ export default function NavBarAdmin() {
               </Box>
             </Grid>
 
-            <Grid item xs={1} sx={{ display: { md: "none" } }}>
+            <Grid item xs={9} sx={{ display: { md: "none" } }}>
               <DrawerNavbar ItemsList={navItems}></DrawerNavbar>
             </Grid>
-
-            <Grid item xs={8} sx={{ display: { md: "none" }}} ></Grid>
 
             <Grid item xs={3} md={1}>
               <Box
