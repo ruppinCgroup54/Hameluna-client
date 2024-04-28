@@ -8,7 +8,10 @@ import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import lazyLoad from "./utilis/LazyLoad";
 
 const AdoptersHomePage = lazyLoad("../modules/Adopters/AdoptersHomePage/index");
+
 const AdminPage = lazyLoad("../modules/Admin/index");
+const LogInPage = lazyLoad("../modules/Admin/LogInPage")
+
 
 //const EmployeesPage= lazyLoad("../modules/Adopters/AdoptersHomePage/index");
 
@@ -26,18 +29,18 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <AdminPage />,
-    
-    children:[
-      {
-        path:"/admin/shelter/:shelter",
-        element:<AdoptersHomePage/>,
-        loader:async ({ params }) => {
-          return fetch(`https://localhost:7280/api/Cells/shelter/${params.shelter}`);},
+    // children:[
+    //   {
+    //     path:"/admin/",
+    //     element:
 
-      }
-    ]
-
+    //   }
+    // ]
   },
+  {
+    path:"/logIn",
+    element: <LogInPage/>
+  }
 ]);
 
 function App() {
