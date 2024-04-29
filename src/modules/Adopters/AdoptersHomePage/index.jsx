@@ -21,7 +21,7 @@ const List = [
 
 export default function AdoptersHomePage() {
   return (
-    <BackgroundLayout image={WebsiteBackgroud} dir={'col'}style={{gap:'7vh',padding:'40px 0'}} >
+    <BackgroundLayout image={WebsiteBackgroud} dir={'col'} style={{gap:'7vh',padding:'40px 0'}} >
       
       <Logo.Full />
       <Typography style={{ padding: '5vw', textAlign: 'center', fontSize: 'clamp(1.4rem,3vw, 3rem)', color: 'white' }}>
