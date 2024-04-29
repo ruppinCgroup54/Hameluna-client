@@ -1,5 +1,5 @@
 import { Button, colors, styled } from '@mui/material'
-import RightArrow from '../../assets/images/RightArrow.png'
+import RightArrow from '../../../assets/images/RightArrow.png'
 
 
 const ChatBtn = styled(Button)(({ theme }) => ({

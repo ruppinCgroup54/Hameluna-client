@@ -1,10 +1,11 @@
-import React from 'react'
-import BackgroundLayout from '../../layouts/BackgroundLayout'
-import Logo from '../../components/Logo'
-import WebsiteBackgroud from '../../assets/images/Layouts//background.png'
-import { Typography } from '@mui/material'
+import BackgroundLayout from '../../../layouts/BackgroundLayout'
 import ChatButton from './ChatButton'
+import Logo from '../../../components/Logo'
 import SheltersList from './SheltersList'
+
+import { Typography } from '@mui/material'
+
+import WebsiteBackgroud from '../../../assets/images/Layouts//background.png'
 
 //temp array of shelter 
 const List = [
