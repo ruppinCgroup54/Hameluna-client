@@ -2,8 +2,7 @@ import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import { Avatar, TextField, styled } from "@mui/material";
-import { FunctionsSharp } from "@mui/icons-material";
+import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -33,6 +32,12 @@ export default function SignIn() {
       phone: data.get("phone"),
       password: data.get("password"),
     };
+
+    // const { loading, error, value } = useFetch(
+    //   "https://localhost:7280/api/Admins/login",
+    //   { method: "POST", body: JSON.stringify(loginDet) }
+    // );
+
     fetch("https://localhost:7280/api/Admins/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -40,12 +45,13 @@ export default function SignIn() {
     })
       .then((res) => {
         console.log("res", res);
-  
-        res.ok?res.json(): Promise.reject(res);
+
+        res.ok ? res.json() : Promise.reject(res);
       })
       .then((data) => {
-        navigate("/admin")
-      }).catch(rej=> console.log('rej', rej));
+        navigate("/admin");
+      })
+      .catch((rej) => console.log("rej", rej));
   };
 
   return (

@@ -11,13 +11,13 @@ import ThemeContext from "./context/ThemeContext";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import lazyLoad from "./utilis/LazyLoad";
+import { adminRouts } from "./modules/Admin";
 
 const AdoptersHomePage = lazyLoad("../modules/Adopters/AdoptersHomePage/index");
 
-const AdminPage = lazyLoad("../modules/Admin/index");
-const LogInPage = lazyLoad("../modules/Admin/LogInPage");
-
+const IndexAdmin = lazyLoad("../modules/Admin/index");
 //const EmployeesPage= lazyLoad("../modules/Adopters/AdoptersHomePage/index");
+
 
 const router = createBrowserRouter([
   {
@@ -31,36 +31,12 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "admin",
-    element: <AdminPage />,
-    children: [
-      {
-        path: "admin/",
-        element: (
-          <>
-            <h1>first</h1>
-            <h1>first</h1>
-            <h1>first</h1>
-            <h1>first</h1>
-          </>
-        ),
-      },
-      {
-        path: "admin/howshome",
-        element: (
-          <>
-            <h1>seconde</h1>
-            <h1>seconde</h1>
-            <h1>seconde</h1>
-            <h1>seconde</h1>
-          </>
-        ),
-      },
-    ],
+    path: "/admin",
+    element: <IndexAdmin />,
+    children: adminRouts
   },
   {
-    path: "logIn",
-    element: <LogInPage />,
+    //employees module
   },
 ]);
 
