@@ -10,9 +10,11 @@ function App() {
 
 
   return (
+    <>
     <ThemeContext>
       <LogInPage/>
     </ThemeContext>
+    </>
   );
 
 
