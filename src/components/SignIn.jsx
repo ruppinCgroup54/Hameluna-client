@@ -4,7 +4,8 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
+import useFetch from "../utilis/useFetch"
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const StyledTextfield = {
@@ -33,11 +34,6 @@ export default function SignIn() {
       password: data.get("password"),
     };
 
-    // const { loading, error, value } = useFetch(
-    //   "https://localhost:7280/api/Admins/login",
-    //   { method: "POST", body: JSON.stringify(loginDet) }
-    // );
-
     fetch("https://localhost:7280/api/Admins/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -49,7 +45,7 @@ export default function SignIn() {
         res.ok ? res.json() : Promise.reject(res);
       })
       .then((data) => {
-        navigate("/admin");
+        navigate("/admin/shelter");
       })
       .catch((rej) => console.log("rej", rej));
   };
