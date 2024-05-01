@@ -12,30 +12,26 @@ import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import lazyLoad from "./utilis/LazyLoad";
 import { adminRouts } from "./modules/Admin";
+import { adopterRoutes } from "./modules/Adopters";
+import Dogs from "./Data/Dogs";
 
-const AdoptersHomePage = lazyLoad("../modules/Adopters/AdoptersHomePage/index");
-
+const IndexAdopters = lazyLoad("../modules/Adopters/index");
 const IndexAdmin = lazyLoad("../modules/Admin/index");
-//const EmployeesPage= lazyLoad("../modules/Adopters/AdoptersHomePage/index");
 
 
 const router = createBrowserRouter([
-  {
+  {//adopters root
     path: "/",
-    element: <AdoptersHomePage />,
+    element: <IndexAdopters />,
 
-    children: [
-      {
-        path: "/",
-      },
-    ],
+    children: adopterRoutes
   },
-  {
+  {//admin root
     path: "/admin",
     element: <IndexAdmin />,
-    children: adminRouts
+    children: adminRouts,
   },
-  {
+  {//employees root
     //employees module
   },
 ]);

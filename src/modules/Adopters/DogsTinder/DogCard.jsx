@@ -3,20 +3,28 @@ import ImageCarousel from "./ImageCarousel";
 import CircleIcons from "../../../components/CircleIcons";
 
 import {
+  Alert,
   Button,
   Card,
   CardActions,
   CardContent,
   CardMedia,
+  Icon,
+  IconButton,
+  Slide,
+  Snackbar,
   Typography,
   styled,
 } from "@mui/material";
-import { Favorite, Share } from "@mui/icons-material";
+import { Favorite, Share, Swipe } from "@mui/icons-material";
+import useAdoptersContext from "../../../utilis/useAdoptersContext";
+import { useState } from "react";
+import { useSwiper, useSwiperSlide } from "swiper/react";
 
 const CardStyle = styled(Card)(({ theme }) => ({
   width: "clamp(100px,80dvw,310px)",
   borderRadius: "20px",
-  boxShadow: `${theme.shadows[15]}`,
+  // boxShadow: `${theme.shadows[15]}`,
   position: "relative",
   height: "clamp(400px,80dvh,620px)",
   [`${theme.breakpoints.down("md")} and (orientation: landscape)`]: {
@@ -25,8 +33,7 @@ const CardStyle = styled(Card)(({ theme }) => ({
     maxHeight: 350,
   },
   "& .MuiCardContent-root": {
-    height: "60%",
-    width: "100%",
+    height: "55%",
     position: "absolute",
     backgroundColor: theme.palette.common.white,
     bottom: 0,
@@ -59,7 +66,7 @@ const CardStyle = styled(Card)(({ theme }) => ({
     position: "absolute",
     top: 0,
     transform: "translateY(-50%)",
-    left: "20px",
+    right: "20px",
     gap: "20px",
     [`${theme.breakpoints.down("md")} and (orientation: landscape)`]: {
       transform: "translateY(50%)",
@@ -68,6 +75,23 @@ const CardStyle = styled(Card)(({ theme }) => ({
 }));
 
 export default function DogCard({ dog }) {
+  const { AddToFavorites } = useAdoptersContext();
+  const [open, setOpen] = useState(false);
+
+  const swiper = useSwiper();
+  const swiperslide = useSwiperSlide();
+
+  const addDog = () => {
+    AddToFavorites(dog);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    swiper.slideNext();
+    swiper.removeSlide(swiper.activeIndex - 1);
+  };
+
   return (
     <CardStyle>
       <CardMedia>
@@ -77,11 +101,14 @@ export default function DogCard({ dog }) {
       <CardContent>
         <CardActions>
           <CircleIcons>
-            <Favorite color="primary" />
-            <Share color="primary" />
+            <IconButton onClick={addDog}>
+              <Favorite color="primary" />
+            </IconButton>
+            <IconButton>
+              <Share color="primary" />
+            </IconButton>
           </CircleIcons>
         </CardActions>
-
         <div style={{ height: { xs: "100%", md: "80%" }, overflow: "auto" }}>
           <Typography variant="h4" sx={{ fontWeight: "bold" }}>
             {dog.name}
@@ -92,10 +119,18 @@ export default function DogCard({ dog }) {
           <Typography variant="body2">{dog.shelter}</Typography>
           <Typography variant="body1">{dog.note}</Typography>
         </div>
-
         <Button variant="contained" fullWidth className="pressable">
           לשליחת פרטים
-        </Button>
+        </Button>{" "}
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            כלב התווסף לרשימה
+          </Alert>
+        </Snackbar>
       </CardContent>
     </CardStyle>
   );

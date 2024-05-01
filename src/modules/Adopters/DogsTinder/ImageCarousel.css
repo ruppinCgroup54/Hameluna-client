@@ -25,3 +25,8 @@
   transition: 300ms ;
 }
 
+.swiper-button-prev, .swiper-button-next{
+  color: #888;
+  top: 40%
+}
+

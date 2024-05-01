@@ -6,7 +6,7 @@ export default function BackgroundLayout({ children, image,dir, style }) {
 
   const LayoutStyle={
     background: `url(${image}) no-repeat center center fixed`,
-    height: "100lvh",
+    height: "100dvh",
     width: '100vw', 
     display: 'flex',
     alignItems:'center',
