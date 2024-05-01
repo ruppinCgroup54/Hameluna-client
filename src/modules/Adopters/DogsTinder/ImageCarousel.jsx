@@ -2,7 +2,7 @@ import PropTypes, { string } from "prop-types";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/effect-flip";
+import 'swiper/css/navigation';
 import "./ImageCarousel.css";
 
 // Import Swiper React components
@@ -12,16 +12,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 
 export default function ImageCarousel({ images }) {
-  const pagination = {
-    clickable: true,
-    renderBullet: function (index, className) {
-      return "<span key=" + index + " class=" + className + "> </span>";
-    },
-  };
+
 
   return (
     <Swiper
-      grabCursor={true}
       loop={true}
       pagination={true}
       navigation={true}
@@ -35,7 +29,7 @@ export default function ImageCarousel({ images }) {
     >
       {images.map((image) => (
         <SwiperSlide
-          style={{ backgroundPosition: "center", backgroundSize: "cover" }}
+          style={{ height:'100%', backgroundPosition: "center", backgroundSize: "cover" }}
           key={image}
         >
           <img
