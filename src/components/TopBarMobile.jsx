@@ -5,6 +5,7 @@ import { Favorite } from "@mui/icons-material";
 
 import BotHead from "../assets/images/BotHead.svg";
 import useAdoptersContext from "../utilis/useAdoptersContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -19,20 +20,22 @@ export default function TopBarMobile() {
 
   const {favoritesDogs}=useAdoptersContext();
 
+  const navigate = useNavigate();
+
   return (
       <AppBar sx={{height:"clamp(50px,15vh,80px)"}}>
         <Toolbar
           sx={{ pt: "10px", display: "flex", justifyContent: "space-between", px:3 }}
         >
-          <Box sx={{width:'40%',display:'flex',flexDirection:'column',alignItems:'center',gap:0,maxWidth:200}}>
+          <Link to={'/'} style={{textDecoration:'none', width:'40%',display:'flex',flexDirection:'column',alignItems:'center',gap:0,maxWidth:200, color:'inherit'}}>
             <Logo.Bottom maxWidthLogo={'150px'}/>
             <span style={ {fontSize:'0.8rem'}}>ניהול כלביות</span>
-          </Box>
+          </Link>
           <Box>
-            <IconButton>
+            <IconButton onClick={()=>navigate('/dogbot')} >
               <img src={BotHead} alt="Bot head" />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={()=>navigate('/favorites')}>
               <StyledBadge badgeContent={favoritesDogs.length}>
                 <Favorite sx={{ color: "white", fontSize: "2rem" }} />
               </StyledBadge>
