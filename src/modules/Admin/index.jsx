@@ -21,7 +21,10 @@ export const adminRouts= [
     children:[
       {
         path: "/admin/shelter/",
-        element: <ControlPage/>
+        element: <ControlPage/>,
+        loader: async () => {
+          return fetch(`/api/Cells/shelter/1`);
+        },
       }
     ]
   }

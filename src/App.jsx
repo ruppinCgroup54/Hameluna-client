@@ -33,7 +33,7 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <IndexAdmin />,
-    children: adminRouts
+    children: adminRouts,
   },
   {
     //employees module

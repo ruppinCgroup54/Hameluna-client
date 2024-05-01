@@ -3,6 +3,7 @@ import Cell from "../Admin/components/Cell";
 import Cells from "../../Data/Cells";
 import Dogs from "../../Data/Dogs";
 import { Box, Grid, Typography } from "@mui/material";
+import { useLoaderData } from "react-router-dom";
 
 // const Cells = [
 //   {
@@ -32,6 +33,9 @@ import { Box, Grid, Typography } from "@mui/material";
 // ];
 
 export default function ControlPage() {
+
+  const data = useLoaderData();
+
   return (
     <Box display={"flex"} mt={"120px"} >
       <Box width={"36%"} display={"flex"}></Box>
