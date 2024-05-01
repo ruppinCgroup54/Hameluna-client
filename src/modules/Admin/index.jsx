@@ -23,7 +23,7 @@ export const adminRouts= [
         path: "/admin/shelter/",
         element: <ControlPage/>,
         loader: async () => {
-          return fetch(`/api/Cells/shelter/1`);
+          return fetch(`${import.meta.Vi}Cells/shelter/1`);
         },
       }
     ]
