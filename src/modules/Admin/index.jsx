@@ -21,7 +21,10 @@ export const adminRouts= [
     children:[
       {
         path: "/admin/shelter/",
-        element: <ControlPage/>
+        element: <ControlPage/>,
+        loader: async () => {
+          return fetch(`${import.meta.Vi}Cells/shelter/1`);
+        },
       }
     ]
   }
