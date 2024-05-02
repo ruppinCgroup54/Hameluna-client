@@ -29,7 +29,7 @@ export const adopterRoutes = [
     element: <Favorites />,
   },
   {
-    path: "/sendrequest/dogId/:dogId/dogName/",
+    path: "/sendrequest/dogId/:dogId/dogName/:dogName",
     element: <SendRequest />,
   },
 ];

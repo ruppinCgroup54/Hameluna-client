@@ -16,7 +16,7 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import { Favorite, Share, Swipe } from "@mui/icons-material";
+import { Favorite, Share, Swipe, SwipeTwoTone } from "@mui/icons-material";
 import useAdoptersContext from "../../../utilis/useAdoptersContext";
 import { useState } from "react";
 import { useSwiper, useSwiperSlide } from "swiper/react";
@@ -80,15 +80,23 @@ export default function DogCard({ dog }) {
   const [open, setOpen] = useState(false);
 
   const swiper = useSwiper();
+  const myIndex = swiper.activeIndex;
 
   const addDog = () => {
     AddToFavorites(dog);
     setOpen(true);
+    swiper.disable();
   };
-
+  
   const handleClose = () => {
     setOpen(false);
+    swiper.enable();
     swiper.slideNext();
+    setTimeout(()=>{
+      console.log('myIndex', myIndex)
+      swiper.removeSlide(myIndex)
+    },1000);
+    
   };
 
   return (
@@ -118,7 +126,7 @@ export default function DogCard({ dog }) {
           <Typography variant="body2">{dog.shelter}</Typography>
           <Typography variant="body1">{dog.note}</Typography>
         </div>
-        <Link to={`/sendrequest/id/${dog.numberId}/name/${dog.name}`}>
+        <Link to={`/sendrequest/dogId/${dog.numberId}/dogName/${dog.name}`}>
           <Button variant="contained" fullWidth>
             לשליחת פרטים
           </Button>
