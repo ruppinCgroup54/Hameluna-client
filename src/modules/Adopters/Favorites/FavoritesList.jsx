@@ -3,7 +3,7 @@ import DogCard from "./DogCard";
 import useAdoptersContext from "../../../utilis/useAdoptersContext";
 
 export default function FavoritesList() {
-  const { FavoritesList } = useAdoptersContext();
+  const { favoritesDogs } = useAdoptersContext();
 
   return (
     <div
@@ -17,7 +17,7 @@ export default function FavoritesList() {
         padding: 10,
       }}
     >
-      {FavoritesList.map((dog) => (
+      {favoritesDogs.map((dog) => (
         <DogCard key={dog.numberId} dog={dog} />
       ))}
     </div>

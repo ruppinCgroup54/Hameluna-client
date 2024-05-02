@@ -30,8 +30,9 @@ export default function DogsTinder() {
         creativeEffect={{
           prev: {
             shadow: false,
-            translate: ["150%", 0, -800],
-            rotate:[0,0,20]
+            translate: ["150%",50,50 ,0, -800],
+            rotate:[0,0,20],
+            
           },
           next: {
             shadow: false,

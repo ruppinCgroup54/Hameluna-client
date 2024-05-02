@@ -4,12 +4,11 @@ import lazyLoad from "../../utilis/LazyLoad";
 import AdoptersContextProvider from "../../context/AdoptersContext";
 import FallbackElement from "../../components/FallbackElement";
 
-
-
 const AdopterHomePage = lazyLoad("../modules/Adopters/AdoptersHomePage/index");
 const ChatBot = lazyLoad("../modules/Adopters/ChatBot/index");
 const DogTinder = lazyLoad("../modules/Adopters/DogsTinder/index");
 const Favorites = lazyLoad("../modules/Adopters/Favorites/index");
+const SendRequest = lazyLoad("../modules/Adopters/SendRequest/index");
 
 export const adopterRoutes = [
   {
@@ -17,7 +16,7 @@ export const adopterRoutes = [
     element: <AdopterHomePage />,
   },
   {
-    path: "/chatbot",
+    path: "/dogbot",
     element: <ChatBot />,
   },
   {
@@ -29,14 +28,16 @@ export const adopterRoutes = [
     path: "/favorites",
     element: <Favorites />,
   },
+  {
+    path: "/sendrequest/dogId/:dogId/dogName/",
+    element: <SendRequest />,
+  },
 ];
-
-
 
 export default function index() {
   return (
     <AdoptersContextProvider>
-      <Suspense fallback={<FallbackElement/>}>
+      <Suspense fallback={<FallbackElement />}>
         <Outlet />
       </Suspense>
     </AdoptersContextProvider>

@@ -20,6 +20,7 @@ import { Favorite, Share, Swipe } from "@mui/icons-material";
 import useAdoptersContext from "../../../utilis/useAdoptersContext";
 import { useState } from "react";
 import { useSwiper, useSwiperSlide } from "swiper/react";
+import { Link } from "react-router-dom";
 
 const CardStyle = styled(Card)(({ theme }) => ({
   width: "clamp(100px,80dvw,310px)",
@@ -79,7 +80,6 @@ export default function DogCard({ dog }) {
   const [open, setOpen] = useState(false);
 
   const swiper = useSwiper();
-  const swiperslide = useSwiperSlide();
 
   const addDog = () => {
     AddToFavorites(dog);
@@ -89,7 +89,6 @@ export default function DogCard({ dog }) {
   const handleClose = () => {
     setOpen(false);
     swiper.slideNext();
-    swiper.removeSlide(swiper.activeIndex - 1);
   };
 
   return (
@@ -119,13 +118,21 @@ export default function DogCard({ dog }) {
           <Typography variant="body2">{dog.shelter}</Typography>
           <Typography variant="body1">{dog.note}</Typography>
         </div>
-        <Button variant="contained" fullWidth className="pressable">
-          לשליחת פרטים
-        </Button>{" "}
-        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Link to={`/sendrequest/id/${dog.numberId}/name/${dog.name}`}>
+          <Button variant="contained" fullWidth>
+            לשליחת פרטים
+          </Button>
+        </Link>
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          open={open}
+          autoHideDuration={3000}
+          onClose={handleClose}
+        >
           <Alert
             onClose={handleClose}
             severity="success"
+            color="primary"
             sx={{ width: "100%" }}
           >
             כלב התווסף לרשימה

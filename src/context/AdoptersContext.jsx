@@ -5,7 +5,7 @@ import { Alert } from "@mui/material";
 export const AdoptersContext = createContext();
 
 export default function AdoptersContextProvider({ children }) {
-  const [favoritesDogs, setFavoritesDogs] = useState(Dogs);
+  const [favoritesDogs, setFavoritesDogs] = useState([]);
 
   const AddToFavorites=(dog)=>{
 
