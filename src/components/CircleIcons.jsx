@@ -4,7 +4,8 @@ import { Children } from "react";
 const StyledAvatar = styled(Avatar)(({ theme }) => ({
   backgroundColor: theme.palette.common.white,
   boxShadow: theme.shadows[4],
-  border: `1.5px solid ${theme.palette.primary.main} `,
+  marginLeft:'8px',
+  border: `1.5px solid ${theme.palette.primary.main} `
 }));
 
 export default function CircleIcons({children}) {

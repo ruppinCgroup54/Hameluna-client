@@ -1,13 +1,19 @@
-import { Outlet, RouterProvider, createBrowserRouter, useLoaderData } from "react-router-dom";
+import {
+  Outlet,
+  RouterProvider,
+  createBrowserRouter,
+  useLoaderData,
+} from "react-router-dom";
 import NavBarAdmin from "../../components/NavBarAdmin";
 import { element } from "prop-types";
 import lazyLoad from "../../utilis/LazyLoad";
+import WhosHome from "./WhosHome";
 
 const LogInPage = lazyLoad("../modules/Admin/LogInPage");
 const SystemPage = lazyLoad("../modules/Admin/SystemPage");
 const ControlPage = lazyLoad("../modules/Admin/ControlPage");
 
-export const adminRouts= [
+export const adminRouts = [
   {
     path: "/admin/",
     element: <LogInPage />,
@@ -18,24 +24,29 @@ export const adminRouts= [
   {
     path: "/admin/shelter",
     element: <SystemPage />,
-    children:[
+    children: [
       {
         path: "/admin/shelter/",
-        element: <ControlPage/>,
+        element: <ControlPage />,
         loader: async () => {
-          return fetch(`${import.meta.Vi}Cells/shelter/1`);
+          return fetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/1`);
         },
-      }
-    ]
-  }
-]
+      },
+      {
+        path: "/admin/shelter/whosHome/",
+        element: <WhosHome />,
+        // loader: async () => {
+        //   return fetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/1`);
+        // },
+      },
+    ],
+  },
+];
 
 export default function IndexAdmin() {
-
-
   return (
     <>
-      <Outlet/>
+      <Outlet />
     </>
   );
 }
