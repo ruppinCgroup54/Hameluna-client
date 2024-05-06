@@ -1,0 +1,27 @@
+import { createContext, useEffect, useState } from "react";
+
+export const ShelterContext = createContext();
+
+export default function ShelterContextProvider(props) {
+  const [cells, setCells] = useState([]);
+  const [dogs, setDogs] = useState([]);
+
+  useEffect(() => {
+    const allDogs = [];
+    for (let i = 0; i < cells.length; i++) {
+      const tempDogs = cells[i].dogsInCell;
+      if (tempDogs.length != 0) {
+        for (let i = 0; i < tempDogs.length; i++) {
+          allDogs.push(tempDogs[i]);
+        }
+      }
+    }
+    setDogs(allDogs);
+  }, [cells]);
+
+  return (
+    <ShelterContext.Provider value={{ setDogs, dogs, setCells, cells }}>
+      {props.children}
+    </ShelterContext.Provider>
+  );
+}

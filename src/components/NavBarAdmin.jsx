@@ -10,10 +10,13 @@ import React, { useState } from "react";
 import Logo from "./Logo";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const marked = [true, false, false];
 
 export default function NavBarAdmin() {
+  const navigate = useNavigate();
+
   const theme = useTheme();
 
   const [keyVal, setKeyVal] = useState("");
@@ -65,7 +68,9 @@ export default function NavBarAdmin() {
                   {navItems.map((item, i) => (
                     <Grid item xs={1.5} key={item}>
                       <div
-                        onClick={() => { setKeyVal(item); }}
+                        onClick={() => { setKeyVal(item);
+                          navigate(`/admin/shelter/whosHome`);
+                         }}
                         style={{
                           ...styleDiv,
                           backgroundColor: (keyVal==item ? "#fff" : ""),
@@ -78,7 +83,7 @@ export default function NavBarAdmin() {
                             marginBottom: "0px",
                           }}
                         >
-                          {item}
+                          <Link to="/admin/shelter/whosHome/">{item}</Link>
                         </p>
                       </div>
                     </Grid>

@@ -3,11 +3,13 @@ import dog from "../../../assets/images/Dogs/image 1.png";
 import CircleIcons from "../../../components/CircleIcons";
 import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
-import Box from '@mui/material/Box';
+import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+import Box from "@mui/material/Box";
 
-
-export default function Dog() {
+export default function Dog({dogItem}) {
   const theme = useTheme();
+
+  const calcDate = parseInt((dogItem.entranceDate - Date.now())/(24*3600*1000*7));
 
   return (
     <Box
@@ -40,13 +42,13 @@ export default function Dog() {
           borderTopRightRadius: "20px",
         }}
       >
-        <Typography ml={2} variant="h6" sx={{ fontWeight: "bold" }}>
-          סימבה
+        <Typography ml={2} variant="h6" sx={{ fontWeight: "900" }}>
+          {dogItem.name}
         </Typography>
         <Typography ml={2} variant="subtitle2">
-          זכר | שיצו | 4.5 | <CreateOutlinedIcon/>
-           3 שבועות
-          
+          {`${dogItem.gender} | ${dogItem.breed} | ${dogItem.age} |`}{" "}
+          <CalendarMonthOutlinedIcon fontSize="small" sx={{ mb: "-4px" }} />
+          {` ${calcDate} שבועות`}
         </Typography>
       </div>
       <Box
@@ -56,19 +58,17 @@ export default function Dog() {
       >
         <CircleIcons>
           <IconButton>
-            <PetsOutlinedIcon
-              color="primary"
-              fontSize="large"
-            ></PetsOutlinedIcon>
+            <PetsOutlinedIcon color="primary"></PetsOutlinedIcon>
           </IconButton>
           <IconButton>
-            <CreateOutlinedIcon
-              color="primary"
-              fontSize="large"
-            ></CreateOutlinedIcon>
+            <CreateOutlinedIcon color="primary"></CreateOutlinedIcon>
           </IconButton>
         </CircleIcons>
       </Box>
     </Box>
   );
 }
+
+
+
+

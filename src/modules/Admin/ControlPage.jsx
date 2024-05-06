@@ -1,28 +1,28 @@
-import Cell from "../Admin/components/Cell";
+import Cell from "../Admin/components/cell";
 
-import Dogs from "../../Data/Dogs";
 import { Box, Grid, Typography } from "@mui/material";
 import { useLoaderData } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { ShelterContext } from "../../context/ShelterContextProvider";
 
 export default function ControlPage() {
 
-  const cells = useLoaderData();
-  console.log('data', cells);
-
+  const {cells, dogs} = useContext(ShelterContext);
+  console.log('cells', cells)
   return (
     <Box display={"flex"} mt={"120px"} >
       <Box width={"36%"} display={"flex"}></Box>
       <Grid container width={"60%"} display={"flex"} rowSpacing={1}>
         <Grid item md={12} display={"flex"} justifyContent={"space-between"}>
           <Typography variant="h5">הכלבייה שלנו</Typography>
-          <Typography variant="h5">סה"כ כלבים: {Dogs.length}</Typography>
+          <Typography variant="h5">סה"כ כלבים: {dogs.length}</Typography>
         </Grid>
         <Grid item md={12}>
           <Box
             sx={{
               flexWrap: "wrap",
               display: "flex",
-              flexDirection: "row-reverse",
+              flexDirection: "row",
               gap: "calc(20% / 3)",
               rowGap: "15px",
             }}

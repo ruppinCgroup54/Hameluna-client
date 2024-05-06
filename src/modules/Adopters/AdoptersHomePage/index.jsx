@@ -1,5 +1,5 @@
 import BackgroundLayout from '../../../layouts/BackgroundLayout'
-import ChatButton from './ChatButton'
+//import ChatButton from './ChatButton'
 import Logo from '../../../components/Logo'
 import SheltersList from './SheltersList'
 
@@ -28,7 +28,7 @@ export default function AdoptersHomePage() {
         שלום! וברוכים הבאים למלונה, כאן תמצאו את החבר הבא שלכם!
         אז שנתחיל?
       </Typography >
-      <ChatButton />
+      {/* <ChatButton /> */}
      <SheltersList ListOfShelters={List}/>
     </BackgroundLayout>
   )
