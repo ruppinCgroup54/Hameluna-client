@@ -1,6 +1,6 @@
-import { ImageList, Typography } from "@mui/material";
 import PropTypes from 'prop-types';
 import SheltersImage from "./SheltersImage";
+import { ImageList, Typography } from "@mui/material";
 
 
 

@@ -1,6 +1,10 @@
-import { Backdrop, CircularProgress } from "@mui/material";
+import { Backdrop, Box, CircularProgress } from "@mui/material";
 import React from "react";
 
 export default function FallbackElement() {
-  return <h1>טוען...</h1>;
+  return (
+    <Box sx={{ display: "flex",width:'100vw',height:'100vh',justifyContent:'center',alignItems:'center' }}>
+      <CircularProgress size={90} />
+    </Box>
+  );
 }

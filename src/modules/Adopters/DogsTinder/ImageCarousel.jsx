@@ -27,7 +27,7 @@ export default function ImageCarousel({ images }) {
         margin: "auto",
       }}
     >
-      {images.map((image) => (
+      { images&&images.map((image) => (
         <SwiperSlide
           style={{ height:'100%', backgroundPosition: "center", backgroundSize: "cover" }}
           key={image}

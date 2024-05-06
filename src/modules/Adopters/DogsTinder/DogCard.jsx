@@ -1,26 +1,26 @@
 import PropTypes, { string } from "prop-types";
+
+import { useState } from "react";
+import { useSwiper } from "swiper/react";
+
+import { Link } from "react-router-dom";
+
 import ImageCarousel from "./ImageCarousel";
 import CircleIcons from "../../../components/CircleIcons";
+import AlertComp from "../../../components/AlertComp";
 
 import {
-  Alert,
   Button,
   Card,
   CardActions,
   CardContent,
   CardMedia,
-  Icon,
   IconButton,
-  Slide,
-  Snackbar,
   Typography,
   styled,
 } from "@mui/material";
-import { Favorite, Share, Swipe, SwipeTwoTone } from "@mui/icons-material";
+import { Favorite, Share } from "@mui/icons-material";
 import useAdoptersContext from "../../../utilis/useAdoptersContext";
-import { useState } from "react";
-import { useSwiper, useSwiperSlide } from "swiper/react";
-import { Link } from "react-router-dom";
 
 const CardStyle = styled(Card)(({ theme }) => ({
   width: "clamp(100px,80dvw,310px)",
@@ -28,6 +28,7 @@ const CardStyle = styled(Card)(({ theme }) => ({
   // boxShadow: `${theme.shadows[15]}`,
   position: "relative",
   height: "clamp(400px,80dvh,620px)",
+  boxSizing: "border-box",
   [`${theme.breakpoints.down("md")} and (orientation: landscape)`]: {
     maxWidth: 700,
     height: "70vh",
@@ -36,6 +37,7 @@ const CardStyle = styled(Card)(({ theme }) => ({
   "& .MuiCardContent-root": {
     height: "55%",
     position: "absolute",
+    width: "clamp(100px,80vw,310px)",
     backgroundColor: theme.palette.common.white,
     bottom: 0,
     boxShadow: `${theme.shadows[6]}`,
@@ -75,43 +77,46 @@ const CardStyle = styled(Card)(({ theme }) => ({
   },
 }));
 
-export default function DogCard({ dog }) {
+export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDog=()=>{}}) {
   const { AddToFavorites } = useAdoptersContext();
   const [open, setOpen] = useState(false);
 
-  const swiper = useSwiper();
-  const myIndex = swiper.activeIndex;
-
   const addDog = () => {
-    AddToFavorites(dog);
     setOpen(true);
-    swiper.disable();
+    AddToFavorites(dog);
+    handleSwipeAddDog();
   };
-  
+
   const handleClose = () => {
     setOpen(false);
-    swiper.enable();
-    swiper.slideNext();
-    setTimeout(()=>{
-      console.log('myIndex', myIndex)
-      swiper.removeSlide(myIndex)
-    },1000);
-    
+    handleSwipeClose();
   };
+
+  const shareDog= async ()=>{
+    const shareData = {
+    title: "MDN",
+    text: "Learn web development on MDN!",
+    url: document.location.origin+'/dogs/'+dog.numberId,
+  };
+    try {
+      await navigator.share(shareData);
+    } catch (err) {
+    }
+  }
 
   return (
     <CardStyle>
       <CardMedia>
-        <ImageCarousel images={dog.images} />
+        <ImageCarousel images={dog?.images} />
       </CardMedia>
 
       <CardContent>
         <CardActions>
           <CircleIcons>
-            <IconButton onClick={addDog}>
+            <IconButton onClick={addDog} disabled={open}>
               <Favorite color="primary" />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={shareDog} disabled={open}>
               <Share color="primary" />
             </IconButton>
           </CircleIcons>
@@ -127,25 +132,11 @@ export default function DogCard({ dog }) {
           <Typography variant="body1">{dog.note}</Typography>
         </div>
         <Link to={`/sendrequest/dogId/${dog.numberId}/dogName/${dog.name}`}>
-          <Button variant="contained" fullWidth>
+          <Button variant="contained" fullWidth disabled={open}>
             לשליחת פרטים
           </Button>
         </Link>
-        <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-          open={open}
-          autoHideDuration={3000}
-          onClose={handleClose}
-        >
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            color="primary"
-            sx={{ width: "100%" }}
-          >
-            כלב התווסף לרשימה
-          </Alert>
-        </Snackbar>
+        <AlertComp text={"כלב התווסף לרשימה"} isOpen={open} handleClose={handleClose} />
       </CardContent>
     </CardStyle>
   );
@@ -161,4 +152,7 @@ DogCard.propTypes = {
     note: PropTypes.string,
     images: PropTypes.arrayOf(string),
   }),
+  handleSwipeClose:PropTypes.func,
+  handleSwipeAddDog:PropTypes.func
+
 };
