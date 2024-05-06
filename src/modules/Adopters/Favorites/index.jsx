@@ -1,9 +1,11 @@
+import FallbackElement from "../../../components/FallbackElement";
 import AdoptersLayout from "../../../layouts/AdoptersLayout";
-import { Box, Typography } from "@mui/material";
 import FavoritesList from "./FavoritesList";
 
-import Dogs from "../../../Data/Dogs";
-import DogCard from "./DogCard";
+import { Typography } from "@mui/material";
+
+
+
 
 export default function Favorites() {
 

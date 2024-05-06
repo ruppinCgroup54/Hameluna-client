@@ -10,7 +10,6 @@ const mainDivStyle = {
   flexDirection: "column",
   width: "100%",
   alignItems: "center",
-  justifyContent: "center",
   height:'100vh',
   paddingTop:'15vh',
   paddingBottom:'5vh'

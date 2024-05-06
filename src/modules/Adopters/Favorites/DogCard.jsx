@@ -2,23 +2,20 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import ImageCarousel from "../DogsTinder/ImageCarousel";
 import CircleIcons from "../../../components/CircleIcons";
 import { Clear, Email } from "@mui/icons-material";
-import { Collapse, IconButton, Slide, styled } from "@mui/material";
+import { Collapse, IconButton, styled } from "@mui/material";
 import useAdoptersContext from "../../../utilis/useAdoptersContext";
 import { useState } from "react";
 
 const CardStyle = styled(Card)(({ theme }) => ({
-  maxWidth: 400,
   minHeight: 150,
   display: "flex",
   justifyContent: "space-between",
   padding: "10px",
   borderRadius: "15px",
-  width: "90%",
+  width: "clamp(200px,90vw,400px)",
   boxShadow: theme.shadows[5],
   "& img": {
     display: "block",
@@ -43,12 +40,12 @@ export default function DogCard({ dog }) {
   const [open, setOpen] = useState(true)
 
   return (
-    <Collapse in={open} onAnimationEnd={()=>RemoveFromFavorites(dog)}>
+    <Collapse  in={open} onAnimationEnd={()=>RemoveFromFavorites(dog)}>
       <CardStyle>
         <CardMedia
           sx={{ width: "40%", height: "100%", borderRadius: "inherit" }}
         >
-          <img src={dog.images[0]} />
+          <img src={dog.images?dog.images[0]:""} />
         </CardMedia>
         <CardContent>
           <Typography variant="h6">{`${dog.name} | ${dog.age}`}</Typography>
