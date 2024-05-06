@@ -45,7 +45,7 @@ function App() {
   return (
     <>
     <ThemeContext>
-      <CacheProvider value={cacheRtl}>
+      <CacheProvider value={cacheRtl} >
         <RouterProvider router={router}>
           <Suspense fallback={<h1>loading...</h1>}>
             <Outlet />
