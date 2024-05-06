@@ -3,7 +3,6 @@ import dog from "../../../assets/images/Dogs/image 1.png";
 import CircleIcons from "../../../components/CircleIcons";
 import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
-
 import Box from '@mui/material/Box';
 
 
