@@ -8,7 +8,7 @@ export default function Cell({ cellItem }) {
     <Box
       sx={{
         width: "20%",
-        maxWidth:'170px',
+        //maxWidth:'185px',
         bgcolor: `${
           dogs.length > passDaily ? "rgba(240,22,22,0.2)" : "primary.main"
         }`,
