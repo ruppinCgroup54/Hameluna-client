@@ -23,7 +23,6 @@ const router = createBrowserRouter([
   {//adopters root
     path: "/",
     element: <IndexAdopters />,
-
     children: adopterRoutes
   },
   {//admin root

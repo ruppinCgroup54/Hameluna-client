@@ -24,9 +24,6 @@ export const adminRouts = [
   {
     path: "/admin/",
     element: <LogInPage />,
-    loader: async () => {
-      return fetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/1`);
-    },
   },
   {
     //register
@@ -34,6 +31,9 @@ export const adminRouts = [
   {
     path: "/admin/shelter",
     element: <SystemPage />,
+    loader: async () => {
+      return fetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/1`);
+    },
     children: [
       {
         path: "/admin/shelter/",

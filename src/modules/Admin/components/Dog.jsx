@@ -8,9 +8,13 @@ import Box from "@mui/material/Box";
 
 export default function Dog({dogItem}) {
   const theme = useTheme();
-
-  const calcDate = parseInt((dogItem.entranceDate - Date.now())/(24*3600*1000*7));
-
+  console.log('first', dogItem.entranceDate)
+  const entranceDate = new Date(dogItem.entranceDate)
+  const date = new Date();
+  const differentTime =  date - entranceDate;
+  const calcDate = Math.round(differentTime/(24*3600*1000*7));
+  console.log('calcDate', calcDate);
+  console.log('dogbreed', dogItem.breed)
   return (
     <Box
       sx={{
