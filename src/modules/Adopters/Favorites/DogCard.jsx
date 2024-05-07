@@ -8,6 +8,7 @@ import { Clear, Email } from "@mui/icons-material";
 import { Collapse, IconButton, styled } from "@mui/material";
 import useAdoptersContext from "../../../utilis/useAdoptersContext";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CardStyle = styled(Card)(({ theme }) => ({
   minHeight: 150,
@@ -37,10 +38,11 @@ const CardStyle = styled(Card)(({ theme }) => ({
 
 export default function DogCard({ dog }) {
   const { RemoveFromFavorites } = useAdoptersContext();
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(true);
+  const navigate =useNavigate();
 
   return (
-    <Collapse  in={open} onAnimationEnd={()=>RemoveFromFavorites(dog)}>
+    <Collapse  in={open} onAnimationEnd={()=>RemoveFromFavorites(dog)} style={{margin:'10px 0'}} >
       <CardStyle>
         <CardMedia
           sx={{ width: "40%", height: "100%", borderRadius: "inherit" }}
@@ -57,7 +59,7 @@ export default function DogCard({ dog }) {
               <IconButton onClick={() => setOpen(false)}>
                 <Clear color="error" />
               </IconButton>
-              <IconButton>
+              <IconButton onClick={()=>navigate(`/sendrequest/dogId/${dog.numberId}/dogName/${dog.name}`)}>
                 <Email color="primary" />
               </IconButton>
             </CircleIcons>

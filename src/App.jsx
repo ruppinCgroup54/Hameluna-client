@@ -13,7 +13,8 @@ import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import lazyLoad from "./utilis/LazyLoad";
 import { adminRouts } from "./modules/Admin";
 import { adopterRoutes } from "./modules/Adopters";
-import Dogs from "./Data/Dogs";
+import ErrorPage from "./components/ErrorPage";
+import FallbackElement from "./components/FallbackElement";
 
 const IndexAdopters = lazyLoad("../modules/Adopters/index");
 const IndexAdmin = lazyLoad("../modules/Admin/index");
@@ -23,13 +24,14 @@ const router = createBrowserRouter([
   {//adopters root
     path: "/",
     element: <IndexAdopters />,
-
-    children: adopterRoutes
+    children: adopterRoutes,
+    errorElement:<ErrorPage />
   },
   {//admin root
     path: "/admin",
     element: <IndexAdmin />,
     children: adminRouts,
+    errorElement:<ErrorPage />
   },
   {//employees root
     //employees module
@@ -37,6 +39,9 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+
+  // const {state}=useNavigation();
+
   const cacheRtl = createCache({
     key: "muirtl",
     stylisPlugins: [prefixer, rtlPlugin],
@@ -47,7 +52,7 @@ function App() {
     <ThemeContext>
       <CacheProvider value={cacheRtl} >
         <RouterProvider router={router}>
-          <Suspense fallback={<h1>loading...</h1>}>
+          <Suspense fallback={<FallbackElement/>}>
             <Outlet />
           </Suspense>
         </RouterProvider>

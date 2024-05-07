@@ -1,10 +1,11 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigation } from "react-router-dom";
 
 import lazyLoad from "../../utilis/LazyLoad";
 import AdoptersContextProvider from "../../context/AdoptersContext";
 import FallbackElement from "../../components/FallbackElement";
+import { Backdrop } from "@mui/material";
 
 const AdopterHomePage = lazyLoad("../modules/Adopters/AdoptersHomePage/index");
 const ChatBot = lazyLoad("../modules/Adopters/ChatBot/index");
@@ -25,12 +26,16 @@ export const adopterRoutes = [
   {
     path: "/dogtinder",
     element: <DogTinder />,
-    loader: async ()=> {return fetch(import.meta.env.VITE_APP_SERVERURL + 'dogs')}
-  },  
+    loader: async () => {
+      return fetch(import.meta.env.VITE_APP_SERVERURL + "Dogs");
+    },
+  },
   {
     path: "/dog/:dogId",
     element: <DogPage />,
-    loader: async ({params})=> {return fetch(import.meta.env.VITE_APP_SERVERURL + 'dogs/'+params.dogId)}
+    loader: async ({ params }) => {
+      return fetch(import.meta.env.VITE_APP_SERVERURL + "Dogs/" + params.dogId);
+    },
   },
   {
     path: "/favorites",
@@ -41,7 +46,7 @@ export const adopterRoutes = [
     element: <SendRequest />,
     loader: async () => {
       let adopter = localStorage.getItem("adopter");
-       return fetch(import.meta.env.VITE_APP_SERVERURL + 'adopters/'+adopter);
+      return fetch(import.meta.env.VITE_APP_SERVERURL + "adopters/" + adopter);
     },
   },
 ];
@@ -49,9 +54,11 @@ export const adopterRoutes = [
 export default function index() {
   return (
     <AdoptersContextProvider>
-      <Suspense fallback={<FallbackElement />}>
+      <Suspense>
         <Outlet />
       </Suspense>
+
+      <FallbackElement />
     </AdoptersContextProvider>
   );
 }

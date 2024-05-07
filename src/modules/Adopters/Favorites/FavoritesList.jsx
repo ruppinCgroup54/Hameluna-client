@@ -9,12 +9,14 @@ export default function FavoritesList() {
 
   return (
  
-      <TransitionGroup style={{height: "100%",
-        overflow: "auto",
-        display: "flex",
-        flexDirection: "column",
-        gap: "15px",
-        padding: 10,}}>
+      <TransitionGroup style={{
+        // height: "100%",
+        // overflow: "auto",
+        // display: "flex",
+        // flexDirection: "column",
+        // gap: "15px",
+        // padding: 10,
+        }}>
 
       {favoritesDogs.length>0 ?favoritesDogs.map((dog) => (
         <DogCard key={dog.numberId} dog={dog} />

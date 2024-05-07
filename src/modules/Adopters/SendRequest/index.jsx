@@ -1,21 +1,15 @@
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 
 import AdoptersLayout from "../../../layouts/AdoptersLayout";
-import {
-  Box,
-  Button,
-  TextField,
-  Typography,
-  colors,
-  styled,
-} from "@mui/material";
+import { Button, TextField, Typography, styled } from "@mui/material";
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Email } from "@mui/icons-material";
-import useFetch from "../../../utilis/useFetch";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import AlertComp from "../../../components/AlertComp";
+import useAdoptersContext from "../../../utilis/useAdoptersContext";
 
 const StyledTextfield = styled(TextField)(({ theme }) => ({
   width: "100%",
@@ -73,8 +67,9 @@ const requestSchema = z.object({
 
 export default function SendRequest() {
   const { dogId, dogName } = useParams();
+  const { RemoveFromFavorites } = useAdoptersContext();
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const adopter = useLoaderData();
 
@@ -83,7 +78,7 @@ export default function SendRequest() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting ,isSubmitSuccessful},
+    formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm({
     defaultValues: {
       ...adopter,
@@ -94,28 +89,28 @@ export default function SendRequest() {
   const formSubmit = async (data) => {
     let request = {
       requestId: 0,
-      dogId: 0,
-      sendDate:new Date().toISOString(),
+      dogId: dogId,
+      sendDate: new Date().toISOString(),
       status: "open",
       adopter: data,
     };
 
-    localStorage.setItem('adopter',data.phoneNumber)
+    localStorage.setItem("adopter", data.phoneNumber);
 
     await fetch(import.meta.env.VITE_APP_SERVERURL + "AdoptionRequests", {
       method: "POST",
-      headers: { "Content-Type": "application/json","dataType": "json", },
-      body: JSON.stringify(request) 
-    })
+      headers: { "Content-Type": "application/json", dataType: "json" },
+      body: JSON.stringify(request),
+    });
   };
 
-
   useEffect(() => {
-    isSubmitSuccessful&&navigate(-1)
-  }, [isSubmitSuccessful])
-  
+    if (isSubmitSuccessful) {
+      RemoveFromFavorites({ numberId: dogId });
+      navigate(-1);
+    }
+  }, [isSubmitSuccessful]);
 
-  console.log("first", errors);
   return (
     <AdoptersLayout>
       <form onSubmit={handleSubmit(formSubmit)} style={formStyle}>
@@ -162,6 +157,7 @@ export default function SendRequest() {
         >
           שלח פרטים
         </Button>
+        <AlertComp />
       </form>
     </AdoptersLayout>
   );
