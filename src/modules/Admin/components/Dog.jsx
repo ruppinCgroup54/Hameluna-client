@@ -8,18 +8,15 @@ import Box from "@mui/material/Box";
 
 export default function Dog({dogItem}) {
   const theme = useTheme();
-  console.log('first', dogItem.entranceDate)
   const entranceDate = new Date(dogItem.entranceDate)
   const date = new Date();
   const differentTime =  date - entranceDate;
   const calcDate = Math.round(differentTime/(24*3600*1000*7));
-  console.log('calcDate', calcDate);
-  console.log('dogbreed', dogItem.breed)
   return (
     <Box
       sx={{
         width: "240px",
-        height: "220px",
+        height: "230px",
         display: "flex",
         position: "relative",
       }}
@@ -36,8 +33,8 @@ export default function Dog({dogItem}) {
       <div
         style={{
           backgroundColor: "#fff",
-          width: "240px",
-          height: "70px",
+          width: "100%",
+          height: "80px",
           position: "absolute",
           bottom: "0",
           border: "1px solid",

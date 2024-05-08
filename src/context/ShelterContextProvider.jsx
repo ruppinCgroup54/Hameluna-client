@@ -1,9 +1,12 @@
 import { createContext, useEffect, useState } from "react";
+import { useRouteLoaderData } from "react-router-dom";
 
 export const ShelterContext = createContext();
 
 export default function ShelterContextProvider(props) {
-  const [cells, setCells] = useState([]);
+const cellsData = useRouteLoaderData("כלבייה");
+
+  const [cells, setCells] = useState(cellsData);
   const [dogs, setDogs] = useState([]);
 
   useEffect(() => {
