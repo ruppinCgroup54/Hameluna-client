@@ -7,33 +7,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Email } from "@mui/icons-material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AlertComp from "../../../components/AlertComp";
 import useAdoptersContext from "../../../utilis/useAdoptersContext";
-
-const StyledTextfield = styled(TextField)(({ theme }) => ({
-  width: "100%",
-  "& .MuiOutlinedInput-notchedOutline": {
-    border: `2px solid ${theme.palette.primary.main}`,
-  },
-  "&:hover:not(.Mui-focused)": {
-    "& .MuiOutlinedInput-notchedOutline": {
-      border: `2.5px solid ${theme.palette.primary.main}`,
-    },
-  },
-  "& .MuiInputLabel-root": {
-    fontSize: "14px",
-  },
-  "& .MuiInputBase-root": {
-    backgroundColor: "rgba(255,255,255,1)",
-    borderRadius: "20px",
-
-    "&:before": {
-      borderBottom: "none",
-      content: "none",
-    },
-  },
-}));
+import { Textinput } from "../../../components/Textinput";
 
 const formStyle = {
   backgroundColor: "rgba(255,255,255,0.5)",
@@ -68,12 +45,11 @@ const requestSchema = z.object({
 export default function SendRequest() {
   const { dogId, dogName } = useParams();
   const { RemoveFromFavorites } = useAdoptersContext();
-
-  const navigate = useNavigate();
-
   const adopter = useLoaderData();
 
-  console.log("adopter", adopter);
+  const [Alert, setAlert] = useState(false);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -101,6 +77,10 @@ export default function SendRequest() {
       method: "POST",
       headers: { "Content-Type": "application/json", dataType: "json" },
       body: JSON.stringify(request),
+    }).then((res) => {
+      if (res.status === 409) {
+        throw new Error(res.text());
+      }
     });
   };
 
@@ -111,13 +91,19 @@ export default function SendRequest() {
     }
   }, [isSubmitSuccessful]);
 
+  const handleSubmitAndError = (e) => {
+    handleSubmit(formSubmit)(e).catch((err) => {
+      setAlert(true);
+    });
+  };
+
   return (
     <AdoptersLayout>
-      <form onSubmit={handleSubmit(formSubmit)} style={formStyle}>
+      <form onSubmit={handleSubmitAndError} style={formStyle}>
         <Typography variant="body1" textAlign={"center"} fontWeight={900}>
           שלח לנו את הפרטים שלך לגבי <u>{dogName}</u>
         </Typography>
-        <StyledTextfield
+        <Textinput
           size="small"
           // onBlur={fetchAdpterData}
           {...register("phoneNumber")}
@@ -125,14 +111,14 @@ export default function SendRequest() {
           error={!!errors.phoneNumber}
           helperText={errors.phoneNumber?.message}
         />
-        <StyledTextfield
+        <Textinput
           size="small"
           InputProps={{ ...register("firstName") }}
           label="שם פרטי"
           error={!!errors.firstName}
           helperText={errors.firstName?.message}
         />
-        <StyledTextfield
+        <Textinput
           size="small"
           {...register("lastName")}
           label="שם משפחה"
@@ -140,7 +126,7 @@ export default function SendRequest() {
           helperText={errors.lastName?.message}
         />
 
-        <StyledTextfield
+        <Textinput
           size="small"
           {...register("email")}
           label="אימייל"
@@ -157,7 +143,13 @@ export default function SendRequest() {
         >
           שלח פרטים
         </Button>
-        <AlertComp />
+        <AlertComp
+          handleClose={() => setAlert(false)}
+          isOpen={Alert}
+          type="error"
+          color="error"
+          text={"כבר שלחת בקשה על הכלב הזה, נווו...."}
+        />
       </form>
     </AdoptersLayout>
   );

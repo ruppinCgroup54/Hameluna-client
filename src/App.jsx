@@ -15,6 +15,7 @@ import { adminRouts } from "./modules/Admin";
 import { adopterRoutes } from "./modules/Adopters";
 import ErrorPage from "./components/ErrorPage";
 import FallbackElement from "./components/FallbackElement";
+import Files from "./components/Files";
 
 const IndexAdopters = lazyLoad("../modules/Adopters/index");
 const IndexAdmin = lazyLoad("../modules/Admin/index");
@@ -51,11 +52,12 @@ function App() {
     <>
     <ThemeContext>
       <CacheProvider value={cacheRtl} >
-        <RouterProvider router={router}>
+        <Files/>
+        {/* <RouterProvider router={router}>
           <Suspense fallback={<FallbackElement/>}>
             <Outlet />
           </Suspense>
-        </RouterProvider>
+        </RouterProvider> */}
       </CacheProvider>
     </ThemeContext>
     </>
