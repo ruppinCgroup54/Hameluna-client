@@ -2,7 +2,7 @@ import { Box, Button, Grid } from "@mui/material";
 import Dog from "./components/Dog";
 import { useContext, useEffect, useRef, useState } from "react";
 import { ShelterContext } from "../../context/ShelterContextProvider";
-import FilterDogs from "../../components/Select";
+import FilterDogs from "../../components/SelectInput";
 import FilterAltOffRoundedIcon from "@mui/icons-material/FilterAltOffRounded";
 
 export default function WhosHome() {
