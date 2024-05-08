@@ -87,25 +87,32 @@ export default function WhosHome() {
     return result;
   };
 
-  const resetFilter = (set) => {
-    set("");
-  };
+  // const resetFilter = (set) => {
+  //   set("");
+  // };
+
   return (
     <Grid container mt={"120px"} sx={{ mx: "auto" }} width={"100%"}>
-      <Grid item md={12} display={"flex"} flexDirection={"row"} gap={1}>
-        {labels.map((l) => (
-          <FilterDogs
-            filterDogs={addFilter}
-            key={l.lab}
-            filter={l}
-          ></FilterDogs>
-        ))}
-        <Button onClick={() => setFilterFields({})}>
-          <FilterAltOffRoundedIcon fontSize="large" sx={{ mb: "17px" }} />
-        </Button>
+      <Grid item md={12}>
+        <Grid container>
+          <Grid item md={2}></Grid>
+          <Grid item md={8} display={'flex'} flexDirection={'row'} gap={2}>
+            {labels.map((l) => (
+              <FilterDogs
+                filterDogs={addFilter}
+                key={l.lab}
+                filter={l}
+              ></FilterDogs>
+            ))}
+            <Button onClick={() => setFilterFields({})}>
+              <FilterAltOffRoundedIcon fontSize="large" sx={{ mb: "17px" }} />
+            </Button>
+          </Grid>
+          <Grid item md={2} ><Button variant="contained" size='large' sx={{ fontSize: '20px', height: '40px', mt: '10px' }}>הוספת כלב +</Button></Grid>
+        </Grid>
       </Grid>
       <Grid item md={12} sx={{ mx: "auto" }}>
-        <Box sx={{ width: "90%", mx: "auto", mt: "120px" }}>
+        <Box sx={{ width: "90%", mx: "auto", mt: "60px" }}>
           <Box
             sx={{
               flexWrap: "wrap",
