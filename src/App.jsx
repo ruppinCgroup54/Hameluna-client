@@ -11,11 +11,10 @@ import ThemeContext from "./context/ThemeContext";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import lazyLoad from "./utilis/LazyLoad";
-import { adminRouts } from "./modules/Admin";
-import { adopterRoutes } from "./modules/Adopters";
+
 import ErrorPage from "./components/ErrorPage";
 import FallbackElement from "./components/FallbackElement";
-import Files from "./components/Files";
+import { adminRouts, adopterRoutes } from "./modules/Routes";
 
 const IndexAdopters = lazyLoad("../modules/Adopters/index");
 const IndexAdmin = lazyLoad("../modules/Admin/index");
@@ -35,7 +34,8 @@ const router = createBrowserRouter([
     errorElement:<ErrorPage />
   },
   {//employees root
-    //employees module
+    // path: "/admin",
+    // children: employeesRoutes,
   },
 ]);
 
@@ -52,12 +52,11 @@ function App() {
     <>
     <ThemeContext>
       <CacheProvider value={cacheRtl} >
-        <Files/>
-        {/* <RouterProvider router={router}>
+        <RouterProvider router={router}>
           <Suspense fallback={<FallbackElement/>}>
             <Outlet />
           </Suspense>
-        </RouterProvider> */}
+        </RouterProvider>
       </CacheProvider>
     </ThemeContext>
     </>
