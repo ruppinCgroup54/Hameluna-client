@@ -16,6 +16,7 @@ import { adopterRoutes } from "./modules/Adopters";
 import ErrorPage from "./components/ErrorPage";
 import FallbackElement from "./components/FallbackElement";
 import Files from "./components/Files";
+import ModalAddDog from "./modules/Admin/components/ModalAddDog";
 
 const IndexAdopters = lazyLoad("../modules/Adopters/index");
 const IndexAdmin = lazyLoad("../modules/Admin/index");
@@ -52,12 +53,13 @@ function App() {
     <>
     <ThemeContext>
       <CacheProvider value={cacheRtl} >
-        <Files/>
+        {/* <Files/> */}
         {/* <RouterProvider router={router}>
           <Suspense fallback={<FallbackElement/>}>
             <Outlet />
           </Suspense>
         </RouterProvider> */}
+        <ModalAddDog/>
       </CacheProvider>
     </ThemeContext>
     </>
