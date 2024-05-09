@@ -13,10 +13,12 @@ import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import lazyLoad from "./utilis/LazyLoad";
 import { adminRouts } from "./modules/Admin";
 import { adopterRoutes } from "./modules/Adopters";
+import { employeesRoutes } from "./modules/Employees";
 import Dogs from "./Data/Dogs";
 
 const IndexAdopters = lazyLoad("../modules/Adopters/index");
 const IndexAdmin = lazyLoad("../modules/Admin/index");
+const IndexEmployees = lazyLoad("../modules/Employees/index");
 
 
 const router = createBrowserRouter([
@@ -32,7 +34,9 @@ const router = createBrowserRouter([
     children: adminRouts,
   },
   {//employees root
-    //employees module
+    path: "/employees",
+    element: <IndexEmployees />,
+    children: employeesRoutes,
   },
 ]);
 
