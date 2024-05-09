@@ -23,7 +23,7 @@ export default function DogsCardPage() {
 <BackgroundLayout image={bcgImg} style={{ display: "block"}}>
     
     <div  style={{
-            padding: "50px 0",
+            padding: "50px 1",
             ...(isDesktop ? desktopStyle : phoneStyle),
             display: "flex",
             alignItems: "center",
