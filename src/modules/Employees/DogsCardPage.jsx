@@ -13,7 +13,7 @@ const phoneStyle = {
     width: "90%",
     margin: "auto",
   };
-  const desktopStyle = { width: "33%", marginRight: "10%" };
+
 
 export default function DogsCardPage() {
 
@@ -23,8 +23,8 @@ export default function DogsCardPage() {
 <BackgroundLayout image={bcgImg} style={{ display: "block"}}>
     
     <div  style={{
-            padding: "50px 1",
-            ...(isDesktop ? desktopStyle : phoneStyle),
+            padding: "50px 0",
+            ...phoneStyle,
             display: "flex",
             alignItems: "center",
             flexDirection: "column",

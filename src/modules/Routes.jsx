@@ -99,12 +99,12 @@ export const adopterRoutes = [
 
 //Employees Routes
 
-const DogsCardPage = lazyLoad("../modules/Employees/undex");
+const DogsCardPage = lazyLoad("../modules/Employees/DogsCardPage");
 
 
 export const employeesRoutes=[
   {
-      path: "/employees/",
+      path: "/employees",
       element: <DogsCardPage/>,
     },
 
