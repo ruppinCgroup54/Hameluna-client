@@ -1,4 +1,3 @@
-import FallbackElement from "../../../components/FallbackElement";
 import AdoptersLayout from "../../../layouts/AdoptersLayout";
 import FavoritesList from "./FavoritesList";
 
@@ -17,7 +16,7 @@ export default function Favorites() {
           sx={{ textAlign: "center", }}
           color={"common.white"}
         >
-          האהובים עלייך{" "}
+          האהובים עלייך
         </Typography>
         <FavoritesList  />
     </AdoptersLayout>

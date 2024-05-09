@@ -3,7 +3,6 @@ import BackgroundLayout from "../../layouts/BackgroundLayout";
 import Logo from "../../components/Logo";
 
 import { useMediaQuery } from "react-responsive";
-import { useTheme } from "@mui/material/styles";
 
 import SignIn from "../../components/SignIn";
 
@@ -16,7 +15,6 @@ const desktopStyle = { width: "33%", marginRight: "10%" };
 export default function LogInPage() {
   const isDesktop = useMediaQuery({ query: "(min-width:600px )" });
 
-  const theme = useTheme();
 
   return (
     <>
@@ -39,7 +37,6 @@ export default function LogInPage() {
             <SignIn></SignIn>
         </div>
       </BackgroundLayout>
-
     </>
   );
 }

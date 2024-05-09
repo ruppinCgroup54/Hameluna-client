@@ -1,45 +1,16 @@
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 
 import AdoptersLayout from "../../../layouts/AdoptersLayout";
-import {
-  Box,
-  Button,
-  TextField,
-  Typography,
-  colors,
-  styled,
-} from "@mui/material";
+import { Button, TextField, Typography, styled } from "@mui/material";
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Email } from "@mui/icons-material";
-import useFetch from "../../../utilis/useFetch";
 import { useEffect, useState } from "react";
-
-const StyledTextfield = styled(TextField)(({ theme }) => ({
-  width: "100%",
-  "& .MuiOutlinedInput-notchedOutline": {
-    border: `2px solid ${theme.palette.primary.main}`,
-  },
-  "&:hover:not(.Mui-focused)": {
-    "& .MuiOutlinedInput-notchedOutline": {
-      border: `2.5px solid ${theme.palette.primary.main}`,
-    },
-  },
-  "& .MuiInputLabel-root": {
-    fontSize: "14px",
-  },
-  "& .MuiInputBase-root": {
-    backgroundColor: "rgba(255,255,255,1)",
-    borderRadius: "20px",
-
-    "&:before": {
-      borderBottom: "none",
-      content: "none",
-    },
-  },
-}));
+import AlertComp from "../../../components/AlertComp";
+import useAdoptersContext from "../../../utilis/useAdoptersContext";
+import { Textinput } from "../../../components/Textinput";
 
 const formStyle = {
   backgroundColor: "rgba(255,255,255,0.5)",
@@ -73,17 +44,17 @@ const requestSchema = z.object({
 
 export default function SendRequest() {
   const { dogId, dogName } = useParams();
-
-  const navigate=useNavigate();
-
+  const { RemoveFromFavorites } = useAdoptersContext();
   const adopter = useLoaderData();
 
-  console.log("adopter", adopter);
+  const [Alert, setAlert] = useState(false);
+
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting ,isSubmitSuccessful},
+    formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm({
     defaultValues: {
       ...adopter,
@@ -94,35 +65,45 @@ export default function SendRequest() {
   const formSubmit = async (data) => {
     let request = {
       requestId: 0,
-      dogId: 0,
-      sendDate:new Date().toISOString(),
+      dogId: dogId,
+      sendDate: new Date().toISOString(),
       status: "open",
       adopter: data,
     };
 
-    localStorage.setItem('adopter',data.phoneNumber)
+    localStorage.setItem("adopter", data.phoneNumber);
 
     await fetch(import.meta.env.VITE_APP_SERVERURL + "AdoptionRequests", {
       method: "POST",
-      headers: { "Content-Type": "application/json","dataType": "json", },
-      body: JSON.stringify(request) 
-    })
+      headers: { "Content-Type": "application/json", dataType: "json" },
+      body: JSON.stringify(request),
+    }).then((res) => {
+      if (res.status === 409) {
+        throw new Error(res.text());
+      }
+    });
   };
 
-
   useEffect(() => {
-    isSubmitSuccessful&&navigate(-1)
-  }, [isSubmitSuccessful])
-  
+    if (isSubmitSuccessful) {
+      RemoveFromFavorites({ numberId: dogId });
+      navigate(-1);
+    }
+  }, [isSubmitSuccessful]);
 
-  console.log("first", errors);
+  const handleSubmitAndError = (e) => {
+    handleSubmit(formSubmit)(e).catch((err) => {
+      setAlert(true);
+    });
+  };
+
   return (
     <AdoptersLayout>
-      <form onSubmit={handleSubmit(formSubmit)} style={formStyle}>
+      <form onSubmit={handleSubmitAndError} style={formStyle}>
         <Typography variant="body1" textAlign={"center"} fontWeight={900}>
           שלח לנו את הפרטים שלך לגבי <u>{dogName}</u>
         </Typography>
-        <StyledTextfield
+        <Textinput
           size="small"
           // onBlur={fetchAdpterData}
           {...register("phoneNumber")}
@@ -130,14 +111,14 @@ export default function SendRequest() {
           error={!!errors.phoneNumber}
           helperText={errors.phoneNumber?.message}
         />
-        <StyledTextfield
+        <Textinput
           size="small"
           InputProps={{ ...register("firstName") }}
           label="שם פרטי"
           error={!!errors.firstName}
           helperText={errors.firstName?.message}
         />
-        <StyledTextfield
+        <Textinput
           size="small"
           {...register("lastName")}
           label="שם משפחה"
@@ -145,7 +126,7 @@ export default function SendRequest() {
           helperText={errors.lastName?.message}
         />
 
-        <StyledTextfield
+        <Textinput
           size="small"
           {...register("email")}
           label="אימייל"
@@ -162,6 +143,13 @@ export default function SendRequest() {
         >
           שלח פרטים
         </Button>
+        <AlertComp
+          handleClose={() => setAlert(false)}
+          isOpen={Alert}
+          type="error"
+          color="error"
+          text={"כבר שלחת בקשה על הכלב הזה, נווו...."}
+        />
       </form>
     </AdoptersLayout>
   );

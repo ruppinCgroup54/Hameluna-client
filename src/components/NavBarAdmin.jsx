@@ -1,22 +1,31 @@
-import {
-  AppBar,
-  Badge,
-  Box,
-  Grid,
-  Toolbar,
-  useTheme,
-} from "@mui/material";
-import React, { useState } from "react";
+import { AppBar, Badge, Box, Grid, Toolbar, useTheme } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import Logo from "./Logo";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-
-const marked = [true, false, false];
+import {
+  Link,
+  Navigate,
+  useLocation,
+  useNavigate,
+  useRouteLoaderData,
+} from "react-router-dom";
+import { pathes } from "../modules/Admin";
 
 export default function NavBarAdmin() {
+  const navigate = useNavigate();
+
   const theme = useTheme();
 
   const [keyVal, setKeyVal] = useState("");
+
+  const location = useLocation();
+
+  useEffect(() => {
+    location.pathname == pathes[0].path ? setKeyVal("") : 0;
+    console.log('location', location.pathname)
+  }, [location])
+  
 
   const styleDiv = {
     borderRadius: "10px 10px 0 0",
@@ -24,8 +33,6 @@ export default function NavBarAdmin() {
     zIndex: "-1",
     textAlign: "center",
   };
-
-  const navItems = ["מי בבית", "משימות", "סיכומים"];
 
   return (
     <>
@@ -62,23 +69,29 @@ export default function NavBarAdmin() {
             >
               <Box sx={{ mt: "10px" }}>
                 <Grid container gap={1}>
-                  {navItems.map((item, i) => (
-                    <Grid item xs={1.5} key={item}>
+                  {pathes.map((nav, i) => (
+                    <Grid item xs={1.5} key={nav.id}>
                       <div
-                        onClick={() => { setKeyVal(item); }}
+                        onClick={() => {
+                          setKeyVal(nav.id);
+                          navigate(nav.path);
+                        }}
                         style={{
                           ...styleDiv,
-                          backgroundColor: (keyVal==item ? "#fff" : ""),
+                          backgroundColor: keyVal == nav.id ? "#fff" : "",
                         }}
                       >
                         <p
                           style={{
                             fontSize: "1.5rem",
-                            color: (keyVal== item ? theme.palette.primary.main : "#fff"),
+                            color:
+                              keyVal == nav.id
+                                ? theme.palette.primary.main
+                                : "#fff",
                             marginBottom: "0px",
                           }}
                         >
-                          {item}
+                          {nav.id}
                         </p>
                       </div>
                     </Grid>
