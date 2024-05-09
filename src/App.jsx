@@ -14,11 +14,12 @@ import lazyLoad from "./utilis/LazyLoad";
 
 import ErrorPage from "./components/ErrorPage";
 import FallbackElement from "./components/FallbackElement";
-import { adminRouts, adopterRoutes } from "./modules/Routes";
+import { adminRouts, adopterRoutes, employeesRoutes } from "./modules/Routes";
 import ModalAddDog from "./modules/Admin/components/ModalAddDog";
 
 const IndexAdopters = lazyLoad("../modules/Adopters/index");
 const IndexAdmin = lazyLoad("../modules/Admin/index");
+const IndexEmployees = lazyLoad("../modules/Employees/index");
 
 
 const router = createBrowserRouter([
@@ -26,17 +27,18 @@ const router = createBrowserRouter([
     path: "/",
     element: <IndexAdopters />,
     children: adopterRoutes,
-    errorElement:<ErrorPage />
+    errorElement: <ErrorPage />
   },
   {//admin root
     path: "/admin",
     element: <IndexAdmin />,
     children: adminRouts,
-    errorElement:<ErrorPage />
+    errorElement: <ErrorPage />
   },
   {//employees root
-    // path: "/admin",
-    // children: employeesRoutes,
+    path: "/employees",
+    element: <IndexEmployees />,
+    children: employeesRoutes
   },
 ]);
 
@@ -51,15 +53,15 @@ function App() {
 
   return (
     <>
-    <ThemeContext>
-      <CacheProvider value={cacheRtl} >
-        <RouterProvider router={router}>
-          <Suspense fallback={<FallbackElement/>}>
-            <Outlet />
-          </Suspense>
-        </RouterProvider>
-      </CacheProvider>
-    </ThemeContext>
+      <ThemeContext>
+        <CacheProvider value={cacheRtl} >
+          <RouterProvider router={router}>
+            <Suspense fallback={<FallbackElement />}>
+              <Outlet />
+            </Suspense>
+          </RouterProvider>
+        </CacheProvider>
+      </ThemeContext>
     </>
   );
 }

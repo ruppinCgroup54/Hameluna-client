@@ -8,7 +8,7 @@ const phoneStyle = {
     width: "90%",
     margin: "auto",
   };
-  const desktopStyle = { width: "33%", marginRight: "10%" };
+
 
 export default function DogsCardPage() {
 
@@ -18,7 +18,7 @@ export default function DogsCardPage() {
     
     <div  style={{
             padding: "50px 0",
-            ...(isDesktop ? desktopStyle : phoneStyle),
+            ...phoneStyle,
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
