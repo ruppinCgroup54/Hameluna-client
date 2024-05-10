@@ -6,9 +6,9 @@ export const ShelterContext = createContext();
 export default function ShelterContextProvider(props) {
 const cellsData = useRouteLoaderData("כלבייה");
 
-  const [cells, setCells] = useState(cellsData);
+  const [cells, setCells] = useState(cellsData?cellsData:[]);
   const [dogs, setDogs] = useState([]);
-
+  console.log('cellsData', cellsData);
   useEffect(() => {
     const allDogs = [];
     for (let i = 0; i < cells.length; i++) {

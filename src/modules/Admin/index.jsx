@@ -15,6 +15,8 @@ import FallbackElement from "../../components/FallbackElement";
 import ShelterContextProvider, {
   ShelterContext,
 } from "../../context/ShelterContextProvider";
+import ModalAddDog from "./components/ModalAddDog";
+// import ModalAddDog from "../Admin/components/ModalAddDog";
 
 const LogInPage = lazyLoad("../modules/Admin/LogInPage");
 const SystemPage = lazyLoad("../modules/Admin/SystemPage");
@@ -40,6 +42,11 @@ export const pathes = [
     path: "/admin/shelter/whosHome/",
     element: <WhosHome />,
     id: "סיכומים"
+  },
+  {
+    path: "/admin/shelter/modal",
+    element: <ModalAddDog />,
+    id: "מודל"
   },
 ];
 

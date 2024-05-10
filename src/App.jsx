@@ -54,12 +54,12 @@ function App() {
     <ThemeContext>
       <CacheProvider value={cacheRtl} >
         {/* <Files/> */}
-        {/* <RouterProvider router={router}>
+        <RouterProvider router={router}>
           <Suspense fallback={<FallbackElement/>}>
             <Outlet />
           </Suspense>
-        </RouterProvider> */}
-        <ModalAddDog/>
+        </RouterProvider>
+        {/* <ModalAddDog/> */}
       </CacheProvider>
     </ThemeContext>
     </>
