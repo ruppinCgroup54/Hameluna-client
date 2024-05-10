@@ -11,11 +11,12 @@ export default function AlertComp({
 }) {
   return (
     <Snackbar
-      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      anchorOrigin={{ vertical: "top", horizontal: "center" }}
       open={isOpen}
       autoHideDuration={3000}
       onClose={handleClose}
-      TransitionComponent={(p) => <Slide {...p} direction="right" />}
+      sx={{width:'100%'}}
+      // TransitionComponent={(p) => <Slide {...p} direction="right" />}
     >
       <Alert
         onClose={handleClose}
