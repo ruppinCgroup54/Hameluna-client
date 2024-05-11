@@ -22,11 +22,11 @@ const [open, setOpen] = useState(false);
 
   return (
     <>
-    <Card sx={{ display: 'flex', maxWidth: 1000, position: 'relative', overflow: 'visible' }}>
-      <CardActionArea sx={{ display: 'flex', flexDirection: 'row' }}>
+    <Card sx={{ display: 'flex', height: 145, width: 435,position: 'relative', overflow: 'visible' , borderRadius: 6}}>
+      <CardActionArea sx={{ display: 'flex', flexDirection: 'row' , paddingLeft:1}}>
         <CardMedia
           component="img"
-          sx={{ width: 140, height: 140, objectFit: 'cover', borderRadius: 9 }}
+          sx={{ width: 120, height: 120, objectFit: 'cover', borderRadius: 6}}
           image={`${image1}`}
           alt="dogs pic"
         />
@@ -34,9 +34,10 @@ const [open, setOpen] = useState(false);
           <Typography gutterBottom variant="h5" component="div">
             ג'אנגו | תא 3
           </Typography>
-          <Stack spacing={2} direction="row">
-            <Button variant='contained' sx={{ color: 'common.black', boxShadow: theme.shadows[20], borderColor: 'black', '&:hover': { backgroundColor: 'primary.light' }, maxHeight: 50, width: 140 }}>צפייה בכרטיס כלב<PetsIcon /></Button>
-            <Button onClick={()=>setOpen(prev=>!prev)}>צקליסט</Button>
+          <Stack spacing={2} direction="row" paddingTop={2} marginLeft={-1.5}>
+            
+            <Button variant='contained' sx={{ backgroundColor: '#EADCCF',color: 'common.black', boxShadow: theme.shadows[12], borderColor: 'black', '&:hover': { backgroundColor: 'primary.light' }, maxHeight: 50, width: 120, fontSize: 11 }}>צפייה בכרטיס כלב<PetsIcon /></Button>
+            <Button variant='contained' sx={{ backgroundColor: '#EADCCF',color: 'common.black', boxShadow: theme.shadows[12], borderColor: 'black', '&:hover': { backgroundColor: 'primary.light' }, maxHeight: 50, width: 120, fontSize: 11 }} onClick={()=>setOpen(prev=>!prev)}>צקליסט</Button>
           </Stack>
 
         </CardContent>
