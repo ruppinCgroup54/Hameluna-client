@@ -1,9 +1,10 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Grid, Modal } from "@mui/material";
 import Dog from "./components/Dog";
 import { useContext, useEffect, useRef, useState } from "react";
 import { ShelterContext } from "../../context/ShelterContextProvider";
-import FilterDogs from "../../components/SelectInput";
+import SelectInput from "../../components/SelectInput";
 import FilterAltOffRoundedIcon from "@mui/icons-material/FilterAltOffRounded";
+import ModalAddDog from "./components/ModalAddDog";
 
 export default function WhosHome() {
   const { dogs } = useContext(ShelterContext);
@@ -87,9 +88,9 @@ export default function WhosHome() {
     return result;
   };
 
-  // const resetFilter = (set) => {
-  //   set("");
-  // };
+  const [openModal, setOpenModal] = useState(false)
+  const handleOpen = () => setOpenModal(true);
+  const handleClose = () => setOpenModal(false);
 
   return (
     <Grid container mt={"120px"} sx={{ mx: "auto" }} width={"100%"}>
@@ -97,18 +98,31 @@ export default function WhosHome() {
         <Grid container>
           <Grid item md={2}></Grid>
           <Grid item md={8} display={'flex'} flexDirection={'row'} gap={2}>
-            {labels.map((l) => (
-              <FilterDogs
-                filterDogs={addFilter}
-                key={l.lab}
-                filter={l}
-              ></FilterDogs>
-            ))}
-            <Button onClick={() => setFilterFields({})}>
-              <FilterAltOffRoundedIcon fontSize="large" sx={{ mb: "17px" }} />
+            <Box sx={{ display: 'flex', flexDirection: 'row', width: '60%', gap: '10px' }}>
+              {labels.map((l) => (
+                <SelectInput
+                  filterDogs={addFilter}
+                  key={l.lab}
+                  field={l}
+                ></SelectInput>
+              ))}
+            </Box>
+            <Button sx={{ p: '0px' }} onClick={() => setFilterFields({})}>
+              <FilterAltOffRoundedIcon fontSize="large" sx={{
+                mb: '10px'
+              }} />
+            </Button>
+            <Modal open={openModal} onClose={handleClose}>
+              <ModalAddDog></ModalAddDog>
+            </Modal>
+          </Grid>
+          <Grid item md={2} >
+            <Button variant="contained" size='large'
+              sx={{ fontSize: '20px', height: '40px', mt: '10px' }}
+              onClick={handleOpen}
+            >הוספת כלב +
             </Button>
           </Grid>
-          <Grid item md={2} ><Button variant="contained" size='large' sx={{ fontSize: '20px', height: '40px', mt: '10px' }}>הוספת כלב +</Button></Grid>
         </Grid>
       </Grid>
       <Grid item md={12} sx={{ mx: "auto" }}>

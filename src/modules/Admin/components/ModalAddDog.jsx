@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { Box, Grid, Typography, styled } from "@mui/material";
+import { Box, Button, Grid, Typography, styled } from "@mui/material";
 import { Textinput } from "../../../components/Textinput";
 import useFetch from "../../../utilis/useFetch";
 import SelectInput from "../../../components/SelectInput";
@@ -9,12 +9,13 @@ import UploadFileButton from "../../../components/UploadFileButton";
 import DateInput from "../../../components/DateInput";
 import CellsBox from "../../../components/CellsBox";
 import { ShelterContext } from "../../../context/ShelterContextProvider";
+import AddImage from "../../../components/AddImage";
 
 
 
 
 const FormStyle = styled(Box)(({ theme }) => ({
-    backgroundColor: "rgba(217,217,217,0.5)",
+    backgroundColor: "#fff",
     width: "75%",
     borderRadius: "20px",
     height: "fit-content",
@@ -22,8 +23,8 @@ const FormStyle = styled(Box)(({ theme }) => ({
     flexDirection: "column",
     alignItems: "center",
     gap: "20px",
-    padding: "5%",
-    border: '2px solid',
+    padding: "3%",
+    border: '5px solid',
     borderColor: theme.palette.primary.main
 })
 )
@@ -60,9 +61,10 @@ export default function ModalAddDog() {
     ]
 
     return (
-        <FormStyle component={'form'} >
-            <Typography variant="h5" fontWeight={'bold'}>פרטי הכלב</Typography>
-            <Grid container spacing={4}>
+        <FormStyle component={'form'} mt={'120px'} mx={'auto'} position={'relative'}>
+            
+            <Grid container spacing={4} sx={{pl:'7%'}}>
+                <Grid item xs={12} display={'flex'} justifyContent={'center'}><Typography variant="h4" fontWeight={'bold'}>פרטי הכלב</Typography></Grid>
                 <Grid item xs={3}><Textinput size="small" label="מספר צ'יפ" type="text"></Textinput> </Grid>
                 <Grid item xs={3}><Textinput size="small" label="שם" required></Textinput></Grid>
                 <Grid item xs={3}><DateInput label={"תאריך לידה"}></DateInput></Grid>
@@ -75,7 +77,9 @@ export default function ModalAddDog() {
                 <Grid item xs={6}><Textinput size="small" label="פרטי מוסר הכלב"></Textinput></Grid>
                 <Grid item xs={6}><CharacteristicsSelect label="הערות נוספות" field={selectInputs[3]}></CharacteristicsSelect></Grid>
                 <Grid item xs={6}><CellsBox cells={cells}></CellsBox></Grid>
+                <Grid item xs={12} display={'flex'} justifyContent={'center'}><Button variant="contained" type="submit" sx={{fontSize:'18px',width:'150px'}}>הוסף כלב</Button></Grid>
             </Grid>
+            <AddImage></AddImage>
         </FormStyle>
     )
 }

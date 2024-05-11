@@ -6,6 +6,7 @@ const LogInPage = lazyLoad("../modules/Admin/LogInPage");
 const WhosHome = lazyLoad("../modules/Admin/WhosHome");
 const SystemPage = lazyLoad("../modules/Admin/SystemPage");
 const ControlPage = lazyLoad("../modules/Admin/ControlPage");
+const ModalPage = lazyLoad("../modules/Admin/components/ModalAddDog");
 
 export const pathes = [
   {
@@ -27,7 +28,7 @@ export const pathes = [
     path: "/admin/shelter/whosHome/",
     element: <WhosHome />,
     id: "סיכומים"
-  },
+  },  
 ];
 
 export const adminRouts = [
