@@ -45,7 +45,7 @@ const ChatBtn = styled(Button)(({ theme }) => ({
 export default function ChatButton() {
   const navigate = useNavigate();
   return (
-    <ChatBtn color='info' variant='contained' onClick={()=>navigate('/dogtinder')} >
+    <ChatBtn color='info' variant='contained' onClick={()=>navigate('/dogbot')} >
       לצ'אט עם דוגבוט
     </ChatBtn>
   )

@@ -10,9 +10,10 @@ const MessageBox = styled(Box)(({ theme }) => ({
   gap: '10px',
   margin:'5px 0',
   "& .MuiAvatar-root": {
-    width: 30, height: 30, 
+    width: 35, height: 35, 
     backgroundColor: theme.palette.grey[400], 
-    padding: '5px', color: 'common.black', 
+    padding: '5px', 
+    color: theme.palette.common.black, 
     fontWeight: '500'
   },
   "& .MuiTypography-root": {
@@ -34,6 +35,7 @@ export default function Message({ message }) {
 
 
   const userStyle = {
+    padding: '5px 35px 5px 0',
     "& .MuiTypography-root": {
       borderRadius: "0 15px 15px 15px",
       bgcolor: "info.light"
