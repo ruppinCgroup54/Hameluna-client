@@ -8,6 +8,9 @@ import Switch from '@mui/material/Switch';
 import WifiIcon from '@mui/icons-material/Wifi';
 import BluetoothIcon from '@mui/icons-material/Bluetooth';
 
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
 
 
 export default function SwitchListSecondary() {
@@ -28,7 +31,7 @@ export default function SwitchListSecondary() {
 
   return (
     <List
-      sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+      sx={{ width: '100%', maxWidth: 360, bgcolor: '#eadef' }}
       
     >
       <ListItem>
@@ -56,6 +59,7 @@ export default function SwitchListSecondary() {
         />
       </ListItem>
 
+
       <ListItem>
         
         <ListItemText id="switch-list-label-medic" primary="קיבל תרופות?" />
@@ -68,6 +72,49 @@ export default function SwitchListSecondary() {
           }}
         />
       </ListItem>
+
+
+      <ListItem>
+        
+        <ListItemText id="switch-list-label-medic" primary="אכל ושתה?" />
+        <Switch
+          edge="end"
+          onChange={handleToggle('medic')}
+          checked={checked.indexOf('medic') !== -1}
+          inputProps={{
+            'aria-labelledby': 'switch-list-label-medic',
+          }}
+        />
+      </ListItem>
+
+
+      <ListItem>
+        
+        <ListItemText id="switch-list-label-medic" primary="נראה חיוני? " />
+        <Switch
+          edge="end"
+          onChange={handleToggle('medic')}
+          checked={checked.indexOf('medic') !== -1}
+          inputProps={{
+            'aria-labelledby': 'switch-list-label-medic',
+          }}
+        />
+      </ListItem>
+
+      <TextField
+          id="outlined-multiline-static"
+          label="הערות"
+          multiline
+          rows={4}
+        
+          sx ={{width: 370, top:20}}
+        />
     </List>
+    
+
+
+
+
+
   );
 }
