@@ -1,22 +1,7 @@
-import {
-  Outlet,
-  RouterProvider,
-  createBrowserRouter,
-  useLoaderData,
-} from "react-router-dom";
-import NavBarAdmin from "../../components/NavBarAdmin";
-import { element } from "prop-types";
-import lazyLoad from "../../utilis/LazyLoad";
+import {Outlet} from "react-router-dom";
 import { Suspense } from "react";
-import AdoptersLayout from "../../layouts/AdoptersLayout";
-import Logo from "../../components/Logo";
 import FallbackElement from "../../components/FallbackElement";
-import ShelterContextProvider, {
-  ShelterContext,
-} from "../../context/ShelterContextProvider";
-
-
-
+import ShelterContextProvider from "../../context/ShelterContextProvider";
 
 
 

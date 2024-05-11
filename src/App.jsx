@@ -15,7 +15,6 @@ import lazyLoad from "./utilis/LazyLoad";
 import ErrorPage from "./components/ErrorPage";
 import FallbackElement from "./components/FallbackElement";
 import { adminRouts, adopterRoutes, employeesRoutes } from "./modules/Routes";
-import ModalAddDog from "./modules/Admin/components/ModalAddDog";
 
 const IndexAdopters = lazyLoad("../modules/Adopters/index");
 const IndexAdmin = lazyLoad("../modules/Admin/index");

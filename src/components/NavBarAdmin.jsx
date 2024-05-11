@@ -10,7 +10,8 @@ import {
   useNavigate,
   useRouteLoaderData,
 } from "react-router-dom";
-import { pathes } from "../modules/Admin";
+import { pathes } from "../modules/Routes";
+
 
 export default function NavBarAdmin() {
   const navigate = useNavigate();
