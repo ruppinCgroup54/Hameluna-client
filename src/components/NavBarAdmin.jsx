@@ -12,7 +12,6 @@ import {
 } from "react-router-dom";
 import { pathes } from "../modules/Routes";
 
-
 export default function NavBarAdmin() {
   const navigate = useNavigate();
 
