@@ -14,7 +14,7 @@ import { useTheme } from '@emotion/react';
 import { useState } from 'react';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
-export default function ActionAreaCard({ image1 }) {
+export default function ActionAreaCard({ image1 , cell ,dogsName}) {
 
   const theme = useTheme();
 const [open, setOpen] = useState(false);
@@ -22,7 +22,7 @@ const [open, setOpen] = useState(false);
 
   return (
     <>
-    <Card sx={{ display: 'flex', height: 145, width: 435,position: 'relative', overflow: 'visible' , borderRadius: 6}}>
+    <Card sx={{ display: 'flex', height: 145, width: 435,position: 'relative', overflow: 'visible' , borderRadius: 6 , marginTop: 3 ,boxShadow: theme.shadows[10]}}>
       <CardActionArea sx={{ display: 'flex', flexDirection: 'row' , paddingLeft:1}}>
         <CardMedia
           component="img"
@@ -32,7 +32,7 @@ const [open, setOpen] = useState(false);
         />
         <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginLeft: 2 }}>
           <Typography gutterBottom variant="h5" component="div">
-            ג'אנגו | תא 3
+            {`${dogsName}`}  |   תא {`${cell}`}
           </Typography>
           <Stack spacing={2} direction="row" paddingTop={2} marginLeft={-1.5}>
             

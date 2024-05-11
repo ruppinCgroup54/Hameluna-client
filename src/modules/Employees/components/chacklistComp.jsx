@@ -31,7 +31,7 @@ export default function SwitchListSecondary() {
 
   return (
     <List
-      sx={{ width: '100%', maxWidth: 360, bgcolor: '#eadef' }}
+      sx={{ width: '100%', maxWidth: 360, bgcolor: '#eadef'}}
       
     >
       <ListItem>
@@ -79,10 +79,10 @@ export default function SwitchListSecondary() {
         <ListItemText id="switch-list-label-medic" primary="אכל ושתה?" />
         <Switch
           edge="end"
-          onChange={handleToggle('medic')}
-          checked={checked.indexOf('medic') !== -1}
+          onChange={handleToggle('ate')}
+          checked={checked.indexOf('ate') !== -1}
           inputProps={{
-            'aria-labelledby': 'switch-list-label-medic',
+            'aria-labelledby': 'switch-list-label-ate',
           }}
         />
       </ListItem>
@@ -90,13 +90,13 @@ export default function SwitchListSecondary() {
 
       <ListItem>
         
-        <ListItemText id="switch-list-label-medic" primary="נראה חיוני? " />
+        <ListItemText id="switch-list-label-looks" primary="נראה חיוני? " />
         <Switch
           edge="end"
-          onChange={handleToggle('medic')}
-          checked={checked.indexOf('medic') !== -1}
+          onChange={handleToggle('looks')}
+          checked={checked.indexOf('looks') !== -1}
           inputProps={{
-            'aria-labelledby': 'switch-list-label-medic',
+            'aria-labelledby': 'switch-list-label-looks',
           }}
         />
       </ListItem>
