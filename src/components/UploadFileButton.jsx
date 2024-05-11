@@ -15,9 +15,10 @@ const VisuallyHiddenInput = styled('input')({
     width: 1,
 });
 
-export default function UploadFileButton() {
+export default function UploadFileButton(register={}) {
     return (
         <Textinput
+        {...register}
         label="העלאת קבצים"
             size='small'
             InputProps={{

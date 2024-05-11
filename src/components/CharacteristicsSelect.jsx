@@ -20,7 +20,7 @@ const MenuProps = {
     },
 };
 
-export default function CharacteristicsSelect({ field }) {
+export default function CharacteristicsSelect({ field, register = {} }) {
 
     const theme = useTheme();
     const [value, setValue] = useState([]);
@@ -37,11 +37,12 @@ export default function CharacteristicsSelect({ field }) {
             <FormControl sx={{
                 width: '100%',
                 "& .MuiInputBase-root": { backgroundColor: '#fff', borderRadius: '20px' },
-                "& .MuiSvgIcon-root": { color: 'primary.main', top:'10px' },
+                "& .MuiSvgIcon-root": { color: 'primary.main', top: '10px' },
                 "& .MuiOutlinedInput-notchedOutline": { border: `2px solid ${theme.palette.primary.main}`, borderRadius: '20px' }
             }}>
-                <InputLabel id="demo-multiple-chip-label" sx={{ fontSize: "14px", top:'-5px'}}>{field.lab}</InputLabel>
+                <InputLabel id="demo-multiple-chip-label" sx={{ fontSize: "14px", top: '-5px' }}>{field.lab}</InputLabel>
                 <Select
+                    {...register}
                     size="large"
                     label={field.lab}
                     name={field.lab}

@@ -101,7 +101,7 @@ export default function WhosHome() {
             <Box sx={{ display: 'flex', flexDirection: 'row', width: '60%', gap: '10px' }}>
               {labels.map((l) => (
                 <SelectInput
-                  filterDogs={addFilter}
+                  changeFunc={addFilter}
                   key={l.lab}
                   field={l}
                 ></SelectInput>

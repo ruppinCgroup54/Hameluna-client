@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { position } from "stylis";
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 
-export default function AddImage() {
+export default function AddImage(register={}) {
 
     const inputRef = useRef(null);
     const [src, setSrc] = useState(img);
@@ -30,7 +30,7 @@ export default function AddImage() {
                         borderColor: 'primary.main',
                     }}>
                 </Avatar>
-                <input type="file" onChange={imageChange} ref={inputRef} style={{ display: 'none' }}></input>
+                <input {...register} type="file" onChange={imageChange} ref={inputRef} style={{ display: 'none' }}></input>
 
                 <Avatar src=""
                     sx={{

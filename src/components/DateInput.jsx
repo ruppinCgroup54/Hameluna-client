@@ -6,14 +6,14 @@ import { useTheme } from '@emotion/react';
 import { Box, FormControl } from '@mui/material';
 import { Style } from '@mui/icons-material';
 
-export default function DateInput({ label }) {
+export default function DateInput({ label, register = {} }) {
     const theme = useTheme();
     return (
         <Box>
             <FormControl
-            fullWidth
+                fullWidth
                 sx={{
-                    top:'-7px',
+                    top: '-7px',
                     "& .MuiOutlinedInput-notchedOutline": {
                         borderRadius: '20px',
                         border: `2px solid ${theme.palette.primary.main}`
@@ -26,6 +26,7 @@ export default function DateInput({ label }) {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['DatePicker']}>
                         <DatePicker label={label}
+                            {...register}
                             slotProps={{ textField: { size: 'small' } }}
                             sx={{
                                 width: '100%',
