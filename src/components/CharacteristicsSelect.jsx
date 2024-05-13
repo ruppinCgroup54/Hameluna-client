@@ -20,7 +20,7 @@ const MenuProps = {
     },
 };
 
-export default function CharacteristicsSelect({ field, register = {} }) {
+export default function CharacteristicsSelect({ field }) {
 
     const theme = useTheme();
     const [value, setValue] = useState([]);
@@ -42,10 +42,9 @@ export default function CharacteristicsSelect({ field, register = {} }) {
             }}>
                 <InputLabel id="demo-multiple-chip-label" sx={{ fontSize: "14px", top: '-5px' }}>{field.lab}</InputLabel>
                 <Select
-                    {...register}
                     size="large"
                     label={field.lab}
-                    name={field.lab}
+                    name={field.id}
                     multiple
                     value={value}
                     onChange={handleChange}

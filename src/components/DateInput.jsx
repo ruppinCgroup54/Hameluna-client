@@ -5,9 +5,20 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useTheme } from '@emotion/react';
 import { Box, FormControl } from '@mui/material';
 import { Style } from '@mui/icons-material';
+import { useState } from 'react';
+import dayjs from 'dayjs';
 
-export default function DateInput({ label, register = {} }) {
+export default function DateInput({ label, setVal }) {
     const theme = useTheme();
+
+    const [value, setValue] = useState(dayjs(''))   
+
+    const handleChange = (e) =>{
+        // setValue(dayjs(newValue));
+        var date = new Date(e);
+        var finaldate = date.getDate() + '-' +  (date.getMonth() + 1)  + '-' +  date.getFullYear();
+        setVal(finaldate);
+    }
     return (
         <Box>
             <FormControl
@@ -26,7 +37,9 @@ export default function DateInput({ label, register = {} }) {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['DatePicker']}>
                         <DatePicker label={label}
-                            {...register}
+                           disableFuture = {label == "תאריך לידה" && true}
+                           disablePast = {label == "תאריך הגעה" && true}
+                            onChange={handleChange}
                             slotProps={{ textField: { size: 'small' } }}
                             sx={{
                                 width: '100%',
