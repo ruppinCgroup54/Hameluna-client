@@ -1,4 +1,6 @@
+import { get } from "react-hook-form";
 import lazyLoad from "../utilis/LazyLoad";
+import useLocalStorage from "../utilis/useLocalStorge";
 
 // Admin Rouets
 
@@ -68,6 +70,17 @@ export const adopterRoutes = [
   {
     path: "/dogbot",
     element: <ChatBot />,
+    loader: async () => {
+      const getId = localStorage.getItem('_id');
+
+      if (getId===null) {
+        return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats");
+      }else{
+        return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats/"+getId);
+      }
+
+      
+    },
   },
   {
     path: "/dogtinder",
