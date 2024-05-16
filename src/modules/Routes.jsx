@@ -5,6 +5,7 @@ import useLocalStorage from "../utilis/useLocalStorge";
 // Admin Rouets
 
 const LogInPage = lazyLoad("../modules/Admin/LogInPage");
+const Register = lazyLoad("../modules/Admin/Register");
 const WhosHome = lazyLoad("../modules/Admin/WhosHome");
 const SystemPage = lazyLoad("../modules/Admin/SystemPage");
 const ControlPage = lazyLoad("../modules/Admin/ControlPage");
@@ -39,7 +40,8 @@ export const adminRouts = [
     element: <LogInPage />,
   },
   {
-    //register
+    path:"/admin/register",
+    element:<Register/>
   },
   {
     path: "/admin/shelter",

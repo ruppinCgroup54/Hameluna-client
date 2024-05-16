@@ -60,7 +60,8 @@ export default function ChatBot() {
   }
 
   const getResponse = async (message) => {
-    const response = await fetch(import.meta.env.VITE_APP_SERVERURL + "Chats/" + userID, {
+    console.log('userID', userID[0])
+    const response = await fetch(import.meta.env.VITE_APP_SERVERURL + "Chats/" + userID[0], {
       method: "POST",
       headers: {
         "Accept": "application/json",
@@ -70,13 +71,7 @@ export default function ChatBot() {
     })
     const res = await response.json();
 
-
-    let temp = {
-      role: 'assistant',
-      content: res
-    }
-
-    setMessages(prev => [...prev, temp]);
+    setMessages(prev => [...prev, res]);
   }
 
 
