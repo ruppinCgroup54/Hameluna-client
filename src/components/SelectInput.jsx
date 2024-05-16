@@ -1,7 +1,7 @@
 import { Box, FormControl, InputLabel, MenuItem, OutlinedInput, Select, useTheme } from "@mui/material";
 import { useState } from "react";
 
-export default function SelectInput({ field, changeFunc, isMulti, register={} }) {
+export default function SelectInput({ field, changeFunc, isMulti }) {
 
   const theme = useTheme();
 
@@ -57,7 +57,6 @@ export default function SelectInput({ field, changeFunc, isMulti, register={} })
           input={<OutlinedInput label={field.lab} />}
           MenuProps={MenuProps}
           required
-          {...register}
         >
           {field.values?.map((v) => (
             <MenuItem key={v} value={v}>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Textinput } from './Textinput'
 import { Button, IconButton, InputAdornment, styled } from '@mui/material'
 import { CloudUploadOutlined } from '@mui/icons-material'
@@ -15,20 +15,28 @@ const VisuallyHiddenInput = styled('input')({
     width: 1,
 });
 
-export default function UploadFileButton(register={}) {
+
+export default function UploadFileButton() {
+    const [numFiles, setNumFiles] = useState(0);
+    
+    const countFile = (e) => {
+        setNumFiles(e.target.files.length);
+    }
+
+
     return (
         <Textinput
-        {...register}
-        label="העלאת קבצים"
+            label={numFiles == 0 ? "העלאת קבצים" : null}
             size='small'
             InputProps={{
                 endAdornment: <InputAdornment position='end'>
-                    <IconButton  component="label" role={undefined} tabIndex={-1} edge="end">
+                    <IconButton component="label" role={undefined} tabIndex={-1} edge="end">
                         <CloudUploadOutlined color='primary' />
-                        <VisuallyHiddenInput type='file' />
+                        <VisuallyHiddenInput type='file' name='files' multiple={true} onChange={countFile} />
                     </IconButton>
                 </InputAdornment>
             }}
+            value={numFiles == 0 ? "" : `העלת ${numFiles} קבצים`}
         >
         </Textinput>
     )

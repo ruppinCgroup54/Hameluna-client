@@ -3,7 +3,7 @@ import { Box, Button, Grid, Typography, styled } from "@mui/material";
 import { Textinput } from "../../../components/Textinput";
 import useFetch from "../../../utilis/useFetch";
 import SelectInput from "../../../components/SelectInput";
-import { forwardRef, useContext, useState } from "react";
+import { forwardRef, useContext, useEffect, useState } from "react";
 import CharacteristicsSelect from "../../../components/CharacteristicsSelect";
 import UploadFileButton from "../../../components/UploadFileButton";
 import DateInput from "../../../components/DateInput";
@@ -11,6 +11,7 @@ import CellsBox from "../../../components/CellsBox";
 import { ShelterContext } from "../../../context/ShelterContextProvider";
 import AddImage from "../../../components/AddImage";
 import { useForm } from "react-hook-form";
+import { DoorFront } from "@mui/icons-material";
 
 
 
@@ -37,6 +38,7 @@ const ModalAddDog = forwardRef(() => {
 
     const breeds = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/Breeds');
     const colors = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/Colors');
+    const Characteristics = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/Characteristics');
 
     const selectInputs = [
         {
@@ -56,13 +58,13 @@ const ModalAddDog = forwardRef(() => {
         },
         {
             lab: "הערות נוספות",
-            values: colors.value,
-            id: "attribute",
+            values: Characteristics.value,
+            id: "attributes",
         },
         {
             lab: "מין",
             values: ["זכר", "נקבה"],
-            id: "sex",
+            id: "gender",
         },
         {
             lab: "כלב חוזר",
@@ -86,13 +88,32 @@ const ModalAddDog = forwardRef(() => {
         e.preventDefault();
         console.log('data', e.target);
 
-        const data =  new FormData(e.target);
+        const data = new FormData(e.target);
 
-        const obj ={};
-        data.forEach((value, key) => (obj[key] = value));
-        console.log('first',obj)
+        const dogToAdd = {};
+        data.forEach((value, key) => (dogToAdd[key] = value));
+        dogToAdd['breed'] = dogToAdd['breed'].split(','); 
+        dogToAdd['color'] = dogToAdd['color'].split(','); 
+        dogToAdd['attributes'] = dogToAdd['attributes'].split(',');
+        dogToAdd['dateOfBirth'] = dateBirth;
+        dogToAdd['entranceDate'] = arrivalDate;
+        dogToAdd['files'] = data.getAll("files");
+        dogToAdd['cellId'] = cell; 
 
+        console.log('first', dogToAdd)
+        // fetch(import.meta.env.VITE_APP_SERVERURL + 'Images/1', {
+        //     method: "POST",
+        //     body: data,
+        //   }).then((res) => {
+        //     console.log('res', res)
+        //     return res.json()
+        //   }).then((data) => console.log('data', data))
+      
     }
+
+    const [dateBirth, setDateBirth] = useState({});
+    const [arrivalDate, setArrivalDate] = useState('');
+    const [cell, setCell] = useState(null);
 
     return (
         <FormStyle component={'form'} mt={'120px'} mx={'auto'} position={'relative'} onSubmit={submit}>
@@ -100,24 +121,24 @@ const ModalAddDog = forwardRef(() => {
             <Grid container spacing={4} sx={{ pl: '7%' }}>
                 <Grid item xs={12} display={'flex'} justifyContent={'center'}><Typography variant="h4" fontWeight={'bold'}>פרטי הכלב</Typography></Grid>
                 <Grid item xs={3}><Textinput
-                inputProps={{ pattern: "[1-9]{0-15}" }}
-                size="small" label="מספר צ'יפ" type="text"></Textinput> </Grid>
+                    inputProps={{ pattern: "[1-9]{0-15}" }}
+                    size="small" label="מספר צ'יפ" type="text"></Textinput> </Grid>
                 <Grid item xs={3}><SelectInput field={selectInputs[5]} register={register} /></Grid>
                 <Grid item xs={3}><Textinput size="small" label="שם" required /></Grid>
-                <Grid item xs={3}><DateInput  label={"תאריך לידה"} /></Grid>
+                <Grid item xs={3}><DateInput label={"תאריך לידה"} setVal={setDateBirth} /></Grid>
                 <Grid item xs={3}><SelectInput field={selectInputs[4]}></SelectInput></Grid>
                 <Grid item xs={3}><SelectInput isMulti={true} field={selectInputs[1]}></SelectInput></Grid>
                 <Grid item xs={3}><SelectInput isMulti={true} field={selectInputs[2]} ></SelectInput></Grid>
                 <Grid item xs={3}><SelectInput isMulti={true} field={selectInputs[0]}></SelectInput></Grid>
-                <Grid item xs={3}><DateInput  label={"תאריך הגעה"}></DateInput></Grid>
-                <Grid item xs={3}><UploadFileButton ></UploadFileButton></Grid>
-                <Grid item xs={6}><CharacteristicsSelect label="הערות נוספות" field={selectInputs[3]}></CharacteristicsSelect></Grid>
+                <Grid item xs={3}><DateInput label={"תאריך הגעה"} setVal={setArrivalDate}></DateInput></Grid>
+                <Grid item xs={3}><UploadFileButton></UploadFileButton></Grid>
+                <Grid item xs={6}><CharacteristicsSelect field={selectInputs[3]}></CharacteristicsSelect></Grid>
                 <Grid item xs={3}></Grid>
-                <Grid item xs={6}><CellsBox cells={cells}></CellsBox></Grid>
+                <Grid item xs={6}><CellsBox cells={cells} setVal={setCell} val={cell}></CellsBox></Grid>
                 <Grid item xs={3}></Grid>
                 <Grid item xs={12} display={'flex'} justifyContent={'center'}><Button variant="contained" type="submit" sx={{ fontSize: '18px', width: '150px' }}>הוסף כלב</Button></Grid>
             </Grid>
-            <AddImage register={register("profileImg")}></AddImage>
+            <AddImage></AddImage>
         </FormStyle>
     )
 })

@@ -1,10 +1,9 @@
 import { Avatar, Box } from "@mui/material";
 import img from "../assets/images/Dogs/profileDog.png"
-import { useRef, useState } from "react";
-import { position } from "stylis";
+import { useEffect, useRef, useState } from "react";
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 
-export default function AddImage(register={}) {
+export default function AddImage() {
 
     const inputRef = useRef(null);
     const [src, setSrc] = useState(img);
@@ -15,9 +14,8 @@ export default function AddImage(register={}) {
 
     const imageChange = (e) => {
         setSrc(e.target.files[0]);
-        sendImage(e);
     }
-
+    
     return (
         <div onClick={handleImage} style={{ position: 'absolute', top: '-60px', right: '-90px' }}>
             <Box sx={{ position: 'relative' }}>
@@ -30,7 +28,7 @@ export default function AddImage(register={}) {
                         borderColor: 'primary.main',
                     }}>
                 </Avatar>
-                <input {...register} type="file" onChange={imageChange} ref={inputRef} style={{ display: 'none' }}></input>
+                <input type="file" name="profileImg" onChange={imageChange} ref={inputRef} style={{ display: 'none' }}></input>
 
                 <Avatar src=""
                     sx={{
