@@ -100,13 +100,18 @@ export const adopterRoutes = [
 //Employees Routes
 
 const DogsCardPage = lazyLoad("../modules/Employees/DogsCardPage");
-const EmpLogin = lazyLoad("../modules/Employees/EmpLogin")
+const EmpLogin = lazyLoad("../modules/Employees/EmpLogin");
+const EmpSignUp= lazyLoad("../modules/Employees/EmpSignUp");
 
 
 export const employeesRoutes=[
   {
     path: "/employees",
     element: <EmpLogin/>,
+  },
+  {
+    path: "/employees/empsignup",
+    element: <EmpSignUp/>,
   },
   {
       path: "/employees/dogslist",
