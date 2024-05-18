@@ -1,5 +1,5 @@
 import { IconButton, Typography, useTheme } from "@mui/material";
-import dog from "../../../assets/images/Dogs/image 1.png";
+import dog from "/images/Dogs/image 1.png";
 import CircleIcons from "../../../components/CircleIcons";
 import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";

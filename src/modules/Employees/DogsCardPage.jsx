@@ -1,12 +1,12 @@
 import BackgroundLayout from "../../layouts/BackgroundLayout";
-import bcgImg from "../../assets/images/Layouts/background.png";
+import bcgImg from "/background.png";
 import * as React from 'react';
 import CardComp from "../Employees/components/cardComp"
-import dogImg from "../../assets/images/Dogs/image 1.png";
+import dogImg from "/images/Dogs/image 1.png";
 import { useMediaQuery } from "react-responsive";
 import { useTheme } from "@mui/material/styles";
 
-import dogImg02 from "../../assets/images/Dogs/image 5.png";
+import dogImg02 from "/images/Dogs/image 5.png";
 import TopbarEmp from "../Employees/components/TopbarEmp";
 
 import chakls from "../Employees/components/chacklistCollapse"

@@ -6,6 +6,7 @@ import { Button, TextField, Typography, styled } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Email } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import AlertComp from "../../../components/AlertComp";
@@ -14,7 +15,6 @@ import { Textinput } from "../../../components/Textinput";
 
 const formStyle = {
   backgroundColor: "rgba(255,255,255,0.5)",
-  width: "clamp(200px,80vh,500px)",
   borderRadius: "20px",
   height: "fit-content",
   width: "clamp(300px,50vw,500px)",

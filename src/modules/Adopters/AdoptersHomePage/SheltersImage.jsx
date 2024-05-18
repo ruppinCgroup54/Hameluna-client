@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import defaultShelter from "../../../assets/images/Shelter1.jpeg"
+import defaultShelter from "/images/Shelter1.jpeg"
 
 import { Box, useTheme } from '@mui/material';
 

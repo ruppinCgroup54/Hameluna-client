@@ -1,6 +1,6 @@
 import { Avatar, Box, Typography, styled } from '@mui/material'
 
-import BotHead from "../../../assets/images/BotHead.svg"
+import BotHead from "/images/BotHead.svg"
 
 
 

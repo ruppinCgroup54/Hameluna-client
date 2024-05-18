@@ -90,24 +90,49 @@ const ModalAddDog = forwardRef(() => {
 
         const data = new FormData(e.target);
 
-        const dogToAdd = {};
+        let dogToAdd = {};
         data.forEach((value, key) => (dogToAdd[key] = value));
-        dogToAdd['breed'] = dogToAdd['breed'].split(','); 
-        dogToAdd['color'] = dogToAdd['color'].split(','); 
-        dogToAdd['attributes'] = dogToAdd['attributes'].split(',');
-        dogToAdd['dateOfBirth'] = dateBirth;
-        dogToAdd['entranceDate'] = arrivalDate;
-        dogToAdd['files'] = data.getAll("files");
-        dogToAdd['cellId'] = cell; 
+        dogToAdd ={ ...dogToAdd,
+            'breed': dogToAdd['breed'].split(','),
+            'color': dogToAdd['color'].split(','), 
+            'attributes': dogToAdd['attributes'].split(','),
+            'dateOfBirth': dateBirth,
+            'entranceDate': arrivalDate,
+            'files': data.getAll("files"),
+            'cellId': cell,
+            'isReturned': dogToAdd['isReturned']=="לא" ? false : true,
+            'isAdoptable': false,
+            'adopted': false 
+        }
+        // dogToAdd['breed'] = dogToAdd['breed'].split(','); 
+        // dogToAdd['color'] = dogToAdd['color'].split(','); 
+        // dogToAdd['attributes'] = dogToAdd['attributes'].split(',');
+        // dogToAdd['dateOfBirth'] = dateBirth;
+        // dogToAdd['entranceDate'] = arrivalDate;
+        // dogToAdd['files'] = data.getAll("files");
+        // dogToAdd['cellId'] = cell;
+        
+
+
+
+        const files = dogToAdd['files'];
+        const profileImg = dogToAdd['profileImg'];
+
+        delete dogToAdd['files'];
+        delete dogToAdd['profileImg'];
 
         console.log('first', dogToAdd)
-        // fetch(import.meta.env.VITE_APP_SERVERURL + 'Images/1', {
-        //     method: "POST",
-        //     body: data,
-        //   }).then((res) => {
-        //     console.log('res', res)
-        //     return res.json()
-        //   }).then((data) => console.log('data', data))
+
+        fetch(import.meta.env.VITE_APP_SERVERURL + 'Dogs', {
+            method: "POST",
+            // headers:{
+            //     'Content-Type' : 'multipart/form-data'
+            // },
+            body: JSON.stringify(dogToAdd),
+          }).then((res) => {
+            console.log('res', res)
+            return res.json()
+          }).then((data) => console.log('data', data))
       
     }
 

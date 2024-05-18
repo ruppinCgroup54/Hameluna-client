@@ -1,4 +1,4 @@
-import LogInImage from "../../assets/images/Layouts/LogIn.png";
+import LogInImage from "/images/Layouts/LogIn.png";
 import BackgroundLayout from "../../layouts/BackgroundLayout";
 import Logo from "../../components/Logo";
 
