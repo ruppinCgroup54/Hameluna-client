@@ -73,8 +73,7 @@ export const adopterRoutes = [
     path: "/dogbot",
     element: <ChatBot />,
     loader: async () => {
-      const getId = localStorage.getItem('_id');
-
+      const getId = localStorage.getItem('_id').replaceAll('"','');
       if (getId===null) {
         return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats");
       }else{
