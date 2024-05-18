@@ -2,7 +2,7 @@ import BackgroundLayout from '../../../layouts/BackgroundLayout'
 import ChatButton from './ChatButton'
 import Logo from '../../../components/Logo'
 import SheltersList from './SheltersList'
-import WebsiteBackgroud from '../../../assets/images/Layouts//background.png'
+import WebsiteBackgroud from '/background.png'
 
 import { Typography } from '@mui/material'
 
@@ -10,11 +10,11 @@ import { Typography } from '@mui/material'
 //temp array of shelter 
 const List = [
   {
-    image:"src/assets/images/Shelter1.jpeg",
+    image:"/images/Shelter1.jpeg",
     name:"הרצליה אוהבת חיות"
   } ,
    {
-    image:"src/assets/images/Shelter2.jpeg",
+    image:"/images/Shelter2.jpeg",
     name:"נתניה אוהבת חיות"
   }
 ]

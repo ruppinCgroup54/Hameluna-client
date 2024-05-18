@@ -1,5 +1,5 @@
 import { Box, Button, Typography, alpha } from "@mui/material";
-import ErrorDog from "../assets/images/ErrorDog.png";
+import ErrorDog from "/ErrorDog.png";
 import {
   isRouteErrorResponse,
   useLocation,

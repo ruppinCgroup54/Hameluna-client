@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import BackgroundLayout from '../../layouts/BackgroundLayout'
-import BackgroundImage from '../../assets/images/Layouts/LogIn.png'
+import BackgroundImage from '/LogIn.png'
 import { FormStyle } from './components/ModalAddDog'
 import { useForm } from 'react-hook-form'
 import AdminForm from './components/AdminForm'
