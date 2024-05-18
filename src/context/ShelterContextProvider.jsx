@@ -5,16 +5,19 @@ import useFetch from "../utilis/useFetch";
 export const ShelterContext = createContext();
 
 export default function ShelterContextProvider(props) {
-// const cellsData = useRouteLoaderData("כלבייה");
-const cellsData = useFetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/1`)
 
-  const [cells, setCells] = useState(cellsData?cellsData:[]);
+  const [triggerFetch, setTriggerFetch] = useState(0)
+  // const cellsData = useRouteLoaderData("כלבייה");
+
+const cells = useFetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/1`,[triggerFetch])
+
+  // const [cells, setCells] = useState(cellsData?cellsData.value:[]);
   const [dogs, setDogs] = useState([]);
-  console.log('cellsData', cellsData);
+  console.log('cellsData',cells );
   useEffect(() => {
     const allDogs = [];
-    for (let i = 0; i < cells.length; i++) {
-      const tempDogs = cells[i].dogsInCell;
+    for (let i = 0; i < cells.value?.length; i++) {
+      const tempDogs = cells.value[i].dogsInCell;
       if (tempDogs.length != 0) {
         for (let i = 0; i < tempDogs.length; i++) {
           allDogs.push(tempDogs[i]);
@@ -23,10 +26,10 @@ const cellsData = useFetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/1
     }
     setDogs(allDogs);
     
-  }, [cells]);
+  }, [cells.value]);
 
   return (
-    <ShelterContext.Provider value={{ setDogs, dogs, setCells, cells }}>
+    <ShelterContext.Provider value={{ setDogs, dogs, cells,setTriggerFetch }}>
       {props.children}
     </ShelterContext.Provider>
   );

@@ -36,7 +36,7 @@ export const FormStyle = styled(Box)(({ theme }) => ({
 const ModalAddDog = forwardRef(({opMo}) => {
 
     const fetcher = useFetcher();
-    const { cells } = useContext(ShelterContext);
+    const { cells,setTriggerFetch } = useContext(ShelterContext);
 
     const breeds = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/Breeds');
     const colors = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/Colors');
@@ -125,8 +125,10 @@ const ModalAddDog = forwardRef(({opMo}) => {
             return res.json()
           }).then((data) => {
             opMo(false);
-            fetcher.load('/admin/shelter');
+          setTriggerFetch(prev=>++prev);
+
           } )
+
 
     }
 
@@ -151,7 +153,7 @@ const ModalAddDog = forwardRef(({opMo}) => {
                 <Grid item xs={3}><UploadFileButton></UploadFileButton></Grid>
                 <Grid item xs={6}><CharacteristicsSelect field={selectInputs[3]}></CharacteristicsSelect></Grid>
                 <Grid item xs={3}></Grid>
-                <Grid item xs={6}><CellsBox cells={cells} setVal={setCell} val={cell}></CellsBox></Grid>
+                <Grid item xs={6}><CellsBox cells={cells.loading?[]:cells.value} setVal={setCell} val={cell}></CellsBox></Grid>
                 <Grid item xs={3}></Grid>
                 <Grid item xs={12} display={'flex'} justifyContent={'center'}><Button variant="contained" type="submit" sx={{ fontSize: '18px', width: '150px' }}>הוסף כלב</Button></Grid>
             </Grid>

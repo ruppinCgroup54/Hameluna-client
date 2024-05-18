@@ -42,6 +42,10 @@ export default function WhosHome() {
   };
 
   useEffect(() => {
+    setDogsToRender(dogs);
+  }, [dogs])
+  
+  useEffect(() => {
     filterDogs();
   }, [filterFields]);
 

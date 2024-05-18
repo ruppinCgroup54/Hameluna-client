@@ -27,7 +27,7 @@ export default function ControlPage() {
               rowGap: "15px",
             }}
           >
-            {cells.map((c, i) => (
+            {cells.value?.map((c, i) => (
               <Cell key={c.number} cellItem={c}></Cell>
             ))}
           </Box>
