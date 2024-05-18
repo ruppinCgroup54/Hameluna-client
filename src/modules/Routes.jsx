@@ -21,6 +21,7 @@ import DogsTinder from "./Adopters/DogsTinder";
 import Favorites from "./Adopters/Favorites";
 import SendRequest from "./Adopters/SendRequest";
 import Register from "./Admin/Register";
+import { lazy } from "react";
 
 export const pathes = [
   {
@@ -57,10 +58,11 @@ export const adminRouts = [
   {
     path: "/admin/shelter",
     element: <SystemPage/>,
+    // lazy: () => import("./Admin/SystemPage"),
     id: "כלבייה",
-    loader: async () => {
-      return fetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/1`);
-    },
+    // loader: async () => {
+    //   return fetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/1`);
+    // },
     children:pathes,
   },
 ];

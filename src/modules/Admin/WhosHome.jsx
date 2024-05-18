@@ -113,7 +113,7 @@ export default function WhosHome() {
               }} />
             </Button>
             <Modal open={openModal} onClose={handleClose}>
-              <ModalAddDog></ModalAddDog>
+              <ModalAddDog opMo={setOpenModal}></ModalAddDog>
             </Modal>
           </Grid>
           <Grid item md={2} >
