@@ -20,6 +20,7 @@ import DogPage from "./Adopters/DogPage";
 import DogsTinder from "./Adopters/DogsTinder";
 import Favorites from "./Adopters/Favorites";
 import SendRequest from "./Adopters/SendRequest";
+import Register from "./Admin/Register";
 
 export const pathes = [
   {

@@ -2,7 +2,7 @@ import BackgroundLayout from '../../../layouts/BackgroundLayout'
 import ChatButton from './ChatButton'
 import Logo from '../../../components/Logo'
 import SheltersList from './SheltersList'
-import WebsiteBackgroud from 'background.png'
+import WebsiteBackgroud from '/background.png'
 
 import { Typography } from '@mui/material'
 
