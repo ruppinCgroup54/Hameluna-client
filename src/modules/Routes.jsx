@@ -1,4 +1,6 @@
+import { get } from "react-hook-form";
 import lazyLoad from "../utilis/LazyLoad";
+import useLocalStorage from "../utilis/useLocalStorge";
 
 // Admin Rouets
 
@@ -48,7 +50,8 @@ export const adminRouts = [
     element: <LogInPage/>,
   },
   {
-    //register
+    path:"/admin/register",
+    element:<Register/>
   },
   {
     path: "/admin/shelter",

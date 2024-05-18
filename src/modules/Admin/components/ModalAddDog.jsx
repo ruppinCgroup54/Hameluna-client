@@ -16,7 +16,7 @@ import { DoorFront } from "@mui/icons-material";
 
 
 
-const FormStyle = styled(Box)(({ theme }) => ({
+export const FormStyle = styled(Box)(({ theme }) => ({
     backgroundColor: "#fff",
     width: "75%",
     borderRadius: "20px",
@@ -73,16 +73,6 @@ const ModalAddDog = forwardRef(() => {
         },
     ]
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
-        defaultValues: {
-            "isReturned": "",
-
-        }
-    })
 
     const submit = (e) => {
         e.preventDefault();
