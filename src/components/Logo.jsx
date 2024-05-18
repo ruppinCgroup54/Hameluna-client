@@ -1,6 +1,6 @@
 import React from 'react'
-import LogoImg from "/Logo.png"
-import Slogen from "/Slogen.png"
+import LogoImg from "/public/images/Logo.png"
+import Slogen from "/public/images/Slogen.png"
 import { Widgets } from '@mui/icons-material'
 import { Box } from '@mui/material'
 

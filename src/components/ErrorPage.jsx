@@ -1,5 +1,5 @@
 import { Box, Button, Typography, alpha } from "@mui/material";
-import ErrorDog from "/ErrorDog.png";
+import ErrorDog from "/public/images/ErrorDog.png";
 import {
   isRouteErrorResponse,
   useLocation,
@@ -44,12 +44,6 @@ export default function ErrorPage() {
       subtitle = "אין לך הרשאות לראות את דף זה";
       break;
     case 503:
-      subtitle = "לא מצאנו את הדף שרצית";
-      break;
-    case 404:
-      subtitle = "יש לנו בעיה בשרת";
-      break;
-    case 404:
       subtitle = "לא מצאנו את הדף שרצית";
       break;
 

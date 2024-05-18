@@ -1,5 +1,5 @@
 import { Button, colors, styled } from '@mui/material'
-import RightArrow from '/RightArrow.png'
+import RightArrow from '/public/images/RightArrow.png'
 import { useNavigate } from 'react-router-dom'
 
 
