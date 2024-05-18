@@ -1,6 +1,6 @@
 import { Avatar, Box, Typography, styled } from '@mui/material'
 
-import BotHead from "/public/images/BotHead.svg"
+const BotHead = "images/BotHead.svg"
 
 
 
@@ -43,8 +43,8 @@ export default function Message({ message }) {
   }
 
   return (
-    <MessageBox sx={message.role === 'assistant' ? BotStyle : userStyle}>
-      <Avatar src={message.role === 'assistant' ? BotHead : ""}
+    <MessageBox sx={message.role.toLowerCase() === 'assistant' ? BotStyle : userStyle}>
+      <Avatar src={message.role.toLowerCase() === 'assistant' ? BotHead : ""}
         slotProps={{
             img: {
               style: {

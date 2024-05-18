@@ -29,7 +29,7 @@ export default function ChatBot() {
 
   const chat = useLoaderData();
   let userID;
-  debugger
+
   if (typeof chat === "string") {
     userID = useLocalStorage("_id", chat);
   } else {

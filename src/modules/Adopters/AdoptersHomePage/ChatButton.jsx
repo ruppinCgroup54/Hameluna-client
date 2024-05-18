@@ -1,7 +1,7 @@
 import { Button, colors, styled } from '@mui/material'
-import RightArrow from '/public/images/RightArrow.png'
 import { useNavigate } from 'react-router-dom'
 
+let RightArrow = 'images/RightArrow.png';
 
 const ChatBtn = styled(Button)(({ theme }) => ({
   maxWidth: '300px',

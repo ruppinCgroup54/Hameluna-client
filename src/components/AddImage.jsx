@@ -1,7 +1,8 @@
 import { Avatar, Box } from "@mui/material";
-import img from "/public/images/Dogs/profileDog.png"
 import { useEffect, useRef, useState } from "react";
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
+
+const img = "images/Dogs/profileDog.png";
 
 export default function AddImage() {
 

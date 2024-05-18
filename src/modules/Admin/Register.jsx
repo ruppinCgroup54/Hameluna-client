@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import BackgroundLayout from '../../layouts/BackgroundLayout'
-import BackgroundImage from '/public/images/Layouts/LogIn.png'
 import { FormStyle } from './components/ModalAddDog'
 import { useForm } from 'react-hook-form'
 import AdminForm from './components/AdminForm'
 import ShelterForm from './components/ShelterForm'
 import AddressForm from './components/AddressForm'
 
+const BackgroundImage = 'images/Layouts/LogIn.png'
 
 export default function Register() {
 

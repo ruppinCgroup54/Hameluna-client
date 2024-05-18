@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 
-import defaultShelter from "/images/Shelter1.jpeg"
 
 import { Box, useTheme } from '@mui/material';
 
+const defaultShelter ="images/Shelter1.jpeg"
 
 const imageStyle = {
   display: 'block',

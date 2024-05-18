@@ -14,10 +14,9 @@ const mainDivStyle = {
   paddingTop:'15vh',
   paddingBottom:'5vh'
 };
-
 export default function AdoptersLayout({ children }) {
   return (
-    <BackgroundLayout image={"background.png"} dir={"col"} >
+    <BackgroundLayout image={"images/Layouts/background.png"} dir={"col"} >
       <TopBarMobile />
       <Box sx={mainDivStyle}>{children}</Box>
     </BackgroundLayout>

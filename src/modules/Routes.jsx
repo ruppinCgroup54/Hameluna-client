@@ -83,11 +83,13 @@ export const adopterRoutes = [
   {
     path: "/dogbot",
     element: <ChatBot />,
-    loader: async () => {
-      const getId = localStorage.getItem('_id').replaceAll('"','');
-      if (getId===null) {
+    loader:async () => {
+      let getId = localStorage.getItem('_id');
+      console.log('getId', getId)
+      if (getId==null) {
         return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats");
       }else{
+        getId=getId.replaceAll('"','')
         return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats/"+getId);
       }
 

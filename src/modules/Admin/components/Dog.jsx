@@ -1,10 +1,11 @@
 import { IconButton, Typography, useTheme } from "@mui/material";
-import dog from "/public/images/Dogs/image 1.png";
 import CircleIcons from "../../../components/CircleIcons";
 import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import Box from "@mui/material/Box";
+
+const dog= "images/Dogs/image 1.png";
 
 export default function Dog({dogItem}) {
   const theme = useTheme();

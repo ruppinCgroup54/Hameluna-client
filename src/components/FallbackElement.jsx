@@ -1,7 +1,8 @@
 import { Backdrop, Box, alpha } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import LoadingDog from "/public/images/LoadingDog.png";
 import { useNavigation } from "react-router-dom";
+
+const LoadingDog = "images/LoadingDog.png";
 
 export default function FallbackElement() {
 

@@ -138,7 +138,7 @@ const ModalAddDog = forwardRef(() => {
                 <Grid item xs={3}><Textinput
                     inputProps={{ pattern: "[1-9]{0-15}" }}
                     size="small" label="מספר צ'יפ" type="text"></Textinput> </Grid>
-                <Grid item xs={3}><SelectInput field={selectInputs[5]} register={register} /></Grid>
+                <Grid item xs={3}><SelectInput field={selectInputs[5]} /></Grid>
                 <Grid item xs={3}><Textinput size="small" label="שם" required /></Grid>
                 <Grid item xs={3}><DateInput label={"תאריך לידה"} setVal={setDateBirth} /></Grid>
                 <Grid item xs={3}><SelectInput field={selectInputs[4]}></SelectInput></Grid>

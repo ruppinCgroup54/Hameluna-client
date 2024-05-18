@@ -1,5 +1,4 @@
 import { Box, Button, Typography, alpha } from "@mui/material";
-import ErrorDog from "/public/images/ErrorDog.png";
 import {
   isRouteErrorResponse,
   useLocation,
@@ -7,12 +6,14 @@ import {
   useRouteError,
 } from "react-router-dom";
 
+const ErrorDog = "images/ErrorDog.png";
+
 export default function ErrorPage() {
   let error = useRouteError();
 
   let location = useLocation();
 
-  console.log("location", location);
+  console.log("location", error);
 
   const navigate = useNavigate();
   let subtitle;

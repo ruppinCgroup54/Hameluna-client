@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { useRouteLoaderData } from "react-router-dom";
+import { useFetcher, useRouteLoaderData } from "react-router-dom";
 
 export const ShelterContext = createContext();
 
@@ -20,6 +20,7 @@ const cellsData = useRouteLoaderData("כלבייה");
       }
     }
     setDogs(allDogs);
+    
   }, [cells]);
 
   return (

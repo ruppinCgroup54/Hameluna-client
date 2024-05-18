@@ -3,9 +3,10 @@ import Logo from "../components/Logo";
 import { AppBar, Badge, Box, IconButton, Toolbar, styled } from "@mui/material";
 import { Favorite } from "@mui/icons-material";
 
-import BotHead from "/public/images/BotHead.svg";
 import useAdoptersContext from "../utilis/useAdoptersContext";
 import { Link, useNavigate } from "react-router-dom";
+
+const BotHead = "images/BotHead.svg";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {

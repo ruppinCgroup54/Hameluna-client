@@ -1,10 +1,11 @@
-import LogInImage from "/public/images/Layouts/LogIn.png";
 import BackgroundLayout from "../../layouts/BackgroundLayout";
 import Logo from "../../components/Logo";
 
 import { useMediaQuery } from "react-responsive";
 
 import SignIn from "../../components/SignIn";
+
+const LogInImage = "images/Layouts/LogIn.png";
 
 const phoneStyle = {
   width: "90%",
