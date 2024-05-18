@@ -83,6 +83,7 @@ export const adopterRoutes = [
   {
     path: "/dogbot",
     element: <ChatBot/>,
+    
   },
   {
     path: "/dogtinder",
