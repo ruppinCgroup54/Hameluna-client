@@ -17,7 +17,8 @@ export default function DateInput({ label, setVal }) {
         // setValue(dayjs(newValue));
         var date = new Date(e);
         var finaldate = date.getDate() + '-' +  (date.getMonth() + 1)  + '-' +  date.getFullYear();
-        setVal(finaldate);
+        setVal(date.toISOString());
+        console.log('dateeee', date.toISOString());
     }
     return (
         <Box>

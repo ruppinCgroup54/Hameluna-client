@@ -12,6 +12,7 @@ import { ShelterContext } from "../../../context/ShelterContextProvider";
 import AddImage from "../../../components/AddImage";
 import { useForm } from "react-hook-form";
 import { DoorFront } from "@mui/icons-material";
+import { useFetcher } from "react-router-dom";
 
 
 
@@ -32,8 +33,9 @@ export const FormStyle = styled(Box)(({ theme }) => ({
 )
 
 
-const ModalAddDog = forwardRef(() => {
+const ModalAddDog = forwardRef(({opMo}) => {
 
+    const fetcher = useFetcher();
     const { cells } = useContext(ShelterContext);
 
     const breeds = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/Breeds');
@@ -83,6 +85,7 @@ const ModalAddDog = forwardRef(() => {
         let dogToAdd = {};
         data.forEach((value, key) => (dogToAdd[key] = value));
         dogToAdd ={ ...dogToAdd,
+            'numberId': 0,
             'breed': dogToAdd['breed'].split(','),
             'color': dogToAdd['color'].split(','), 
             'attributes': dogToAdd['attributes'].split(','),
@@ -111,19 +114,20 @@ const ModalAddDog = forwardRef(() => {
         delete dogToAdd['files'];
         delete dogToAdd['profileImg'];
 
-        console.log('first', dogToAdd)
-
         fetch(import.meta.env.VITE_APP_SERVERURL + 'Dogs', {
             method: "POST",
-            // headers:{
-            //     'Content-Type' : 'multipart/form-data'
-            // },
+            headers:{
+                'Content-Type' : 'application/json'
+            },
             body: JSON.stringify(dogToAdd),
           }).then((res) => {
             console.log('res', res)
             return res.json()
-          }).then((data) => console.log('data', data))
-      
+          }).then((data) => {
+            opMo(false);
+            fetcher.load('/admin/shelter');
+          } )
+
     }
 
     const [dateBirth, setDateBirth] = useState({});
@@ -135,11 +139,9 @@ const ModalAddDog = forwardRef(() => {
 
             <Grid container spacing={4} sx={{ pl: '7%' }}>
                 <Grid item xs={12} display={'flex'} justifyContent={'center'}><Typography variant="h4" fontWeight={'bold'}>פרטי הכלב</Typography></Grid>
-                <Grid item xs={3}><Textinput
-                    inputProps={{ pattern: "[1-9]{0-15}" }}
-                    size="small" label="מספר צ'יפ" type="text"></Textinput> </Grid>
-                <Grid item xs={3}><SelectInput field={selectInputs[5]} register={register} /></Grid>
-                <Grid item xs={3}><Textinput size="small" label="שם" required /></Grid>
+                <Grid item xs={3}><Textinput size="small" name="chipNumber" label="מספר צ'יפ" type="text"></Textinput> </Grid>
+                <Grid item xs={3}><SelectInput field={selectInputs[5]} /></Grid>
+                <Grid item xs={3}><Textinput size="small" name="name" label="שם" required /></Grid>
                 <Grid item xs={3}><DateInput label={"תאריך לידה"} setVal={setDateBirth} /></Grid>
                 <Grid item xs={3}><SelectInput field={selectInputs[4]}></SelectInput></Grid>
                 <Grid item xs={3}><SelectInput isMulti={true} field={selectInputs[1]}></SelectInput></Grid>

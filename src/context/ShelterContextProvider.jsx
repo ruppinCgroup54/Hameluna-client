@@ -1,10 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 import { useRouteLoaderData } from "react-router-dom";
+import useFetch from "../utilis/useFetch";
 
 export const ShelterContext = createContext();
 
 export default function ShelterContextProvider(props) {
-const cellsData = useRouteLoaderData("כלבייה");
+// const cellsData = useRouteLoaderData("כלבייה");
+const cellsData = useFetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/1`)
 
   const [cells, setCells] = useState(cellsData?cellsData:[]);
   const [dogs, setDogs] = useState([]);
