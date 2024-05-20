@@ -33,7 +33,7 @@ export const FormStyle = styled(Box)(({ theme }) => ({
 )
 
 
-const ModalAddDog = forwardRef(({opMo}) => {
+const ModalAddDog = forwardRef(({opMo},ref) => {
 
     const fetcher = useFetcher();
     const { cells,setTriggerFetch } = useContext(ShelterContext);

@@ -19,7 +19,7 @@ import DogSwipeCard from "./DogSwipeCard";
 
 export default function DogsTinder() {
   const AllDogs = useLoaderData();
-
+  console.log('AllDogs', AllDogs)
   return (
     <AdoptersLayout>
       <Swiper
@@ -40,7 +40,7 @@ export default function DogsTinder() {
         }}
         className="mySwiper"
       >
-        {AllDogs.map((item) => (
+        {AllDogs?.map((item) => (
           <SwiperSlide key={item.numberId}>
             <DogSwipeCard  dog={item} />
           </SwiperSlide>

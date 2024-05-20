@@ -28,14 +28,17 @@ export default function ChatBot() {
   }];
 
   const chat = useLoaderData();
-  let userID;
 
-  if (typeof chat === "string") {
-    userID = useLocalStorage("_id", chat);
-  } else {
-    mess = chat;
-    userID = useLocalStorage("_id");
+  if (chat.id) {
+    localStorage.removeItem("_id");
   }
+
+  const [userId,setUserId] = useLocalStorage("_id", {id:chat.id});
+
+  if (chat.chat) {
+    mess = chat.chat;
+  }
+  
   const [messages, setMessages] = useState(mess);
 
   const sendMessage = (e) => {
@@ -60,8 +63,8 @@ export default function ChatBot() {
   }
 
   const getResponse = async (message) => {
-    console.log('userID', userID[0])
-    const response = await fetch(import.meta.env.VITE_APP_SERVERURL + "Chats/" + userID[0], {
+    console.log('userID', userId.id)
+    const response = await fetch(import.meta.env.VITE_APP_SERVERURL + "Chats/" + userId.id, {
       method: "POST",
       headers: {
         "Accept": "application/json",
@@ -80,7 +83,7 @@ export default function ChatBot() {
       <Paper sx={{ height: '75vh', width: '80%', borderRadius: '15px', display: 'flex', flexDirection: 'column' }} elevation={10} >
 
         <MessagesBox messages={messages} />
-        <Link to={"/dogtinder"} ><Button>לכל הכלבים</Button></Link>
+        <Link to={"/dogtinder/"+userId.id} ><Button>לכל הכלבים</Button></Link>
         <NewMessage addMessage={sendMessage} />
       </Paper>
 

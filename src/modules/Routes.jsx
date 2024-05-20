@@ -86,23 +86,23 @@ export const adopterRoutes = [
     path: "/dogbot",
     element: <ChatBot />,
     loader:async () => {
-      let getId = localStorage.getItem('_id');
+      let getId = JSON.parse(localStorage.getItem('_id'));
       console.log('getId', getId)
       if (getId==null) {
         return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats");
       }else{
-        getId=getId.replaceAll('"','')
-        return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats/"+getId);
+        
+        return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats/"+getId.id);
       }
 
       
     },
   },
   {
-    path: "/dogtinder",
+    path: "/dogtinder/:id",
     element: <DogsTinder/>,
-    loader: async () => {
-      return fetch(import.meta.env.VITE_APP_SERVERURL + "Dogs");
+    loader: async ({params}) => {
+      return fetch(import.meta.env.VITE_APP_SERVERURL + "Dogs/DogsForUser/"+params.id);
     },
   },
   {
