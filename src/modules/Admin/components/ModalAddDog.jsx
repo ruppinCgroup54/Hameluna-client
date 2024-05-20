@@ -140,7 +140,7 @@ const ModalAddDog = forwardRef(({opMo},ref) => {
     return (
         <FormStyle component={'form'} mx={'auto'} position={'relative'} onSubmit={submit}>
 
-            <Grid container spacing={3} sx={{ pl: '7%' }}>
+            <Grid container spacing={3} sx={{ pl: '100px' }}>
                 <Grid item xs={12} display={'flex'} justifyContent={'center'}><Typography variant="h4" fontWeight={'bold'}>פרטי הכלב</Typography></Grid>
                 <Grid item xs={3}><Textinput size="small" name="chipNumber" label="מספר צ'יפ" type="text"></Textinput> </Grid>
                 <Grid item xs={3}><SelectInput field={selectInputs[5]} /></Grid>

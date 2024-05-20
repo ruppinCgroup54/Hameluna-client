@@ -37,7 +37,6 @@ export default function WhosHome() {
 
   const addFilter = (value, id) => {
     let temp = { [id]: value };
-    console.log("temp", temp);
     setFilterFields({ ...filterFields, ...temp });
   };
 
@@ -50,7 +49,6 @@ export default function WhosHome() {
   }, [filterFields]);
 
   const filterDogs = () => {
-    console.log("roni");
     let tempDogs = dogs.filter((d) => {
       let flag = true;
       for (const key in filterFields) {
@@ -86,8 +84,6 @@ export default function WhosHome() {
       default:
         break;
     }
-    console.log("result", result);
-    console.log("key", key);
 
     return result;
   };
@@ -139,6 +135,7 @@ export default function WhosHome() {
               gap: "calc(240px / 5)",
               rowGap: "15px",
               justifyContent: "center",
+              pb:'15px'
             }}
           >
             {dogsToRender.map((d, i) => (
