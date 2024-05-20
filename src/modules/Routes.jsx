@@ -1,21 +1,37 @@
+import { get } from "react-hook-form";
 import lazyLoad from "../utilis/LazyLoad";
+import useLocalStorage from "../utilis/useLocalStorge";
 
 // Admin Rouets
 
-const LogInPage = lazyLoad("../modules/Admin/LogInPage");
-const WhosHome = lazyLoad("../modules/Admin/WhosHome");
-const SystemPage = lazyLoad("../modules/Admin/SystemPage");
-const ControlPage = lazyLoad("../modules/Admin/ControlPage");
+// const LogInPage = lazyLoad("../modules/Admin/LogInPage");
+// const WhosHome = lazyLoad("../modules/Admin/WhosHome");
+// const SystemPage = lazyLoad("../modules/Admin/SystemPage");
+// const ControlPage = lazyLoad("../modules/Admin/ControlPage");
+// const ModalPage = lazyLoad("../modules/Admin/components/ModalAddDog");
+
+import ControlPage from "./Admin/ControlPage";
+import LogInPage from "./Admin/LogInPage";
+import SystemPage from "./Admin/SystemPage";
+import WhosHome from "./Admin/WhosHome";
+import AdoptersHomePage from "./Adopters/AdoptersHomePage";
+import ChatBot from "./Adopters/ChatBot";
+import DogPage from "./Adopters/DogPage";
+import DogsTinder from "./Adopters/DogsTinder";
+import Favorites from "./Adopters/Favorites";
+import SendRequest from "./Adopters/SendRequest";
+import Register from "./Admin/Register";
+import { lazy } from "react";
 
 export const pathes = [
   {
     path: "/admin/shelter/",
-    element: <ControlPage />,
+    element: <ControlPage/>,
     id:"דף הבית"
   },
   {
     path: "/admin/shelter/whosHome/",
-    element: <WhosHome />,
+    element: <WhosHome/>,
     id: "מי בבית"
   },
   {
@@ -27,24 +43,26 @@ export const pathes = [
     path: "/admin/shelter/whosHome/",
     element: <WhosHome />,
     id: "סיכומים"
-  },
+  },  
 ];
 
 export const adminRouts = [
   {
     path: "/admin/",
-    element: <LogInPage />,
+    element: <LogInPage/>,
   },
   {
-    //register
+    path:"/admin/register",
+    element:<Register/>
   },
   {
     path: "/admin/shelter",
-    element: <SystemPage />,
+    element: <SystemPage/>,
+    // lazy: () => import("./Admin/SystemPage"),
     id: "כלבייה",
-    loader: async () => {
-      return fetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/1`);
-    },
+    // loader: async () => {
+    //   return fetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/1`);
+    // },
     children:pathes,
   },
 ];
@@ -52,27 +70,39 @@ export const adminRouts = [
 
 // Adopters Routes
 
-const AdopterHomePage = lazyLoad("../modules/Adopters/AdoptersHomePage/index");
-const ChatBot = lazyLoad("../modules/Adopters/ChatBot/index");
-const DogTinder = lazyLoad("../modules/Adopters/DogsTinder/index");
-const DogPage = lazyLoad("../modules/Adopters/DogPage/index");
-const Favorites = lazyLoad("../modules/Adopters/Favorites/index");
-const SendRequest = lazyLoad("../modules/Adopters/SendRequest/index");
+// const AdopterHomePage = lazyLoad("../modules/Adopters/AdoptersHomePage/index");
+// const ChatBot = lazyLoad("../modules/Adopters/ChatBot/index");
+// const DogTinder = lazyLoad("../modules/Adopters/DogsTinder/index");
+// const DogPage = lazyLoad("../modules/Adopters/DogPage/index");
+// const Favorites = lazyLoad("../modules/Adopters/Favorites/index");
+// const SendRequest = lazyLoad("../modules/Adopters/SendRequest/index");
 
 export const adopterRoutes = [
   {
     path: "/",
-    element: <AdopterHomePage />,
+    element: <AdoptersHomePage/>,
   },
   {
     path: "/dogbot",
     element: <ChatBot />,
+    loader:async () => {
+      let getId = JSON.parse(localStorage.getItem('_id'));
+      console.log('getId', getId)
+      if (getId==null) {
+        return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats");
+      }else{
+        
+        return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats/"+getId.id);
+      }
+
+      
+    },
   },
   {
-    path: "/dogtinder",
-    element: <DogTinder />,
-    loader: async () => {
-      return fetch(import.meta.env.VITE_APP_SERVERURL + "Dogs");
+    path: "/dogtinder/:id",
+    element: <DogsTinder/>,
+    loader: async ({params}) => {
+      return fetch(import.meta.env.VITE_APP_SERVERURL + "Dogs/DogsForUser/"+params.id);
     },
   },
   {

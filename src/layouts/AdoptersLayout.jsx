@@ -1,7 +1,7 @@
 import BackgroundLayout from "../layouts/BackgroundLayout";
 import TopBarMobile from "../components/TopBarMobile";
 
-import WebsiteBackgroud from "../assets/images/Layouts//background.png";
+// import WebsiteBackgroud from "/images/Layouts/background.png";
 import { Box } from "@mui/material";
 import { Height } from "@mui/icons-material";
 
@@ -14,10 +14,9 @@ const mainDivStyle = {
   paddingTop:'15vh',
   paddingBottom:'5vh'
 };
-
 export default function AdoptersLayout({ children }) {
   return (
-    <BackgroundLayout image={WebsiteBackgroud} dir={"col"} >
+    <BackgroundLayout image={"images/Layouts/background.png"} dir={"col"} >
       <TopBarMobile />
       <Box sx={mainDivStyle}>{children}</Box>
     </BackgroundLayout>

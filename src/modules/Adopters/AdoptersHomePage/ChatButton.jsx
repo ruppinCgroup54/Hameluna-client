@@ -1,7 +1,7 @@
 import { Button, colors, styled } from '@mui/material'
-import RightArrow from '../../../assets/images/RightArrow.png'
 import { useNavigate } from 'react-router-dom'
 
+let RightArrow = 'images/RightArrow.png';
 
 const ChatBtn = styled(Button)(({ theme }) => ({
   maxWidth: '300px',
@@ -45,7 +45,7 @@ const ChatBtn = styled(Button)(({ theme }) => ({
 export default function ChatButton() {
   const navigate = useNavigate();
   return (
-    <ChatBtn color='info' variant='contained' onClick={()=>navigate('/dogtinder')} >
+    <ChatBtn color='info' variant='contained' onClick={()=>navigate('/dogbot')} >
       לצ'אט עם דוגבוט
     </ChatBtn>
   )

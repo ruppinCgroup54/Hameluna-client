@@ -2,7 +2,7 @@ import { Box, Button, Skeleton, Typography } from '@mui/material'
 import { useContext, useState } from 'react';
 import { ShelterContext } from '../context/ShelterContextProvider';
 
-export default function CellsBox({ cells }) {
+export default function CellsBox({ cells, setVal, val }) {
 
     const [color, setColor] = useState("rgb(131,140,59,0.4)");
 
@@ -38,18 +38,19 @@ export default function CellsBox({ cells }) {
                 {
                     filterCells.map((c) => (
                                 <Skeleton
-                                    key={c.id}
+                                    key={c.number}
                                     variant='h4'
-                                    animation = {(c.capacity - c.dogsInCell.length != maxEmpty ? false : 'pulse')}
+                                    animation = {(c.capacity - c.dogsInCell.length != maxEmpty || val == c.number    ? false : 'pulse')}
+                                    onClick={()=> setVal(c.number)}
                                     sx={{
                                         minWidth: '50px',
                                         height:'50px',
                                         textAlign:'center',
                                         alignContent:'center',
                                         m: '2%',
-                                        backgroundColor: c.capacity - c.dogsInCell.length == maxEmpty ? color : "",
+                                        backgroundColor: (c.capacity - c.dogsInCell.length == maxEmpty&&val==null || (val == c.number )) ? color : '',
                                     }}>
-                                    {c.id}
+                                    {c.number}
                                 </Skeleton>
                     ))
                 }
@@ -57,14 +58,3 @@ export default function CellsBox({ cells }) {
         </Box>
     )
 }
-
-
-{/* <Button
-                            key={c.id}
-                            variant='outlined'
-                            sx={{
-                                m: '3%',
-                                backgroundColor: c.capacity - c.dogsInCell.length == maxEmpty ? color : ""
-                            }}>
-                            {c.id}
-                        </Button> */}

@@ -20,6 +20,7 @@ export default function Files() {
     fetch(import.meta.env.VITE_APP_SERVERURL + 'Images/1', {
       method: "POST",
       body: data,
+
     }).then((res) => {
       console.log('res', res)
       return res.json()

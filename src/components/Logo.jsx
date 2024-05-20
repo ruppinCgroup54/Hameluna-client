@@ -1,10 +1,11 @@
 import React from 'react'
-import LogoImg from "../assets/images/Logo.png"
-import Slogen from "../assets/images/Slogen.png"
 import { Widgets } from '@mui/icons-material'
 import { Box } from '@mui/material'
 
 import PropTypes from 'prop-types';
+
+const LogoImg=  "images/Logo.png";
+const Slogen= "images/Slogen.png";
 
 const logoStyle = {
  width:"15vw",

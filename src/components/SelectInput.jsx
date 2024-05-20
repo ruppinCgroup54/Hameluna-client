@@ -35,13 +35,12 @@ export default function SelectInput({ field, changeFunc, isMulti }) {
   };
 
   return (
-    <Box>
       <FormControl
         fullWidth
       sx={{
         width:'100%',
         "& .MuiInputBase-root": {backgroundColor: '#fff', borderRadius:'20px'},
-        "& .MuiSvgIcon-root": { color: 'primary.main' },
+        "& .MuiSvgIcon-root": { color: 'primary.main'},
         "& .MuiOutlinedInput-notchedOutline": {  border: `2px solid ${theme.palette.primary.main}`, borderRadius: '20px' }
       }}
       >
@@ -57,6 +56,7 @@ export default function SelectInput({ field, changeFunc, isMulti }) {
           name={field.id}
           input={<OutlinedInput label={field.lab} />}
           MenuProps={MenuProps}
+          required
         >
           {field.values?.map((v) => (
             <MenuItem key={v} value={v}>
@@ -65,6 +65,5 @@ export default function SelectInput({ field, changeFunc, isMulti }) {
           ))}
         </Select>
       </FormControl>
-    </Box>
   );
 }

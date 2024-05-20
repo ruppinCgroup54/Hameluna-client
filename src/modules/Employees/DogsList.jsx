@@ -1,18 +1,17 @@
 import BackgroundLayout from "../../layouts/BackgroundLayout";
-import bcgImg from "../../assets/images/Layouts/background.png";
 import * as React from 'react';
-import CardComp from "./components/cardComp"
-import dogImg from "../../assets/images/Dogs/image 1.png";
+import CardComp from "../Employees/components/cardComp"
 import { useMediaQuery } from "react-responsive";
 import { useTheme } from "@mui/material/styles";
 
-import dogImg02 from "../../assets/images/Dogs/image 5.png";
-import TopbarEmp from "./components/TopbarEmp";
+import TopbarEmp from "../Employees/components/TopbarEmp";
 
 import chakls from "./components/chacklistCollapse"
 import { position } from "stylis";
 
-
+const dogImg02="images/Dogs/image 5.png";
+const dogImg="images/Dogs/image 1.png";
+const bcgImg="images/Layouts/background.png";
 
 const phoneStyle = {
     width: "90%",
