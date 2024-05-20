@@ -3,9 +3,11 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { Alert, AlertTitle, Collapse, TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { json, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import useFetch from "../utilis/useFetch";
+import { ShelterContext } from "../context/ShelterContextProvider";
+import useLocalStorage from "../utilis/useLocalStorge";
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const StyledTextfield = {
@@ -26,6 +28,10 @@ const StyledTextfield = {
 export default function SignIn() {
   const navigate = useNavigate();
 
+  const {setLoginDet} = useContext(ShelterContext);
+
+  // const [loginDetails, setLoginDet] = useLocalStorage('loginDet', {});
+
   const [openAlert, setOpenAlert] = useState(false)
 
   const handleSubmit = (event) => {
@@ -36,21 +42,20 @@ export default function SignIn() {
       password: data.get("password"),
     };
 
-    fetch("https://localhost:7280/api/Admins/login", {
+    fetch(import.meta.env.VITE_APP_SERVERURL + "Admins/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(loginDet),
     })
       .then((res) => {
-        console.log("res", res);
-
         return res.ok ? res.json() : Promise.reject(res);
       })
       .then((data) => {
-        console.log("data", data);
-        navigate("/admin/shelter");
+        loginDet["shelterNumber"] = data;
+        setLoginDet(loginDet);
+        // navigate("/admin/shelter");
       })
-      .catch((rej) => setOpenAlert(true));
+      .catch((rej) =>{event.target.reset(); setOpenAlert(true)});
   };
 
   return (
@@ -117,11 +122,11 @@ export default function SignIn() {
           </Link>
         </Grid>
       </Grid>
-      <Collapse in={false}>
+      <Collapse in={openAlert}>
         <Alert severity="error">
           <AlertTitle>שגיאה בהתחברות</AlertTitle>
           מספר פלאפון או סיסמא שגויים.
-        </Alert>
+        </Alert>  
       </Collapse>
     </Box>
   );
