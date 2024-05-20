@@ -5,20 +5,15 @@ import TopBarMobile from "./components/TopbarEmp";
 import SignIn from "../../components/SignIn";
 import SignInComp from "./components/SignInComp";
 import { position } from "stylis";
-import Logo from "../../components/Logo";
 
 const phoneStyle = {
     width: "90%",
     margin: "auto",
   };
-
-  const logoTextStyle={
-    fontSize: "24px",
-  }
-export default function  EmpLogin(){
+export default function EmpSignUp(){
     return(
 <BackgroundLayout image={bcgImg} style={{ display: "block"}}>
-<TopBarMobile.woLogo></TopBarMobile.woLogo>
+    <TopBarMobile></TopBarMobile>
     <div style={{
         padding: "50px 0",
         ...phoneStyle,
@@ -27,14 +22,14 @@ export default function  EmpLogin(){
         flexDirection: "column",
         marginTop: "70px",
       }}>
-        <Logo.Full style={logoTextStyle}/>
-        {/* <div>
-        <h2 style={{ color: "white", marginTop: "5px" }}>
-ברוכים הבאים!                    </h2>
-        </div> */}
         <div>
-            <SignInComp></SignInComp>
+        <h2 style={{ color: "white", marginTop: "5px" }}>
+            איזה כיף שהצטרפתם אלינו!  
+                    </h2>
         </div>
+       <div>
+        
+       </div>
     </div>
 </BackgroundLayout>
     );

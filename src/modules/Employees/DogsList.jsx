@@ -6,7 +6,7 @@ import { useTheme } from "@mui/material/styles";
 
 import TopbarEmp from "../Employees/components/TopbarEmp";
 
-import chakls from "../Employees/components/chacklistCollapse"
+import chakls from "./components/chacklistCollapse"
 import { position } from "stylis";
 
 const dogImg02="images/Dogs/image 5.png";
@@ -19,7 +19,7 @@ const phoneStyle = {
   };
 
 
-export default function DogsCardPage() {
+export default function DogsList() {
 
   const isDesktop = useMediaQuery({ query: "(min-width:600px )" });
     return(
@@ -40,6 +40,7 @@ export default function DogsCardPage() {
 
         <CardComp image1={dogImg} cell={"2"} dogsName={"זאזו"}></CardComp>
         <CardComp image1={dogImg02} cell={"3"} dogsName={"ווילי"}></CardComp>
+
        
     </div>
 
