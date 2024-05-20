@@ -1,5 +1,5 @@
 import BackgroundLayout from "../../layouts/BackgroundLayout";
-import bcgImg from "../../assets/images/Layouts/background.png";
+
 import CardComp2 from "./components/cardComp2";
 import DogCard from "./components/DogsCard";
 import TopBarMobile from "./components/TopbarEmp";
@@ -11,13 +11,17 @@ const phoneStyle = {
     margin: "auto",
   };
 
+
+const bcgImg = "images/Layouts/background.png";
+
+
 export default function dogsId(){
 
     let dog={
         name: "לילי",
         age: 2,
         cell: "4",
-        img : "../../../assets/images/Dogs/image 1.png"
+        img : "images/Dogs/image 1.png"
         }; 
 
     return(

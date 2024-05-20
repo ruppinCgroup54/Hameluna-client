@@ -5,7 +5,6 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import dogmig from "../../../assets/images/Dogs/image 1.png";
 import PetsIcon from '@mui/icons-material/Pets';
 import AvararList from "./avatarList"
 
@@ -21,7 +20,7 @@ export default function MediaCard({dog}) {
     <Card sx={{ width: 345 , height: 500,borderRadius: 4 }}>
       <CardMedia
         sx={{ height: 200 , }}
-        image= {dogmig}
+        image= {dog.img}
         title="green iguana"
       />
       <CardContent sx={{borderRadius: 4}}>
