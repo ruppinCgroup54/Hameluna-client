@@ -107,9 +107,10 @@ export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDo
   return (
     <DogCardStyle>
       <CardMedia>
-        <ImageCarousel images={dog?.images} />
+        {/* <ImageCarousel images={dog?.images} /> */}
+      <img src={dog.profileImage} alt="" style={{height:'100%',width:'100%',objectFit:'cover'}} />
+     
       </CardMedia>
-
       <CardContent>
         <CardActions>
           <CircleIcons>
@@ -151,6 +152,7 @@ DogCard.propTypes = {
     shelter: PropTypes.string,
     note: PropTypes.string,
     images: PropTypes.arrayOf(string),
+    profileImage: PropTypes.string
   }),
   handleSwipeClose:PropTypes.func,
   handleSwipeAddDog:PropTypes.func

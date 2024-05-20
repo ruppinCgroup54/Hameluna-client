@@ -93,9 +93,10 @@ export const adopterRoutes = [
       let getId = JSON.parse(localStorage.getItem('_id'));
       console.log('getId', getId)
       if (getId==null) {
+        //first option - new chat , create new chat and returns the new id
         return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats");
       }else{
-        
+        //seconde option - existing id , get his chat history from database
         return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats/"+getId.id);
       }
 
