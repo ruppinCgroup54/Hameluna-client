@@ -22,7 +22,7 @@ import {
 import { Favorite, Share } from "@mui/icons-material";
 import useAdoptersContext from "../../../utilis/useAdoptersContext";
 
-const CardStyle = styled(Card)(({ theme }) => ({
+export const DogCardStyle = styled(Card)(({ theme }) => ({
   width: "clamp(100px,80dvw,310px)",
   borderRadius: "20px",
   // boxShadow: `${theme.shadows[15]}`,
@@ -105,7 +105,7 @@ export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDo
   }
 
   return (
-    <CardStyle>
+    <DogCardStyle>
       <CardMedia>
         <ImageCarousel images={dog?.images} />
       </CardMedia>
@@ -138,7 +138,7 @@ export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDo
         </Link>
         <AlertComp text={"כלב התווסף לרשימה"} isOpen={open} handleClose={handleClose} />
       </CardContent>
-    </CardStyle>
+    </DogCardStyle>
   );
 }
 

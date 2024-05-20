@@ -1,14 +1,14 @@
 import { Outlet , RouterProvider, createBrowserRouter, useLoaderData  } from "react-router-dom";
-import DogsCardPage from "./DogsCardPage";
 import Chekls from "../Employees/components/chacklistCollapse"
-import DogId from "./DogID";
-import CardComp2 from "./components/cardComp2"
+// import DogId from "./DogID";
+import CardComp2 from "./components/cardComp2";
+import DogsList from "./DogsList";
 
 
 export const employeesRoutes=[
     {
         path: "/employees/",
-        element: <DogsCardPage/>,
+        element: <DogsList/>,
       },
       {
         path: "/employees/DogID",

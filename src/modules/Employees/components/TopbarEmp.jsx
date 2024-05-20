@@ -24,11 +24,12 @@ export default function TopBarMobile() {
   const navigate = useNavigate();
 
   return (
+    <>
       <AppBar sx={{height:"clamp(50px,15vh,80px)"}}>
         <Toolbar
           sx={{ pt: "10px", display: "flex", justifyContent: "space-between", px:3 }}
         >
-          <Link to={'/'} style={{textDecoration:'none', width:'40%',display:'flex',flexDirection:'column',alignItems:'center',gap:0,maxWidth:200, color:'inherit'}}>
+          <Link to={'/Employees/Dogslist/'} style={{textDecoration:'none', width:'40%',display:'flex',flexDirection:'column',alignItems:'center',gap:0,maxWidth:200, color:'inherit'}}>
             <Logo.Bottom maxWidthLogo={'150px'}/>
             <span style={ {fontSize:'0.8rem'}}>ניהול כלביות</span>
           </Link>
@@ -44,5 +45,37 @@ export default function TopBarMobile() {
           </Box>
         </Toolbar>
       </AppBar>
+      </>
+
+
+  );
+}
+
+TopBarMobile.woLogo = () => {
+  return(
+    <>
+    <AppBar sx={{height:"clamp(50px,15vh,80px)"}}>
+      <Toolbar
+        sx={{ pt: "10px", display: "flex", justifyContent: "space-between", px:3 }}
+      >
+        {/* <Link to={'/'} style={{textDecoration:'none', width:'40%',display:'flex',flexDirection:'column',alignItems:'center',gap:0,maxWidth:200, color:'inherit'}}>
+          <Logo.Bottom maxWidthLogo={'150px'}/>
+          <span style={ {fontSize:'0.8rem'}}>ניהול כלביות</span>
+        </Link> */}
+        <Box>
+          {/* <IconButton onClick={()=>navigate('/dogbot')} >
+            <img src={BotHead} alt="Bot head" />
+          </IconButton> */}
+          <IconButton onClick={()=>navigate('/Employees/')}>
+            
+            <StyledBadge>
+              <LogoutIcon sx={{ color: "white", fontSize: "2rem" }} />
+              
+            </StyledBadge>
+          </IconButton>
+        </Box>
+      </Toolbar>
+    </AppBar>
+    </>
   );
 }

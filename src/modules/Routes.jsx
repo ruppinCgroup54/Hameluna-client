@@ -22,6 +22,10 @@ import Favorites from "./Adopters/Favorites";
 import SendRequest from "./Adopters/SendRequest";
 import Register from "./Admin/Register";
 import { lazy } from "react";
+import EmpLogin from "./Employees/EmpLogin";
+import EmpSignUp from "./Employees/EmpSignUp";
+import DogsList from "./Employees/DogsList";
+import DogsId from "./Employees/DogsID";
 
 export const pathes = [
   {
@@ -129,8 +133,11 @@ export const adopterRoutes = [
 
 //Employees Routes
 
-const DogsCardPage = lazyLoad("../modules/Employees/DogsCardPage");
-const EmpLogin = lazyLoad("../modules/Employees/EmpLogin")
+// const DogsList = lazyLoad("../modules/Employees/DogsList");
+// const EmpLogin = lazyLoad("../modules/Employees/EmpLogin");
+// const EmpSignUp= lazyLoad("../modules/Employees/EmpSignUp");
+// const DogsID = lazyLoad("../modules/Employees/DogsID");
+
 
 
 export const employeesRoutes=[
@@ -139,8 +146,16 @@ export const employeesRoutes=[
     element: <EmpLogin/>,
   },
   {
+    path: "/employees/empsignup",
+    element: <EmpSignUp/>,
+  },
+  {
       path: "/employees/dogslist",
-      element: <DogsCardPage/>,
+      element: <DogsList/>,
+    },
+    {
+      path: "/employees/dogsid",
+      element: <DogsId/>,
     },
     
   ]
