@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import PetsIcon from '@mui/icons-material/Pets';
 import AvararList from "./avatarList"
+import { DogCardStyle } from '../../Adopters/DogsTinder/DogCard';
 
 
 
@@ -16,8 +17,9 @@ export default function MediaCard({dog}) {
 
 
   return (
-    
-    <Card sx={{ width: 345 , height: 500,borderRadius: 4 }}>
+    <DogCardStyle>
+
+    {/* <Card sx={{ width: 345 , height: 500,borderRadius: 4 }}> */}
       <CardMedia
         sx={{ height: 200 , }}
         image= {dog.img}
@@ -38,7 +40,9 @@ export default function MediaCard({dog}) {
         <Button size="small">Share</Button>
         <Button size="small">Learn More</Button>
      </CardActions>
-    </Card>
+    {/* </Card> */}
+    </DogCardStyle>
+
 
   );
   

@@ -15,7 +15,7 @@ const phoneStyle = {
 const bcgImg = "images/Layouts/background.png";
 
 
-export default function dogsId(){
+export default function DogsId(){
 
     let dog={
         name: "לילי",
