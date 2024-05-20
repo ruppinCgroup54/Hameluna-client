@@ -1,16 +1,17 @@
 import BackgroundLayout from "../../layouts/BackgroundLayout";
 import bcgImg from "../../assets/images/Layouts/background.png";
 import * as React from 'react';
-import CardComp from "../Employees/components/cardComp"
+import CardComp from "./components/cardComp"
 import dogImg from "../../assets/images/Dogs/image 1.png";
 import { useMediaQuery } from "react-responsive";
 import { useTheme } from "@mui/material/styles";
 
 import dogImg02 from "../../assets/images/Dogs/image 5.png";
-import TopbarEmp from "../Employees/components/TopbarEmp";
+import TopbarEmp from "./components/TopbarEmp";
 
-import chakls from "../Employees/components/chacklistCollapse"
+import chakls from "./components/chacklistCollapse"
 import { position } from "stylis";
+
 
 
 const phoneStyle = {
@@ -19,7 +20,7 @@ const phoneStyle = {
   };
 
 
-export default function DogsCardPage() {
+export default function DogsList() {
 
   const isDesktop = useMediaQuery({ query: "(min-width:600px )" });
     return(
@@ -40,6 +41,7 @@ export default function DogsCardPage() {
 
         <CardComp image1={dogImg} cell={"2"} dogsName={"זאזו"}></CardComp>
         <CardComp image1={dogImg02} cell={"3"} dogsName={"ווילי"}></CardComp>
+
        
     </div>
 
