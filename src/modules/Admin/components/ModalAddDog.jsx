@@ -28,7 +28,8 @@ export const FormStyle = styled(Box)(({ theme }) => ({
     gap: "20px",
     padding: "3%",
     border: '5px solid',
-    borderColor: theme.palette.primary.main
+    borderColor: theme.palette.primary.main,
+    marginTop:'10vh'                                                           
 })
 )
 
@@ -137,9 +138,9 @@ const ModalAddDog = forwardRef(({opMo},ref) => {
     const [cell, setCell] = useState(null);
 
     return (
-        <FormStyle component={'form'} mt={'120px'} mx={'auto'} position={'relative'} onSubmit={submit}>
+        <FormStyle component={'form'} mx={'auto'} position={'relative'} onSubmit={submit}>
 
-            <Grid container spacing={4} sx={{ pl: '7%' }}>
+            <Grid container spacing={3} sx={{ pl: '7%' }}>
                 <Grid item xs={12} display={'flex'} justifyContent={'center'}><Typography variant="h4" fontWeight={'bold'}>פרטי הכלב</Typography></Grid>
                 <Grid item xs={3}><Textinput size="small" name="chipNumber" label="מספר צ'יפ" type="text"></Textinput> </Grid>
                 <Grid item xs={3}><SelectInput field={selectInputs[5]} /></Grid>
