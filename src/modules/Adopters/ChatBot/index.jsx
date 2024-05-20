@@ -6,6 +6,7 @@ import NewMessage from "./NewMessage";
 import MessagesBox from "./MessagesBox";
 import { Link, useLoaderData } from "react-router-dom";
 import useLocalStorage from "../../../utilis/useLocalStorge";
+import AlertComp from "../../../components/AlertComp";
 
 // const mess = [
 //   { "role": "assistant", "content": "היי, אני דוגי ואני כאן כדי לעזור לך למצוא את הכלב המושלם. אז שנתחיל? תספר לי קצת עליך ועל מי שגר איתך... " },
@@ -33,12 +34,12 @@ export default function ChatBot() {
     localStorage.removeItem("_id");
   }
 
-  const [userId,setUserId] = useLocalStorage("_id", {id:chat.id});
+  const [userId, setUserId] = useLocalStorage("_id", { id: chat.id });
 
   if (chat.chat) {
     mess = chat.chat;
   }
-  
+
   const [messages, setMessages] = useState(mess);
 
   const sendMessage = (e) => {
@@ -72,9 +73,17 @@ export default function ChatBot() {
       },
       body: JSON.stringify(message)
     })
-    const res = await response.json();
 
-    setMessages(prev => [...prev, res]);
+    if (response.ok) {
+
+      const res = await response.json();
+      setMessages(prev => [...prev, res]);
+    }
+    else {
+      console.log('response.', response.status)
+    }
+
+
   }
 
 
@@ -83,10 +92,9 @@ export default function ChatBot() {
       <Paper sx={{ height: '75vh', width: '80%', borderRadius: '15px', display: 'flex', flexDirection: 'column' }} elevation={10} >
 
         <MessagesBox messages={messages} />
-        <Link to={"/dogtinder/"+userId.id} ><Button>לכל הכלבים</Button></Link>
+        <Link to={"/dogtinder/" + userId.id} ><Button>לכל הכלבים</Button></Link>
         <NewMessage addMessage={sendMessage} />
       </Paper>
-
 
 
     </AdoptersLayout>
