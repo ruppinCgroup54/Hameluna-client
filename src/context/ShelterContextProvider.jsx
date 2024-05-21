@@ -2,7 +2,6 @@ import { createContext, useEffect, useState } from "react";
 import { Navigate, useNavigate, useRouteLoaderData } from "react-router-dom";
 import useFetch from "../utilis/useFetch";
 import useLocalStorage from "../utilis/useLocalStorge";
-import useLocalStorage from "../utilis/useLocalStorge";
 
 export const ShelterContext = createContext();
 
