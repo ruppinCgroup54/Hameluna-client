@@ -23,6 +23,10 @@ import SendRequest from "./Adopters/SendRequest";
 import Register from "./Admin/Register";
 import { lazy } from "react";
 import { ShelterContext } from "../context/ShelterContextProvider";
+import EmpLogin from "./Employees/EmpLogin";
+import EmpSignUp from "./Employees/EmpSignUp";
+import DogsList from "./Employees/DogsList";
+import DogsId from "./Employees/DogsID";
 
 export const pathes = [
   {
@@ -90,9 +94,10 @@ export const adopterRoutes = [
       let getId = JSON.parse(localStorage.getItem('_id'));
       console.log('getId', getId)
       if (getId==null) {
+        //first option - new chat , create new chat and returns the new id
         return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats");
       }else{
-        
+        //seconde option - existing id , get his chat history from database
         return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats/"+getId.id);
       }
 
@@ -130,10 +135,11 @@ export const adopterRoutes = [
 
 //Employees Routes
 
-const DogsList = lazyLoad("../modules/Employees/DogsList");
-const EmpLogin = lazyLoad("../modules/Employees/EmpLogin");
-const EmpSignUp= lazyLoad("../modules/Employees/EmpSignUp");
-const DogsID = lazyLoad("../modules/Employees/DogsID");
+// const DogsList = lazyLoad("../modules/Employees/DogsList");
+// const EmpLogin = lazyLoad("../modules/Employees/EmpLogin");
+// const EmpSignUp= lazyLoad("../modules/Employees/EmpSignUp");
+// const DogsID = lazyLoad("../modules/Employees/DogsID");
+
 
 
 export const employeesRoutes=[
@@ -154,7 +160,7 @@ export const employeesRoutes=[
     },
     {
       path: "/employees/dogsid",
-      element: <DogsID/>,
+      element: <DogsId/>,
     },
     
   ]
