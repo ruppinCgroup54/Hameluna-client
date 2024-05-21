@@ -109,6 +109,7 @@ export const adopterRoutes = [
     element: <DogsTinder/>,
     loader: async ({params}) => {
       return fetch(import.meta.env.VITE_APP_SERVERURL + "Dogs/DogsForUser/"+params.id);
+      // return fetch(import.meta.env.VITE_APP_SERVERURL + "Dogs");
     },
   },
   {
