@@ -15,7 +15,7 @@ const phoneStyle = {
 const bcgImg = "images/Layouts/background.png";
 
 
-export default function dogsId(){
+export default function DogsId(){
 
     let dog={
         name: "לילי",
@@ -37,7 +37,7 @@ export default function dogsId(){
           }}>
             <TopBarMobile></TopBarMobile>
             <DogCard dog={dog}></DogCard>
-            <AvatarList></AvatarList>
+            {/* <AvatarList></AvatarList> */}
             </div>
           </BackgroundLayout>;
 </>

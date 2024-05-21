@@ -14,18 +14,20 @@ import AvararList from "./avatarList"
 export default function MediaCard({dog}) {
    
 
+const {name,img} = dog;
+
 
   return (
     
     <Card sx={{ width: 345 , height: 500,borderRadius: 4 }}>
       <CardMedia
         sx={{ height: 200 , }}
-        image= {dog.img}
+        image= {img}
         title="green iguana"
       />
       <CardContent sx={{borderRadius: 4}}>
         <Typography gutterBottom variant="h5" component="div" sx={{height: 5 }}>
-          {dog.name}
+          {name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           

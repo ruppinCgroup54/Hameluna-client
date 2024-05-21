@@ -14,7 +14,7 @@ import { useTheme } from '@emotion/react';
 import { useState } from 'react';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
-export default function ActionAreaCard({ image1 , cell ,dogsName}) {
+export default function CardComp({ image1 , cell ,dogsName}) {
 
   const theme = useTheme();
 const [open, setOpen] = useState(false);

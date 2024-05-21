@@ -22,6 +22,7 @@ import Favorites from "./Adopters/Favorites";
 import SendRequest from "./Adopters/SendRequest";
 import Register from "./Admin/Register";
 import { lazy } from "react";
+import { ShelterContext } from "../context/ShelterContextProvider";
 
 export const pathes = [
   {
@@ -145,8 +146,11 @@ export const employeesRoutes=[
     element: <EmpSignUp/>,
   },
   {
-      path: "/employees/dogslist",
+      path: "/employees/dogslist/:shelterId",
       element: <DogsList/>,
+      loader: async ({params}) => {
+        return fetch(import.meta.env.VITE_APP_SERVERURL + "cells/shelter/"+ params.shelterId); 
+      },
     },
     {
       path: "/employees/dogsid",
