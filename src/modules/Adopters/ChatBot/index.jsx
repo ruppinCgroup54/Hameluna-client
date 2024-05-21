@@ -92,7 +92,7 @@ export default function ChatBot() {
       <Paper sx={{ height: '75vh', width: '80%', borderRadius: '15px', display: 'flex', flexDirection: 'column' }} elevation={10} >
 
         <MessagesBox messages={messages} />
-        <Link to={"/dogtinder/" + userId.id} ><Button>לכל הכלבים</Button></Link>
+        <Link to={"/dogtinder/" + "664ba70ad953929733b6e6ca"} ><Button>לכל הכלבים</Button></Link>
         <NewMessage addMessage={sendMessage} />
       </Paper>
 
