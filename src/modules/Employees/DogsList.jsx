@@ -8,46 +8,49 @@ import TopbarEmp from "../Employees/components/TopbarEmp";
 
 import chakls from "./components/chacklistCollapse"
 import { position } from "stylis";
+import { useLoaderData } from "react-router-dom";
 
-const dogImg02="images/Dogs/image 5.png";
-const dogImg="images/Dogs/image 1.png";
-const bcgImg="images/Layouts/background.png";
+const dogImg02 = "images/Dogs/image 5.png";
+const dogImg = "images/Dogs/image 1.png";
+const bcgImg = "images/Layouts/background.png";
 
 const phoneStyle = {
-    width: "90%",
-    margin: "auto",
-  };
+  width: "90%",
+  margin: "auto",
+};
 
 
 export default function DogsList() {
 
+  const cells = useLoaderData();
+
   const isDesktop = useMediaQuery({ query: "(min-width:600px )" });
-    return(
-        <>
-<BackgroundLayout image={bcgImg} style={{ display: "block"}}>
-    
-    <div>
-    <TopbarEmp></TopbarEmp>
-    </div>
-    <div  style={{
-            padding: "50px 0",
-            ...phoneStyle,
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "column",
-            marginTop: "70px",
-          }}>
+  return (
+    <>
+      <BackgroundLayout image={bcgImg} style={{ display: "block" }}>
 
-        <CardComp image1={dogImg} cell={"2"} dogsName={"זאזו"}></CardComp>
-        <CardComp image1={dogImg02} cell={"3"} dogsName={"ווילי"}></CardComp>
+        <div>
+          <TopbarEmp></TopbarEmp>
+        </div>
+        <div style={{
+          padding: "50px 0",
+          ...phoneStyle,
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+          marginTop: "70px",
+        }}>
 
-       
-    </div>
+          <CardComp image1={dogImg} cell={"2"} dogsName={"זאזו"}></CardComp>
+          <CardComp image1={dogImg02} cell={"3"} dogsName={"ווילי"}></CardComp>
 
-    <div sx={{}}>
-      
-    </div>
-</BackgroundLayout>
-</>
-    );
+
+        </div>
+
+        <div sx={{}}>
+
+        </div>
+      </BackgroundLayout>
+    </>
+  );
 }
