@@ -75,4 +75,8 @@ export default function DogsList() {
     </>
   );
 
+        </div>
+      </BackgroundLayout>
+    </>
+  );
 }
