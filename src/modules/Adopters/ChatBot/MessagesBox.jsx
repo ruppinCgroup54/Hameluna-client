@@ -11,7 +11,7 @@ export default function MessagesBox({messages}) {
   const scrollRef = useRef();
 console.log('first', messages)
   const renderMessages = ()=>{
-    return messages.map((m,i)=>m.role.toLowerCase()!=="system"&&<Message key={i}  message={m}/>)
+    return messages.map((m,i)=>m.role.toLowerCase()!=="system"?<Message key={i}  message={m}/>:console.log('m', m))
   }
 
 

@@ -37,7 +37,7 @@ export default function DogsId(){
           }}>
             <TopBarMobile></TopBarMobile>
             <DogCard dog={dog}></DogCard>
-            <AvatarList></AvatarList>
+            {/* <AvatarList></AvatarList> */}
             </div>
           </BackgroundLayout>;
 </>
