@@ -37,7 +37,7 @@ export const FormStyle = styled(Box)(({ theme }) => ({
 const ModalAddDog = forwardRef(({opMo},ref) => {
 
     const fetcher = useFetcher();
-    const { cells,setTriggerFetch } = useContext(ShelterContext);
+    const { cells,setTriggerFetch, loginDet } = useContext(ShelterContext);
 
     const breeds = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/Breeds');
     const colors = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/Colors');
@@ -97,26 +97,16 @@ const ModalAddDog = forwardRef(({opMo},ref) => {
             'isReturned': dogToAdd['isReturned']=="לא" ? false : true,
             'isAdoptable': false,
             'adopted': false ,
-            'profileImage':""
+            'profileImage':data.getAll("profileImage")
         }
-        // dogToAdd['breed'] = dogToAdd['breed'].split(','); 
-        // dogToAdd['color'] = dogToAdd['color'].split(','); 
-        // dogToAdd['attributes'] = dogToAdd['attributes'].split(',');
-        // dogToAdd['dateOfBirth'] = dateBirth;
-        // dogToAdd['entranceDate'] = arrivalDate;
-        // dogToAdd['files'] = data.getAll("files");
-        // dogToAdd['cellId'] = cell;
-        
-
-
 
         const files = dogToAdd['files'];
-        const profileImg = dogToAdd['profileImg'];
-
-        delete dogToAdd['files'];
-        delete dogToAdd['profileImg'];
+        const profileImg = dogToAdd['profileImage'];
 
         console.log('dogToAdd', dogToAdd)
+        // delete dogToAdd['files'];
+        // delete dogToAdd['profileImage'];
+
         fetch(import.meta.env.VITE_APP_SERVERURL + 'Dogs', {
             method: "POST",
             headers:{
@@ -129,10 +119,19 @@ const ModalAddDog = forwardRef(({opMo},ref) => {
           }).then((data) => {
             opMo(false);
             setTriggerFetch(prev=>++prev);
-
+            uploadProfileImg(data)
           } )
 
-
+          const uploadProfileImg=(dogId)=>{
+            fetch(import.meta.env.VITE_APP_SERVERURL + 'Images/shelterId/'+ loginDet.shelterNumber +'/dogId/'+{dogId}, {
+                method: "POST",
+                body: data,
+          
+              }).then((res) => {
+                console.log('res', res)
+                return res.json()
+              }).then((data) => console.log('data', data))
+          }
     }
 
     const [dateBirth, setDateBirth] = useState({});

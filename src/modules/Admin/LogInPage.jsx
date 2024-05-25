@@ -17,6 +17,13 @@ export default function LogInPage() {
   const isDesktop = useMediaQuery({ query: "(min-width:600px )" });
 
 
+
+  // useEffect(() => {
+  //   if (loginDet.shelterNumber !== 0 ) {
+  //     navigate('/admin/shelter');
+  //   }
+  // }, [loginDet])
+
   return (
     <>
       <BackgroundLayout image={LogInImage} style={{ display: "block" }}>

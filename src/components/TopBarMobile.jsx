@@ -37,7 +37,7 @@ export default function TopBarMobile() {
               <img src={BotHead} alt="Bot head" />
             </IconButton>
             <IconButton onClick={()=>navigate('/favorites')}>
-              <StyledBadge badgeContent={favoritesDogs.length}>
+              <StyledBadge badgeContent={favoritesDogs?.length}>
                 <Favorite sx={{ color: "white", fontSize: "2rem" }} />
               </StyledBadge>
             </IconButton>

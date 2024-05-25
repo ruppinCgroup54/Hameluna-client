@@ -1,4 +1,6 @@
-import { Avatar, Box, Typography, styled } from '@mui/material'
+import { Avatar, Box, Button, Typography, styled } from '@mui/material'
+import { Link } from 'react-router-dom';
+import useLocalStorage from '../../../utilis/useLocalStorge';
 
 const BotHead = "images/BotHead.svg"
 
@@ -8,20 +10,22 @@ const BotHead = "images/BotHead.svg"
 const MessageBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: '10px',
-  margin:'5px 0',
+  margin: '5px 0',
   "& .MuiAvatar-root": {
-    width: 35, height: 35, 
-    backgroundColor: theme.palette.grey[400], 
-    padding: '5px', 
-    color: theme.palette.common.black, 
+    width: 35, height: 35,
+    backgroundColor: theme.palette.grey[400],
+    padding: '5px',
+    color: theme.palette.common.black,
     fontWeight: '500'
   },
   "& .MuiTypography-root": {
-    padding:theme.spacing(1.1)
+    padding: theme.spacing(1.1)
   }
 }));
 
-export default function Message({ message }) {
+export default function Message({ message}) {
+
+  const [id, setId] = useLocalStorage("_id");
 
   const BotStyle = {
     flexDirection: 'row-reverse',
@@ -43,16 +47,18 @@ export default function Message({ message }) {
   }
 
   return (
-    <MessageBox sx={message.role.toLowerCase() === 'assistant' ? BotStyle : userStyle}>
-      <Avatar src={message.role.toLowerCase() === 'assistant' ? BotHead : ""}
+    <MessageBox sx={message.role?.toLowerCase() === 'assistant' ? BotStyle : userStyle}>
+      <Avatar src={message.role?.toLowerCase() === 'assistant' ? BotHead : ""}
         slotProps={{
-            img: {
-              style: {
-                filter: 'invert(100%)'
-              }
-            }}} >U</Avatar>
+          img: {
+            style: {
+              filter: 'invert(100%)'
+            }
+          }
+        }} >U</Avatar>
       <Typography>
         {message.content}
+       {message.indFinish && <Link to={"/dogtinder/" + id.id} style={{display:'block',float:"left"}} ><Button variant='outlined'>לכל הכלבים</Button></Link>}
       </Typography>
     </MessageBox>
   )

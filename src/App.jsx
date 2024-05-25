@@ -8,46 +8,48 @@ import createCache from "@emotion/cache";
 import "./App.css";
 import ThemeContext from "./context/ThemeContext";
 
-import { Outlet, RouterProvider, createBrowserRouter, createHashRouter } from "react-router-dom";
+import { Outlet, RouterProvider, createHashRouter } from "react-router-dom";
 
-import lazyLoad from "./utilis/LazyLoad";
 
 import ErrorPage from "./components/ErrorPage";
 import FallbackElement from "./components/FallbackElement";
 import { adminRouts, adopterRoutes, employeesRoutes } from "./modules/Routes";
 
-import IndexAdopters from "./modules/Adopters/index";
-import IndexAdmin from "./modules/Admin/index";
-import IndexEmployees from "./modules/Employees/index";
-
-// const IndexAdopters = lazyLoad("../modules/Adopters/index");
-// const IndexAdmin = lazyLoad("../modules/Admin/index");
-// const IndexEmployees = lazyLoad("../modules/Employees/index");
-
-
 const router = createHashRouter([
   {//adopters root
     path: "/",
-    element: <IndexAdopters />,
+    // element: <IndexAdopters />,
+    lazy: () => import("./modules/Adopters/index"),
     children: adopterRoutes,
-    errorElement: <ErrorPage />
+    errorElement: <ErrorPage />,
+    id:"adopter",
+    loader: async () => {
+      let getId = JSON.parse(localStorage.getItem('_id'));
+      if(getId){
+        return fetch(import.meta.env.VITE_APP_SERVERURL + "dogs/favorites/" + getId.id);
+      }
+      else {
+          const res = await fetch(import.meta.env.VITE_APP_SERVERURL + "Chats");
+          const data = await res.json();
+          localStorage.setItem("_id",JSON.stringify(data))
+          return [];
+      }
+    },
   },
   {//admin root
     path: "/admin",
-    element: <IndexAdmin />,
+    lazy: () => import("./modules/Admin/index"),
     children: adminRouts,
     errorElement: <ErrorPage />
   },
   {//employees root
     path: "/employees",
-    element: <IndexEmployees />,
+    lazy: () => import("./modules/Employees/index"),
     children: employeesRoutes
   },
 ]);
 
 function App() {
-
-  // const {state}=useNavigation();
 
   const cacheRtl = createCache({
     key: "muirtl",

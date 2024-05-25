@@ -1,12 +1,22 @@
 import { Send } from '@mui/icons-material'
 import { Box, Button, IconButton, TextField } from '@mui/material'
-import React from 'react'
+import React, { useRef } from 'react'
 
 export default function NewMessage({ addMessage }) {
-  return (
-    <Box component={'form'} onSubmit={addMessage} sx={{ borderTop: '#ccc 1px solid' }}>
 
-      <TextField fullWidth multiline variant='standard' name='content'
+  const formRef = useRef();
+
+  const enterSubmit = (e)=>{
+    if (e.keyCode === 13) {
+      debugger
+      console.log('e', formRef.current)
+    }
+  }
+
+  return (
+    <Box ref={formRef} component={'form'} onSubmit={addMessage} sx={{ borderTop: '#ccc 1px solid' }}>
+
+      <TextField fullWidth variant='standard' name='content'
 
         InputProps={{
           disableUnderline: true,
