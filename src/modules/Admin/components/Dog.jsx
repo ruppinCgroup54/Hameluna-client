@@ -23,7 +23,7 @@ export default function Dog({dogItem}) {
       }}
     >
       <img
-        src={dog}
+        src={dogItem.profileImage}
         style={{
           width: "100%",
           height: "100%",
