@@ -3,12 +3,12 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { Alert, AlertTitle, Collapse, TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useFetch from "../../../utilis/useFetch";
 import { Height } from "@mui/icons-material";
+import Code from "./Code"
 // TODO remove, this demo shouldn't need to reset the theme.
-
 const StyledTextfield = {
   bgcolor: "rgba(255,255,255,0.7)",
   borderRadius: "7px",
@@ -36,6 +36,7 @@ export default function SignIn() {
     let loginDet = {
       phone: data.get("phone"),
       // password: data.get("password"),
+      
     };
 
     fetch("https://localhost:7280/api/cells/Employees/login", {
@@ -127,4 +128,13 @@ export default function SignIn() {
     </Box>
     
   );
+}
+
+SignIn.code =()=>{
+  
+ return(
+<Code></Code>
+
+ );  
+
 }
