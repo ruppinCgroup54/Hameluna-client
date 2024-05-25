@@ -37,7 +37,7 @@ export const FormStyle = styled(Box)(({ theme }) => ({
 const ModalAddDog = forwardRef(({opMo},ref) => {
 
     const fetcher = useFetcher();
-    const { cells,setTriggerFetch } = useContext(ShelterContext);
+    const { cells,setTriggerFetch, loginDet } = useContext(ShelterContext);
 
     const breeds = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/Breeds');
     const colors = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/Colors');
@@ -119,10 +119,19 @@ const ModalAddDog = forwardRef(({opMo},ref) => {
           }).then((data) => {
             opMo(false);
             setTriggerFetch(prev=>++prev);
-            
+            uploadProfileImg(data)
           } )
 
-
+          const uploadProfileImg=(dogId)=>{
+            fetch(import.meta.env.VITE_APP_SERVERURL + 'Images/shelterId/'+ loginDet.shelterNumber +'/dogId/'+{dogId}, {
+                method: "POST",
+                body: data,
+          
+              }).then((res) => {
+                console.log('res', res)
+                return res.json()
+              }).then((data) => console.log('data', data))
+          }
     }
 
     const [dateBirth, setDateBirth] = useState({});

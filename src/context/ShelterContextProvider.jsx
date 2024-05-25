@@ -13,13 +13,6 @@ export default function ShelterContextProvider(props) {
   const [loginDet, setLoginDet] = useLocalStorage("loginDet", {});
   const cells = useFetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/` + loginDet.shelterNumber, [triggerFetch])
 
-  useEffect(() => {
-    if (loginDet != 0 && loginDet != undefined) {
-      navigate('/admin/shelter');
-    }
-  }, [loginDet])
-
-
   // const [cells, setCells] = useState(cellsData?cellsData.value:[]);
   const [dogs, setDogs] = useState([]);
   useEffect(() => {
@@ -37,7 +30,7 @@ export default function ShelterContextProvider(props) {
   }, [cells.value]);
 
   return (
-    <ShelterContext.Provider value={{ setDogs, dogs, cells, setTriggerFetch, setLoginDet }}>
+    <ShelterContext.Provider value={{ setDogs, dogs, cells, setTriggerFetch, setLoginDet, loginDet }}>
       {props.children}
     </ShelterContext.Provider>
   );
