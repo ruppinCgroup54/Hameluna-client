@@ -29,6 +29,12 @@ export default function ShelterContextProvider(props) {
 
   }, [cells.value]);
 
+  useEffect(() => {
+    if (loginDet.shelterNumber == 0 ) {
+      navigate('/admin/');
+    }
+  }, [loginDet])
+
   return (
     <ShelterContext.Provider value={{ setDogs, dogs, cells, setTriggerFetch, setLoginDet, loginDet }}>
       {props.children}
