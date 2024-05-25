@@ -6,6 +6,7 @@ import SignIn from "../../components/SignIn";
 import SignInComp from "./components/SignInComp";
 import { position } from "stylis";
 import Logo from "../../components/Logo";
+import SmsCodeInput from "./components/smsCode";
 
 const phoneStyle = {
     width: "90%",
@@ -34,6 +35,8 @@ export default function  EmpLogin(){
         </div> */}
         <div>
             <SignInComp></SignInComp>
+            {/* <SignInComp.phoneCode></SignInComp.phoneCode> */}
+            {/* <SmsCodeInput></SmsCodeInput> */}
         </div>
     </div>
 </BackgroundLayout>
