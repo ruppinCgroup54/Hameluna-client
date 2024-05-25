@@ -16,10 +16,14 @@ import "swiper/css/manipulation";
 // import required modules
 import { EffectCreative, Manipulation } from "swiper/modules";
 import DogSwipeCard from "./DogSwipeCard";
+import { Button } from "@mui/material";
+import useAdoptersContext from "../../../utilis/useAdoptersContext";
+import { useState } from "react";
 
 export default function DogsTinder() {
   const AllDogs = useLoaderData();
-  console.log('AllDogs', AllDogs)
+  
+
   return (
     <AdoptersLayout>
       <Swiper
@@ -40,11 +44,13 @@ export default function DogsTinder() {
         }}
         className="mySwiper"
       >
-        {AllDogs?.map((item) => (
-          <SwiperSlide key={item.numberId}>
-            <DogSwipeCard  dog={item} />
-          </SwiperSlide>
-        ))}
+        {AllDogs.map((item, i) => {
+          return (
+            <SwiperSlide key={item.numberId} >
+              <DogSwipeCard dog={item} index={i} />
+            </SwiperSlide>
+          )
+        })}
       </Swiper>
     </AdoptersLayout>
   );

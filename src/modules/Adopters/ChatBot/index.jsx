@@ -40,9 +40,13 @@ export default function ChatBot() {
     mess = chat.chat;
   }
 
+  const [loading, setLoading] = useState(false)
+
   const [messages, setMessages] = useState(mess);
 
   const sendMessage = (e) => {
+
+    setLoading(true);
 
     e.preventDefault();
 
@@ -73,16 +77,15 @@ export default function ChatBot() {
       },
       body: JSON.stringify(message)
     })
-
     if (response.ok) {
 
       const res = await response.json();
       setMessages(prev => [...prev, res]);
+      setLoading(false)
     }
     else {
-      console.log('response.', response.status)
+      console.log('response.', response)
     }
-
 
   }
 
@@ -91,8 +94,8 @@ export default function ChatBot() {
     <AdoptersLayout>
       <Paper sx={{ height: '75vh', width: '80%', borderRadius: '15px', display: 'flex', flexDirection: 'column' }} elevation={10} >
 
-        <MessagesBox messages={messages} />
-        <Link to={"/dogtinder/" + userId.id} ><Button>לכל הכלבים</Button></Link>
+        <MessagesBox messages={messages} loading={loading} />
+
         <NewMessage addMessage={sendMessage} />
       </Paper>
 

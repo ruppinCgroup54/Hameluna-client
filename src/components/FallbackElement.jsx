@@ -7,7 +7,6 @@ const LoadingDog = "images/LoadingDog.png";
 export default function FallbackElement() {
 
   const { state } = useNavigation();
-
   const [backdrop, setBackdrop] = useState(state == "loading");
 
   useEffect(() => {
@@ -16,11 +15,11 @@ export default function FallbackElement() {
   }, [state]);
   return (
 
-          <Backdrop
-          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={backdrop}
-            
-        >
+    <Backdrop
+      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={backdrop}
+
+    >
       <Box
         sx={{
           position: "absolute",
@@ -37,6 +36,6 @@ export default function FallbackElement() {
       >
         <img src={LoadingDog} style={{ height: "250px" }} />
       </Box>
-      </Backdrop>
+    </Backdrop>
   );
 }
