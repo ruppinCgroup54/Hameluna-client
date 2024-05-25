@@ -7,7 +7,7 @@ import TopbarEmp from "../Employees/components/TopbarEmp";
 import chakls from "./components/chacklistCollapse"
 import { position } from "stylis";
 import { useLoaderData } from "react-router-dom";
-import CardComp from "./components/cardComp";
+import CardComp from "./components/CardComp";
 
 const dogImg02 = "images/Dogs/image 5.png";
 const dogImg = "images/Dogs/image 1.png";
@@ -75,5 +75,4 @@ export default function DogsList() {
     </>
   );
 
-       
 }

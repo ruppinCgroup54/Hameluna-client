@@ -15,7 +15,7 @@ export default function AlertComp({
       open={isOpen}
       autoHideDuration={3000}
       onClose={handleClose}
-      sx={{width:'100%'}}
+      sx={{width:'90%',right:0,left:'5%',top:"-10xp"}}
       // TransitionComponent={(p) => <Slide {...p} direction="right" />}
     >
       <Alert

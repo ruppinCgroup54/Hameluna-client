@@ -94,8 +94,8 @@ export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDo
 
   const shareDog= async ()=>{
     const shareData = {
-    title: "MDN",
-    text: "Learn web development on MDN!",
+    title: dog.name,
+    text: dog.name + " שלנו לאימוץ !",
     url: document.location.origin+'/dogs/'+dog.numberId,
   };
     try {

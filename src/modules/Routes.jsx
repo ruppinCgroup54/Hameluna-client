@@ -27,16 +27,17 @@ import EmpLogin from "./Employees/EmpLogin";
 import EmpSignUp from "./Employees/EmpSignUp";
 import DogsList from "./Employees/DogsList";
 import DogsId from "./Employees/DogsID";
+import { json, redirect } from "react-router-dom";
 
 export const pathes = [
   {
     path: "/admin/shelter/",
-    element: <ControlPage/>,
-    id:"דף הבית"
+    element: <ControlPage />,
+    id: "דף הבית"
   },
   {
     path: "/admin/shelter/whosHome/",
-    element: <WhosHome/>,
+    element: <WhosHome />,
     id: "מי בבית"
   },
   {
@@ -48,27 +49,27 @@ export const pathes = [
     path: "/admin/shelter/whosHome/",
     element: <WhosHome />,
     id: "סיכומים"
-  },  
+  },
 ];
 
 export const adminRouts = [
   {
     path: "/admin/",
-    element: <LogInPage/>,
+    element: <LogInPage />,
   },
   {
-    path:"/admin/register",
-    element:<Register/>
+    path: "/admin/register",
+    element: <Register />
   },
   {
     path: "/admin/shelter",
-    element: <SystemPage/>,
+    element: <SystemPage />,
     // lazy: () => import("./Admin/SystemPage"),
     id: "כלבייה",
     // loader: async () => {
     //   return fetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/1`);
     // },
-    children:pathes,
+    children: pathes,
   },
 ];
 
@@ -85,30 +86,29 @@ export const adminRouts = [
 export const adopterRoutes = [
   {
     path: "/",
-    element: <AdoptersHomePage/>,
+    element: <AdoptersHomePage />,
+    
   },
   {
     path: "/dogbot",
     element: <ChatBot />,
-    loader:async () => {
+    loader: async () => {
       let getId = JSON.parse(localStorage.getItem('_id'));
       console.log('getId', getId)
-      if (getId==null) {
-        //first option - new chat , create new chat and returns the new id
-        return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats");
-      }else{
+      if (getId === null) {
+        return redirect("/");
+      } else {
         //seconde option - existing id , get his chat history from database
-        return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats/"+getId.id);
+        return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats/" + getId.id)
+    
       }
-
-      
     },
   },
   {
     path: "/dogtinder/:id",
-    element: <DogsTinder/>,
-    loader: async ({params}) => {
-      return fetch(import.meta.env.VITE_APP_SERVERURL + "Dogs/DogsForUser/"+params.id);
+    element: <DogsTinder />,
+    loader: async ({ params }) => {
+      return fetch(import.meta.env.VITE_APP_SERVERURL + "Dogs/DogsForUser/" + params.id);
       // return fetch(import.meta.env.VITE_APP_SERVERURL + "Dogs");
     },
   },
@@ -122,6 +122,7 @@ export const adopterRoutes = [
   {
     path: "/favorites",
     element: <Favorites />,
+
   },
   {
     path: "/sendrequest/dogId/:dogId/dogName/:dogName",
@@ -143,25 +144,25 @@ export const adopterRoutes = [
 
 
 
-export const employeesRoutes=[
+export const employeesRoutes = [
   {
     path: "/employees",
-    element: <EmpLogin/>,
+    element: <EmpLogin />,
   },
   {
     path: "/employees/empsignup",
-    element: <EmpSignUp/>,
+    element: <EmpSignUp />,
   },
   {
-      path: "/employees/dogslist/:shelterId",
-      element: <DogsList/>,
-      loader: async ({params}) => {
-        return fetch(import.meta.env.VITE_APP_SERVERURL + "cells/shelter/"+ params.shelterId); 
-      },
+    path: "/employees/dogslist/:shelterId",
+    element: <DogsList />,
+    loader: async ({ params }) => {
+      return fetch(import.meta.env.VITE_APP_SERVERURL + "cells/shelter/" + params.shelterId);
     },
-    {
-      path: "/employees/dogsid",
-      element: <DogsId/>,
-    },
-    
-  ]
+  },
+  {
+    path: "/employees/dogsid",
+    element: <DogsId />,
+  },
+
+]

@@ -37,17 +37,22 @@ const CardStyle = styled(Card)(({ theme }) => ({
 }));
 
 export default function DogCard({ dog }) {
-  const { RemoveFromFavorites } = useAdoptersContext();
+  const { RemoveFromFavorites,loading } = useAdoptersContext();
   const [open, setOpen] = useState(true);
   const navigate =useNavigate();
 
+  const handleRemove = ()=>{
+    setOpen(false);
+    RemoveFromFavorites(dog)
+  }
+
   return (
-    <Collapse  in={open} onAnimationEnd={()=>RemoveFromFavorites(dog)} style={{margin:'10px 0'}} >
+    <Collapse  in={open}  style={{margin:'10px 0'}} >
       <CardStyle>
         <CardMedia
           sx={{ width: "40%", height: "100%", borderRadius: "inherit" }}
         >
-          <img src={dog.images?dog.images[0]:""} />
+          <img src={dog.profileImage} />
         </CardMedia>
         <CardContent>
           <Typography variant="h6">{`${dog.name} | ${dog.age}`}</Typography>
@@ -56,7 +61,7 @@ export default function DogCard({ dog }) {
           </Typography>
           <CardActions sx={{ p: 0 }}>
             <CircleIcons>
-              <IconButton onClick={() => setOpen(false)}>
+              <IconButton onClick={handleRemove } disabled={loading}>
                 <Clear color="error" />
               </IconButton>
               <IconButton onClick={()=>navigate(`/sendrequest/dogId/${dog.numberId}/dogName/${dog.name}`)}>
