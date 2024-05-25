@@ -1,11 +1,7 @@
 import BackgroundLayout from "../../layouts/BackgroundLayout";
-import { useMediaQuery } from "react-responsive";
-import { useTheme } from "@mui/material/styles";
 
 import TopbarEmp from "../Employees/components/TopbarEmp";
 
-import chakls from "./components/chacklistCollapse"
-import { position } from "stylis";
 import { useLoaderData } from "react-router-dom";
 import CardComp from "./components/CardComp";
 
