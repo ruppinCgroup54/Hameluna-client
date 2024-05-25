@@ -96,7 +96,8 @@ const ModalAddDog = forwardRef(({opMo},ref) => {
             'cellId': cell,
             'isReturned': dogToAdd['isReturned']=="לא" ? false : true,
             'isAdoptable': false,
-            'adopted': false 
+            'adopted': false ,
+            'profileImage':""
         }
         // dogToAdd['breed'] = dogToAdd['breed'].split(','); 
         // dogToAdd['color'] = dogToAdd['color'].split(','); 
@@ -115,6 +116,7 @@ const ModalAddDog = forwardRef(({opMo},ref) => {
         delete dogToAdd['files'];
         delete dogToAdd['profileImg'];
 
+        console.log('dogToAdd', dogToAdd)
         fetch(import.meta.env.VITE_APP_SERVERURL + 'Dogs', {
             method: "POST",
             headers:{
@@ -123,10 +125,10 @@ const ModalAddDog = forwardRef(({opMo},ref) => {
             body: JSON.stringify(dogToAdd),
           }).then((res) => {
             console.log('res', res)
-            return res.json()
+            return res.json();
           }).then((data) => {
             opMo(false);
-          setTriggerFetch(prev=>++prev);
+            setTriggerFetch(prev=>++prev);
 
           } )
 
