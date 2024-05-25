@@ -4,6 +4,9 @@ import Logo from "../../components/Logo";
 import { useMediaQuery } from "react-responsive";
 
 import SignIn from "../../components/SignIn";
+import useShelterContext from "../../utilis/useShelterContext";
+import { useContext } from "react";
+import { ShelterContext } from "../../context/ShelterContextProvider";
 
 const LogInImage = "images/Layouts/LogIn.png";
 
@@ -16,13 +19,13 @@ const desktopStyle = { width: "33%", marginRight: "10%" };
 export default function LogInPage() {
   const isDesktop = useMediaQuery({ query: "(min-width:600px )" });
 
+  const {loginDet} = useContext(ShelterContext);
 
-
-  // useEffect(() => {
-  //   if (loginDet.shelterNumber !== 0 ) {
-  //     navigate('/admin/shelter');
-  //   }
-  // }, [loginDet])
+  useEffect(() => {
+    if (loginDet.shelterNumber !== 0 ) {
+      navigate('/admin/shelter');
+    }
+  }, [loginDet])
 
   return (
     <>
