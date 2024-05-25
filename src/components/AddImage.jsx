@@ -29,7 +29,7 @@ export default function AddImage() {
                         borderColor: 'primary.main',
                     }}>
                 </Avatar>
-                <input type="file" name="profileImg" onChange={imageChange} ref={inputRef} style={{ display: 'none' }}></input>
+                <input type="file" name="profileImage" onChange={imageChange} ref={inputRef} style={{ display: 'none' }}></input>
 
                 <Avatar src=""
                     sx={{
