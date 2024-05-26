@@ -1,57 +1,29 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Textinput } from '../../../components/Textinput'
-import { useForm } from 'react-hook-form';
+import { Controller, useForm, useFormContext } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Box, Button, InputAdornment, Typography } from '@mui/material';
+import { Autocomplete, Box, Button, InputAdornment, Typography } from '@mui/material';
 import { AccountCircle, AdminPanelSettings, Email, Password, Phone } from '@mui/icons-material';
+import AddImage from '../../../components/AddImage';
 
 
-const requestSchema = z.object({
-  firstName: z
-    .string()
-    .regex(
-      new RegExp("^[a-zA-Z\u0590-\u05FF\u200f\u200e ]+$"),
-      "שם חייב להכיל אותיות בעברית או באנגלית"
-    ),
-  lastName: z
-    .string()
-    .regex(
-      new RegExp("^[a-zA-Z\u0590-\u05FF\u200f\u200e ]+$"),
-      "שם חייב להכיל אותיות בעברית או באנגלית"
-    ),
-  phoneNumber: z.string().regex(new RegExp("^05+[0-9]{8}$"), "מספר לא תקין"),
-  email: z.string().email("אימייל לא תקין"),
-  userName: z.string().max(12, "שם משתשמש לא ארוך יותר מ12 תווים"),
-  password: z.string().max(20, "שם משתשמש לא ארוך יותר מ20 תווים")
-});
 
-
-export default function ShelterForm({ sendData }) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors},
-  } = useForm({
-    resolver: zodResolver(requestSchema),
-  });
-
-  const submit = (data) => {
-    sendData(data);
-  }
+export default function ShelterForm({ register, formState, control }) {
+  const { errors } = formState;
+  const [inputValue, setInputValue] = useState([]);
 
   return (
-    < >
+    <>
       <Typography variant='h3' color='primary.dark' sx={{ textAlign: 'center', mb: 3 }}>
-        פרטי מנהל
+        פרטי הכלבייה
       </Typography>
-      <form onSubmit={handleSubmit(submit)} style={{ width: '100%', display: 'grid', gap: "20px 20px", gridTemplate: "50px/ auto auto" }}>
-
-        <Textinput {...register("firstName")}
-          label="שם פרטי"
-          error={!!errors.firstName}
-          helperText={errors.firstName?.message}
+      < Box sx={{ width: '100%', display: 'grid', gap: "30px" }}>
+        <Textinput {...register("name")}
+          label="שם הכלבייה"
+          error={!!errors.name}
+          helperText={errors.name?.message}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -60,72 +32,59 @@ export default function ShelterForm({ sendData }) {
             ),
           }} />
 
-        <Textinput {...register("lastName")}
-          label="שם משפחה"
-          error={!!errors.lastName}
-          helperText={errors.lastName?.message}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <AccountCircle />
-              </InputAdornment>
-            ),
-          }} />
-
-        <Textinput
-          {...register("phoneNumber")}
-          label="מספר פלאפון"
-          error={!!errors.phoneNumber}
-          helperText={errors.phoneNumber?.message}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <Phone />
-              </InputAdornment>
-            ),
-          }}
+        <Textinput {...register("timeToReport")}
+          label="זמן דיווח חריגות"
+          type='time'
+          error={!!errors.timeToReport}
+          helperText={errors.timeToReport?.message}
         />
 
+        <Controller
+          control={control}
+          name='dailyRoutine'
+          render={({ field: { onChange, value } }) => (
+            <Autocomplete
+              multiple
+              options={["1", "2", "3", "4"]}
+              getOptionLabel={option => option}
+              // onChange={(e, values) => setValue("dailyRoutine", values)}
+              // inputValue={inputValue}
+              // onInputChange={(event, newInputValue) => {
+              //   setInputValue(newInputValue);
+              // }}
+              renderInput={params => (
+                <Textinput
+                  {...params}
+                  label="שגרת כלב"
+                  error={!!errors.dailyRoutine}
+                  helperText={errors.dailyRoutine?.message}
+                />
+              )}
+              onChange={(event, data) => {
+                onChange(data)
+                return data;
+              }}
+              defaultValue={[]}
+              // this makes the last error
+            />
+          )}
 
-        <Textinput {...register("email")}
-          label="אימייל"
-          error={!!errors.email}
-          helperText={errors.email?.message}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <Email />
-              </InputAdornment>
-            ),
-          }} />
 
-        <Textinput {...register("userName")}
-          label="שם משתמש"
-          error={!!errors.userName}
-          helperText={errors.userName?.message}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <AdminPanelSettings />
-              </InputAdornment>
-            ),
-          }} />
+        />
 
-        <Textinput {...register("password")}
-          label="סיסמה"
-          type='password'
-          error={!!errors.password}
-          helperText={errors.password?.message}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <Password />
-              </InputAdornment>
-            ),
-          }} />
+        {/* <Autocomplete
 
-        <Button variant='contained' type='submit'>שמור</Button>
-      </form>
+          value={selectedValues}
+          options={allValues}
+          multiple
+          {...register("dailyRoutine")}
+          renderInput={(params) => <Textinput {...params}
+            label="שגרת כלב"
+            error={!!errors.address?.city}
+            helperText={errors.address?.city?.message} />}
+        /> */}
+
+      </Box>
     </>
   )
 }

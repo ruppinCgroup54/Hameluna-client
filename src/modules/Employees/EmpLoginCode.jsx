@@ -8,18 +8,18 @@ import { position } from "stylis";
 import Logo from "../../components/Logo";
 
 const phoneStyle = {
-    width: "90%",
-    margin: "auto",
-  };
+  width: "90%",
+  margin: "auto",
+};
 
-  const logoTextStyle={
-    fontSize: "24px",
-  }
-export default function  EmpLogin(){
-    return(
-<BackgroundLayout image={bcgImg} style={{ display: "block"}}>
-<TopBarMobile.woLogo></TopBarMobile.woLogo>
-    <div style={{
+const logoTextStyle = {
+  fontSize: "24px",
+}
+export default function EmpLogin() {
+  return (
+    <BackgroundLayout image={bcgImg} style={{ display: "block" }}>
+      <TopBarMobile></TopBarMobile>
+      <div style={{
         padding: "50px 0",
         ...phoneStyle,
         display: "flex",
@@ -27,16 +27,17 @@ export default function  EmpLogin(){
         flexDirection: "column",
         marginTop: "70px",
       }}>
-        <Logo.Full style={logoTextStyle}/>
+        {/* <Logo.Full style={logoTextStyle} /> */}
         {/* <div>
         <h2 style={{ color: "white", marginTop: "5px" }}>
 ברוכים הבאים!                    </h2>
         </div> */}
         <div>
-            <SignInComp></SignInComp>
+          <h1>הזן את הקוד</h1>
+          <SignInComp.code></SignInComp.code>
         </div>
-    </div>
-</BackgroundLayout>
-    );
+      </div>
+    </BackgroundLayout>
+  );
 
 }

@@ -24,10 +24,12 @@ import Register from "./Admin/Register";
 import { lazy } from "react";
 import { ShelterContext } from "../context/ShelterContextProvider";
 import EmpLogin from "./Employees/EmpLogin";
+import EmpLoginCode from "./Employees/EmpLoginCode";
 import EmpSignUp from "./Employees/EmpSignUp";
 import DogsList from "./Employees/DogsList";
 import DogsId from "./Employees/DogsID";
 import { json, redirect } from "react-router-dom";
+
 
 export const pathes = [
   {
@@ -59,7 +61,10 @@ export const adminRouts = [
   },
   {
     path: "/admin/register",
-    element: <Register />
+    async lazy() {
+      let Register = await import("./Admin/Register");
+      return { Component: Register.default };
+    },
   },
   {
     path: "/admin/shelter",
@@ -87,7 +92,7 @@ export const adopterRoutes = [
   {
     path: "/",
     element: <AdoptersHomePage />,
-    
+
   },
   {
     path: "/dogbot",
@@ -100,7 +105,7 @@ export const adopterRoutes = [
       } else {
         //seconde option - existing id , get his chat history from database
         return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats/" + getId.id)
-    
+
       }
     },
   },
@@ -148,6 +153,10 @@ export const employeesRoutes = [
   {
     path: "/employees",
     element: <EmpLogin />,
+  },
+  {
+    path: "/employees/code",
+    element: <EmpLoginCode />,
   },
   {
     path: "/employees/empsignup",

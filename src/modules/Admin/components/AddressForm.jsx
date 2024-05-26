@@ -1,35 +1,23 @@
 
 import React, { useEffect } from 'react'
 import { Textinput } from '../../../components/Textinput'
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Box, Button, InputAdornment, MenuItem, Typography } from '@mui/material';
+import { Autocomplete, Box, Button, InputAdornment, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { AccountCircle, AdminPanelSettings, Email, Password, Phone } from '@mui/icons-material';
 import useFetch from '../../../utilis/useFetch';
 
 
 const requestSchema = z.object({
-  firstName: z
-    .string()
-    .regex(
-      new RegExp("^[a-zA-Z\u0590-\u05FF\u200f\u200e ]+$"),
-      "שם חייב להכיל אותיות בעברית או באנגלית"
-    ),
-  lastName: z
-    .string()
-    .regex(
-      new RegExp("^[a-zA-Z\u0590-\u05FF\u200f\u200e ]+$"),
-      "שם חייב להכיל אותיות בעברית או באנגלית"
-    ),
-  phoneNumber: z.string().regex(new RegExp("^05+[0-9]{8}$"), "מספר לא תקין"),
-  email: z.string().email("אימייל לא תקין"),
-  userName: z.string().max(12, "שם משתשמש לא ארוך יותר מ12 תווים"),
-  password: z.string().max(20, "שם משתשמש לא ארוך יותר מ20 תווים")
+ 
+
 });
 
 
-export default function AddressForm({ sendData }) {
+export default function AddressForm({ register,formState }) {
+
+  const {errors}=formState;
 
   const cities = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/Cities');
 
@@ -39,55 +27,45 @@ export default function AddressForm({ sendData }) {
   }, [cities])
 
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(requestSchema),
-  });
 
   const submit = (data) => {
+    console.log('data', data)
     sendData(data);
   }
 
   return (
     < >
-
-      <form onSubmit={handleSubmit(submit)} style={{
-        width: '100%', display: 'grid', gap: "5%",
+ <Typography variant='h6' color='primary.dark' sx={{ mb: 3 }}>
+        כתובת
+      </Typography>
+      <Box  style={{
+        width: '100%', display: 'grid', gap: "30px",
         gridTemplate: "60px/30% 40% 20%"
       }}>
 
-        <Textinput {...register("city")}
-          label="עיר"
-          select
-          error={!!errors.firstName}
-          helperText={errors.firstName?.message} >
-          <MenuItem value={""}>
+        <Autocomplete
+          options={cities.loading? []:cities.value}
+          renderInput={(params) => <Textinput {...params}
+            label="עיר"
+            {...register("address.city")}
+            error={!!errors.address?.city}
+            helperText={errors.address?.city?.message} />}
+        />
 
-          </MenuItem>
-          {
-            cities.value?.map((v) => 
-              <MenuItem key={v} value={v}>
-                {v}
-              </MenuItem>
-            )
-          }
-        </Textinput>
-
-        <Textinput {...register("houseNumber")}
+        <Textinput {...register("address.streetName")}
           label="רחוב"
-          error={!!errors.lastName}
-          helperText={errors.lastName?.message} />
+          error={!!errors.address?.streetName}
+          helperText={errors.address?.streetName?.message} />
 
         <Textinput
-          {...register("streetName")}
+          {...register("address.houseNumber")}
           label="מספר בית"
-          error={!!errors.phoneNumber}
-          helperText={errors.phoneNumber?.message} />
+          type='number'
+          error={!!errors.address?.houseNumber}
+          helperText={errors.address?.houseNumber?.message} />
 
-      </form>
+
+      </Box>
     </>
   )
 }
