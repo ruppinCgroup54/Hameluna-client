@@ -127,12 +127,11 @@ useEffect(() => {
     <BackgroundLayout image={BackgroundImage} dir={"col"} style={{ justifyContent: "center" }} >
 
       <FormStyle style={{position:"relative"}} >
-        {/* <FormProvider {...methods}> */}
 
         <form onSubmit={handleSubmit(submit)} >
 
-          {/* <AdminForm {...methods} />
-          <br /> */}
+          <AdminForm {...methods} />
+          <br />
           
           <AddImage/>
           <ShelterForm {...methods} />
@@ -141,7 +140,6 @@ useEffect(() => {
           <br />
           <Button variant='contained' type='submit'>שמור</Button>
         </form>
-        {/* </FormProvider/> */}
 
       </FormStyle>
 

@@ -47,11 +47,6 @@ export default function ShelterForm({ register, formState, control }) {
               multiple
               options={["1", "2", "3", "4"]}
               getOptionLabel={option => option}
-              // onChange={(e, values) => setValue("dailyRoutine", values)}
-              // inputValue={inputValue}
-              // onInputChange={(event, newInputValue) => {
-              //   setInputValue(newInputValue);
-              // }}
               renderInput={params => (
                 <Textinput
                   {...params}
@@ -65,7 +60,6 @@ export default function ShelterForm({ register, formState, control }) {
                 return data;
               }}
               defaultValue={[]}
-              // this makes the last error
             />
           )}
 
