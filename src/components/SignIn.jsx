@@ -8,6 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import useFetch from "../utilis/useFetch";
 import { ShelterContext } from "../context/ShelterContextProvider";
 import useLocalStorage from "../utilis/useLocalStorge";
+import useShelterContext from "../utilis/useShelterContext"
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const StyledTextfield = {
@@ -28,7 +29,8 @@ const StyledTextfield = {
 export default function SignIn() {
   const navigate = useNavigate();
 
-  const {setLoginDet} = useContext(ShelterContext);
+  // const {setLoginDet} = useContext(ShelterContext);
+  const {setLoginDet} = useShelterContext();
 
   // const [loginDetails, setLoginDet] = useLocalStorage('loginDet', {});
 

@@ -8,49 +8,25 @@ import { AccountCircle, AdminPanelSettings, Email, Password, Phone } from '@mui/
 
 
 const requestSchema = z.object({
-  firstName: z
-    .string()
-    .regex(
-      new RegExp("^[a-zA-Z\u0590-\u05FF\u200f\u200e ]+$"),
-      "שם חייב להכיל אותיות בעברית או באנגלית"
-    ),
-  lastName: z
-    .string()
-    .regex(
-      new RegExp("^[a-zA-Z\u0590-\u05FF\u200f\u200e ]+$"),
-      "שם חייב להכיל אותיות בעברית או באנגלית"
-    ),
-  phoneNumber: z.string().regex(new RegExp("^05+[0-9]{8}$"), "מספר לא תקין"),
-  email: z.string().email("אימייל לא תקין"),
-  userName: z.string().max(12, "שם משתשמש לא ארוך יותר מ12 תווים"),
-  password: z.string().max(20, "שם משתשמש לא ארוך יותר מ20 תווים")
+ 
 });
 
 
-export default function AdminForm({ sendData }) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors},
-  } = useForm({
-    resolver: zodResolver(requestSchema),
-  });
+export default function AdminForm({ register,formState }) {
 
-  const submit = (data) => {
-    sendData(data);
-  }
+  const {errors} = formState;
 
   return (
     < >
       <Typography variant='h3' color='primary.dark' sx={{ textAlign: 'center', mb: 3 }}>
         פרטי מנהל
       </Typography>
-      <form onSubmit={handleSubmit(submit)} style={{ width: '100%', display: 'grid', gap: "20px 20px", gridTemplate: "50px/ auto auto" }}>
+      <Box style={{ width: '100%', display: 'grid', gap: "30px", gridTemplate: "50px/ auto auto" }}>
 
-        <Textinput {...register("firstName")}
+        <Textinput {...register("adminDetails.firstName")}
           label="שם פרטי"
-          error={!!errors.firstName}
-          helperText={errors.firstName?.message}
+          error={!!errors.adminDetails?.firstName}
+          helperText={errors.adminDetails?.firstName?.message}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -59,10 +35,10 @@ export default function AdminForm({ sendData }) {
             ),
           }} />
 
-        <Textinput {...register("lastName")}
+        <Textinput {...register("adminDetails.lastName")}
           label="שם משפחה"
-          error={!!errors.lastName}
-          helperText={errors.lastName?.message}
+          error={!!errors.adminDetails?.lastName}
+          helperText={errors.adminDetails?.lastName?.message}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -72,10 +48,10 @@ export default function AdminForm({ sendData }) {
           }} />
 
         <Textinput
-          {...register("phoneNumber")}
+          {...register("adminDetails.phoneNumber")}
           label="מספר פלאפון"
-          error={!!errors.phoneNumber}
-          helperText={errors.phoneNumber?.message}
+          error={!!errors.adminDetails?.phoneNumber}
+          helperText={errors.adminDetails?.phoneNumber?.message}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -86,10 +62,10 @@ export default function AdminForm({ sendData }) {
         />
 
 
-        <Textinput {...register("email")}
+        <Textinput {...register("adminDetails.email")}
           label="אימייל"
-          error={!!errors.email}
-          helperText={errors.email?.message}
+          error={!!errors.adminDetails?.email}
+          helperText={errors.adminDetails?.email?.message}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -98,10 +74,10 @@ export default function AdminForm({ sendData }) {
             ),
           }} />
 
-        <Textinput {...register("userName")}
+        <Textinput {...register("adminDetails.userName")}
           label="שם משתמש"
-          error={!!errors.userName}
-          helperText={errors.userName?.message}
+          error={!!errors.adminDetails?.userName}
+          helperText={errors.adminDetails?.userName?.message}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -110,11 +86,11 @@ export default function AdminForm({ sendData }) {
             ),
           }} />
 
-        <Textinput {...register("password")}
+        <Textinput {...register("adminDetails.password")}
           label="סיסמה"
           type='password'
-          error={!!errors.password}
-          helperText={errors.password?.message}
+          error={!!errors.adminDetails?.password}
+          helperText={errors.adminDetails?.password?.message}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -123,8 +99,7 @@ export default function AdminForm({ sendData }) {
             ),
           }} />
 
-        <Button variant='contained' type='submit'>שמור</Button>
-      </form>
+      </Box>
     </>
   )
 }

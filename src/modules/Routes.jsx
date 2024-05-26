@@ -29,6 +29,7 @@ import DogsList from "./Employees/DogsList";
 import DogsId from "./Employees/DogsID";
 import { json, redirect } from "react-router-dom";
 
+
 export const pathes = [
   {
     path: "/admin/shelter/",
@@ -59,7 +60,10 @@ export const adminRouts = [
   },
   {
     path: "/admin/register",
-    element: <Register />
+    async lazy() {
+      let Register = await import("./Admin/Register");
+      return { Component: Register.default };
+    },
   },
   {
     path: "/admin/shelter",
@@ -87,7 +91,7 @@ export const adopterRoutes = [
   {
     path: "/",
     element: <AdoptersHomePage />,
-    
+
   },
   {
     path: "/dogbot",
@@ -100,7 +104,7 @@ export const adopterRoutes = [
       } else {
         //seconde option - existing id , get his chat history from database
         return fetch(import.meta.env.VITE_APP_SERVERURL + "Chats/" + getId.id)
-    
+
       }
     },
   },

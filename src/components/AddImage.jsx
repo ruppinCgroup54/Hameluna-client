@@ -18,7 +18,7 @@ export default function AddImage() {
     }
     
     return (
-        <div onClick={handleImage} style={{ position: 'absolute', top: '-60px', right: '-90px' }}>
+        <div onClick={handleImage} style={{ position: 'absolute', top: '-60px', right: '-90px',cursor:'pointer' }}>
             <Box sx={{ position: 'relative' }}>
                 <Avatar
                     src={src != img ? URL.createObjectURL(src) : src}

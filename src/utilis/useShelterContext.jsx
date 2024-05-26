@@ -1,7 +1,6 @@
 import { useContext } from "react";
-import { AdoptersContext } from "../context/AdoptersContext";
 import { ShelterContext } from "../context/ShelterContextProvider";
 
-const useShelterContext=()=>useContext(ShelterContext);
+const useShelterContext= async ()=> await useContext(ShelterContext);
 
 export default useShelterContext;
