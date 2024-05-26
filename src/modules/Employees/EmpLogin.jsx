@@ -6,7 +6,7 @@ import SignIn from "../../components/SignIn";
 import SignInComp from "./components/SignInComp";
 import { position } from "stylis";
 import Logo from "../../components/Logo";
-import SmsCodeInput from "./components/smsCode";
+//import SmsCodeInput from "./components/SmsCode";
 
 const phoneStyle = {
     width: "90%",
