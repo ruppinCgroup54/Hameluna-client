@@ -4,10 +4,11 @@ import { Box, Grid, Typography } from "@mui/material";
 import { useLoaderData } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { ShelterContext } from "../../context/ShelterContextProvider";
+import useShelterContext from "../../utilis/useShelterContext";
 
 export default function ControlPage() {
 
-  const {cells, dogs} = useContext(ShelterContext);
+  const {cells, dogs} = useShelterContext();
   console.log('cells', cells)
   return (
     <Box display={"flex"} mt={"120px"} >
@@ -15,7 +16,7 @@ export default function ControlPage() {
       <Grid container width={"60%"} display={"flex"} rowSpacing={1}>
         <Grid item md={12} display={"flex"} justifyContent={"space-between"}>
           <Typography variant="h5">הכלבייה שלנו</Typography>
-          <Typography variant="h5">סה"כ כלבים: {dogs.length}</Typography>
+          <Typography variant="h5">סה"כ כלבים: {dogs?.length}</Typography>
         </Grid>
         <Grid item md={12}>
           <Box
@@ -27,7 +28,7 @@ export default function ControlPage() {
               rowGap: "15px",
             }}
           >
-            {cells.value?.map((c, i) => (
+            {cells?.value?.map((c, i) => (
               <Cell key={c.number} cellItem={c}></Cell>
             ))}
           </Box>

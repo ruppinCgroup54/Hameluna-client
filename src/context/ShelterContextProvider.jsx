@@ -12,7 +12,7 @@ export default function ShelterContextProvider(props) {
   // const cellsData = useRouteLoaderData("כלבייה");
   const [loginDet, setLoginDet] = useLocalStorage("loginDet", {});
   const cells = useFetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/` + loginDet.shelterNumber, [triggerFetch])
-
+console.log('cells', cells)
   // const [cells, setCells] = useState(cellsData?cellsData.value:[]);
   const [dogs, setDogs] = useState([]);
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function ShelterContextProvider(props) {
   }, [cells.value]);
 
   useEffect(() => {
-    if (loginDet.shelterNumber == 0 ) {
+    if (loginDet.shelterNumber == undefined) {
       navigate('/admin/');
     }
   }, [loginDet])

@@ -5,8 +5,10 @@ import { useMediaQuery } from "react-responsive";
 
 import SignIn from "../../components/SignIn";
 import useShelterContext from "../../utilis/useShelterContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ShelterContext } from "../../context/ShelterContextProvider";
+import { useNavigate } from "react-router-dom";
+import useLocalStorage from "../../utilis/useLocalStorge";
 
 const LogInImage = "images/Layouts/LogIn.png";
 
@@ -18,14 +20,18 @@ const desktopStyle = { width: "33%", marginRight: "10%" };
 
 export default function LogInPage() {
   const isDesktop = useMediaQuery({ query: "(min-width:600px )" });
+  //const {loginDet} = useShelterContext();
 
-  const {loginDet} = useContext(ShelterContext);
+  const [loginDetails, setLoginDetailes] = useLocalStorage("loginDet", {});
+  
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (loginDet.shelterNumber !== 0 ) {
+    if (loginDetails?.shelterNumber != undefined) {
       navigate('/admin/shelter');
     }
-  }, [loginDet])
+  }, [loginDetails])
 
   return (
     <>
@@ -45,7 +51,7 @@ export default function LogInPage() {
           <h3 style={{ color: "white", marginTop: "5px" }}>
             לנהל את הכלבייה שלך בצורה הפשוטה ביותר.
           </h3>
-            <SignIn></SignIn>
+            <SignIn updateDetails={setLoginDetailes}></SignIn>
         </div>
       </BackgroundLayout>
     </>

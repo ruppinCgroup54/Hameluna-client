@@ -26,11 +26,11 @@ const StyledTextfield = {
   },
 };
 
-export default function SignIn() {
+export default function SignIn({ updateDetails }) {
   const navigate = useNavigate();
 
   // const {setLoginDet} = useContext(ShelterContext);
-  const {setLoginDet} = useShelterContext();
+  //const {setLoginDet} = useShelterContext();
 
   // const [loginDetails, setLoginDet] = useLocalStorage('loginDet', {});
 
@@ -50,14 +50,20 @@ export default function SignIn() {
       body: JSON.stringify(loginDet),
     })
       .then((res) => {
-        return res.ok ? res.json() : Promise.reject(res);
+        debugger
+        if (res.ok) {
+          return res.json()
+        }
+        else {
+          return Promise.reject(res);
+        }
       })
       .then((data) => {
-        loginDet["shelterNumber"] = data;
-        setLoginDet(loginDet);
-        // navigate("/admin/shelter");
+          loginDet["shelterNumber"] = data;
+          updateDetails(loginDet);
+
       })
-      .catch((rej) =>{event.target.reset(); setOpenAlert(true)});
+      .catch((rej) => { event.target.reset(); setOpenAlert(true) });
   };
 
   return (
@@ -128,7 +134,7 @@ export default function SignIn() {
         <Alert severity="error">
           <AlertTitle>שגיאה בהתחברות</AlertTitle>
           מספר פלאפון או סיסמא שגויים.
-        </Alert>  
+        </Alert>
       </Collapse>
     </Box>
   );

@@ -21,7 +21,7 @@ export default function DateInput({ label, setVal }) {
         console.log('dateeee', date.toISOString());
     }
     return (
-        <Box>
+        <Box sx={{width:'100%'}}>
             <FormControl
                 fullWidth
                 sx={{
