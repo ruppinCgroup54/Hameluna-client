@@ -24,6 +24,7 @@ import Register from "./Admin/Register";
 import { lazy } from "react";
 import { ShelterContext } from "../context/ShelterContextProvider";
 import EmpLogin from "./Employees/EmpLogin";
+import EmpLoginCode from "./Employees/EmpLoginCode";
 import EmpSignUp from "./Employees/EmpSignUp";
 import DogsList from "./Employees/DogsList";
 import DogsId from "./Employees/DogsID";
@@ -152,6 +153,10 @@ export const employeesRoutes = [
   {
     path: "/employees",
     element: <EmpLogin />,
+  },
+  {
+    path: "/employees/code",
+    element: <EmpLoginCode />,
   },
   {
     path: "/employees/empsignup",
