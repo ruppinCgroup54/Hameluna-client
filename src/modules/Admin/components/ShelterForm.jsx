@@ -12,14 +12,13 @@ import AddImage from '../../../components/AddImage';
 
 export default function ShelterForm({ register, formState, control }) {
   const { errors } = formState;
-  const [inputValue, setInputValue] = useState([]);
 
   return (
     <>
       <Typography variant='h3' color='primary.dark' sx={{ textAlign: 'center', mb: 3 }}>
         פרטי הכלבייה
       </Typography>
-      < Box sx={{ width: '100%', display: 'grid', gap: "30px" }}>
+      < Box sx={{ width: '100%', display: 'grid' , gap: "30px" }}>
         <Textinput {...register("name")}
           label="שם הכלבייה"
           error={!!errors.name}

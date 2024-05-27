@@ -7,10 +7,6 @@ import { Box, Button, InputAdornment, Typography } from '@mui/material';
 import { AccountCircle, AdminPanelSettings, Email, Password, Phone } from '@mui/icons-material';
 
 
-const requestSchema = z.object({
- 
-});
-
 
 export default function AdminForm({ register,formState }) {
 
@@ -19,7 +15,7 @@ export default function AdminForm({ register,formState }) {
   return (
     < >
       <Typography variant='h3' color='primary.dark' sx={{ textAlign: 'center', mb: 3 }}>
-        פרטי מנהל
+        
       </Typography>
       <Box style={{ width: '100%', display: 'grid', gap: "30px", gridTemplate: "50px/ auto auto" }}>
 

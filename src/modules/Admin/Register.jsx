@@ -7,8 +7,10 @@ import ShelterForm from './components/ShelterForm'
 import AddressForm from './components/AddressForm'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from '@mui/material'
+import { Box, Button, Stack, Step, StepLabel, Stepper, Typography } from '@mui/material'
 import AddImage from '../../components/AddImage'
+import CellsForm from './components/CellsForm'
+import { ChevronLeftRounded, ChevronRightRounded } from '@mui/icons-material'
 
 const BackgroundImage = 'images/Layouts/LogIn.png'
 
@@ -60,7 +62,7 @@ const requestSchema = z.object({
     })
   )
 
-}).required();
+});
 
 const defaultSchema = {
   "shelterId": 0,
@@ -100,49 +102,139 @@ const defaultSchema = {
 
 export default function Register() {
 
+  const [activeStep, setActiveStep] = useState(0);
+
+  const forms = ["פרטי מנהל", "פרטי כלבייה", "הוספת תאים"]
 
   const methods = useForm({
     defaultValues: defaultSchema,
     resolver: zodResolver(requestSchema),
   });
 
+  const handleNext = () => {
+    setActiveStep(activeStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
+  };
+
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return <AdminForm {...methods} />;
+      case 1:
+        return <>
+          <AddImage {...methods} />
+          <ShelterForm {...methods} />
+          <br />
+          <AddressForm {...methods} />
+        </>;
+      case 2:
+        return <CellsForm {...methods} />;
+      default:
+        throw new Error('Unknown step');
+    }
+  }
+
   const {
     watch,
-    register,
     handleSubmit,
     formState: { errors },
   } = methods;
 
-const watchRoutine = watch();
+  const watchRoutine = watch();
 
-useEffect(() => {
-  console.log(watchRoutine)
-})
+  useEffect(() => {
+    console.log(watchRoutine)
+  })
 
   console.log('errors', errors)
   const submit = (data) => {
     console.log('data', data)
   }
   return (
-    <BackgroundLayout image={BackgroundImage} dir={"col"} style={{ justifyContent: "center" }} >
+    <BackgroundLayout image={BackgroundImage} dir={"col"}  >
 
-      <FormStyle style={{position:"relative"}} >
+      <FormStyle style={{ position: "relative" ,height:'85vh'}} >
+        <Box>
+          <Stepper
+            activeStep={activeStep}
+            sx={{
+              width: '100%',
+              height: 40,
+            }}
+          >
+            {forms.map((label) => (
+              <Step
+                sx={{
+                  ':first-child': { pl: 0 },
+                  ':last-child': { pr: 0 },
+                }}
+                key={label}
+              >
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        </Box>
+        <form onSubmit={handleSubmit(submit)} style={{ width: '100%' }}  >
+          {activeStep === forms.length ? (
+            <Stack spacing={2} useFlexGap>
+              <Typography variant="h1">📦</Typography>
+              <Typography variant="h5">Thank you for your order!</Typography>
+              <Typography variant="body1" color="text.secondary">
+                Your order number is
+                <strong>&nbsp;#140396</strong>. We have emailed your order
+                confirmation and will update you once its shipped.
+              </Typography>
+              <Button
+                variant="contained"
+                sx={{
+                  alignSelf: 'start',
+                  width: { xs: '100%', sm: 'auto' },
+                }}
+              >
+                Go to my orders
+              </Button>
+            </Stack>
+          ) : (
+            <>
+              {getStepContent(activeStep)}
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection:'row-reverse' ,
+                  justifyContent: activeStep !== 0 ? 'space-between' : 'flex-start',
+                  alignItems: 'end',
+                  flexGrow: 1,
+                  gap: 1,
+                  pb: 3 ,
+                  mt: 3 ,
+                }}
+              >
+                <Button
+                  startIcon={<ChevronLeftRounded />}
+                  onClick={handleNext}
+                  variant="contained" >
+                  הבא
+                </Button>
 
-        <form onSubmit={handleSubmit(submit)} >
+                {activeStep!==0 && <Button
+                  startIcon={<ChevronRightRounded />}
+                  onClick={handleBack}
+                  variant="outlined"
+                >
+                  הקודם
+                </Button>}
 
-          <AdminForm {...methods} />
-          <br />
-          
-          <AddImage/>
-          <ShelterForm {...methods} />
-          <br />
-          <AddressForm {...methods} />
-          <br />
-          <Button variant='contained' type='submit'>שמור</Button>
+              </Box>
+            </>)}
+          {activeStep === forms.length - 1 && < Button variant='contained' type='submit'>שמור</Button>}
         </form>
 
       </FormStyle>
 
-    </BackgroundLayout>
+    </BackgroundLayout >
   )
 }
