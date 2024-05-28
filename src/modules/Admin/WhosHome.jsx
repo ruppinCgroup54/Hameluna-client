@@ -8,7 +8,6 @@ import ModalAddDog from "./components/ModalAddDog";
 
 export default function WhosHome() {
   const { dogs } = useContext(ShelterContext);
-  console.log("dogs", dogs);
 
   const [filterFields, setFilterFields] = useState({});
 
@@ -16,7 +15,6 @@ export default function WhosHome() {
 
   //const flag = useRef(false);
 
-  console.log("dogsToRender", dogsToRender);
   const labels = [
     {
       lab: "זמן אצלנו",
