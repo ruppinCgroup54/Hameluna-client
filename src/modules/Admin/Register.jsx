@@ -178,7 +178,7 @@ export default function Register() {
             ))}
           </Stepper>
         </Box>
-        <form onSubmit={handleSubmit(submit)} style={{ width: '100%' }}  >
+        <form onSubmit={handleSubmit(submit)} style={{ width: '100%',height:'100%' ,display:'flex', flexDirection:'column', justifyContent:'space-between'}}  >
           {activeStep === forms.length ? (
             <Stack spacing={2} useFlexGap>
               <Typography variant="h1">📦</Typography>
