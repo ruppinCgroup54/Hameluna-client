@@ -9,6 +9,7 @@ const dogImg02 = "images/Dogs/image 5.png";
 const dogImg = "images/Dogs/image 1.png";
 const bcgImg = "images/Layouts/background.png";
 
+import useImageURL from "../../utilis/useImageURL";
 
 
 
@@ -29,7 +30,7 @@ export default function DogsList() {
       //   age: dogis[c].age
       // }
 
-      let dog = <CardComp dogsName={dogis[c].name} cell={cells[i].number} age={dogis[c].age} image1={dogis[c].profileImage} />
+      let dog = <CardComp dogsName={dogis[c].name} cell={cells[i].number} age={dogis[c].age} image1={useImageURL(dogis[c].profileImage)}/>
 
       dogsToRender.push(dog);
 
