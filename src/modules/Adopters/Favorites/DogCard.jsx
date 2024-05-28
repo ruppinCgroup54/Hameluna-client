@@ -6,10 +6,10 @@ import Typography from "@mui/material/Typography";
 import CircleIcons from "../../../components/CircleIcons";
 import { Clear, Email } from "@mui/icons-material";
 import { Collapse, IconButton, styled } from "@mui/material";
-import useAdoptersContext from "../../../utilis/useAdoptersContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useImageURL from "../../../utilis/useImageURL";
+import useAdoptersContext from "../../../utilis/useAdopterContext";
 
 const CardStyle = styled(Card)(({ theme }) => ({
   minHeight: 150,

@@ -17,7 +17,6 @@ import "swiper/css/manipulation";
 import { EffectCreative, Manipulation } from "swiper/modules";
 import DogSwipeCard from "./DogSwipeCard";
 import { Button } from "@mui/material";
-import useAdoptersContext from "../../../utilis/useAdoptersContext";
 import { useState } from "react";
 
 export default function DogsTinder() {

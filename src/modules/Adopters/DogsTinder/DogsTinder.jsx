@@ -5,6 +5,7 @@ import { EffectCreative, Manipulation } from "swiper/modules";
 import DogSwipeCard from "./DogSwipeCard";
 
 export default function DogsTinder() {
+  
   // const AllDogs = useLoaderData();
   // console.log("AllDogs", AllDogs);
   return (

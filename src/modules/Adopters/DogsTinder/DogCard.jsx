@@ -20,8 +20,8 @@ import {
   styled,
 } from "@mui/material";
 import { Favorite, Share } from "@mui/icons-material";
-import useAdoptersContext from "../../../utilis/useAdoptersContext";
 import useImageURL from "../../../utilis/useImageURL";
+import useAdoptersContext from "../../../utilis/useAdopterContext";
 
 export const DogCardStyle = styled(Card)(({ theme }) => ({
   width: "clamp(100px,80dvw,310px)",
@@ -80,6 +80,7 @@ export const DogCardStyle = styled(Card)(({ theme }) => ({
 
 export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDog=()=>{}}) {
   const { AddToFavorites } = useAdoptersContext();
+
   const [open, setOpen] = useState(false);
 
   const addDog = () => {
