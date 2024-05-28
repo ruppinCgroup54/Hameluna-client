@@ -25,6 +25,7 @@ const phoneStyle = {
     alignItems: "center",
     flexDirection: "column",
     marginTop: "70px",
+    
   }
 export default function  EmpLogin(){
     return(
