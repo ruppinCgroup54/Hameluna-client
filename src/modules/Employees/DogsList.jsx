@@ -49,6 +49,7 @@ export default function DogsList() {
           <TopbarEmp></TopbarEmp>
         </div>
         <div style={{
+          paddingTop: "100px",
           padding: "50px 0",
           display: "flex",
           alignItems: "center",
