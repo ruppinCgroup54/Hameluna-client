@@ -9,6 +9,7 @@ import { Collapse, IconButton, styled } from "@mui/material";
 import useAdoptersContext from "../../../utilis/useAdoptersContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useImageURL from "../../../utilis/useImageURL";
 
 const CardStyle = styled(Card)(({ theme }) => ({
   minHeight: 150,
@@ -52,7 +53,7 @@ export default function DogCard({ dog }) {
         <CardMedia
           sx={{ width: "40%", height: "100%", borderRadius: "inherit" }}
         >
-          <img src={dog.profileImage} />
+          <img src={useImageURL(dog.profileImage)} />
         </CardMedia>
         <CardContent>
           <Typography variant="h6">{`${dog.name} | ${dog.age}`}</Typography>

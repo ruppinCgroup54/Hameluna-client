@@ -4,15 +4,18 @@ import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import Box from "@mui/material/Box";
+import useImageURL from "../../../utilis/useImageURL";
 
-const dog= "images/Dogs/image 1.png";
+const dog = "images/Dogs/image 1.png";
 
-export default function Dog({dogItem}) {
+export default function Dog({ dogItem }) {
   const theme = useTheme();
   const entranceDate = new Date(dogItem.entranceDate)
   const date = new Date();
-  const differentTime =  date - entranceDate;
-  const calcDate = Math.round(differentTime/(24*3600*1000*7));
+  const differentTime = date - entranceDate;
+  const calcDate = Math.round(differentTime / (24 * 3600 * 1000 * 7));
+
+
   return (
     <Box
       sx={{
@@ -23,7 +26,7 @@ export default function Dog({dogItem}) {
       }}
     >
       <img
-        src={dogItem.profileImage}
+        src={useImageURL(dogItem.profileImage)}
         style={{
           width: "100%",
           height: "100%",

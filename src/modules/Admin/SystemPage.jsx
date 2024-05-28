@@ -2,17 +2,19 @@ import { Outlet, useLoaderData } from "react-router-dom";
 import NavBarAdmin from "../../components/NavBarAdmin";
 import { Suspense, useContext, useEffect } from "react";
 import FallbackElement from "../../components/FallbackElement";
-import { ShelterContext } from "../../context/ShelterContextProvider";
+import ShelterContextProvider, { ShelterContext } from "../../context/ShelterContextProvider";
 
 export default function SystemPage() {
 
   return (
     <>
-      <NavBarAdmin />
+      <ShelterContextProvider>
+        <NavBarAdmin />
 
-      <Suspense fallback={<FallbackElement />}>
-        <Outlet />
-      </Suspense>
+        <Suspense fallback={<FallbackElement />}>
+          <Outlet />
+        </Suspense>
+      </ShelterContextProvider>
     </>
   );
 }

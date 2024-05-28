@@ -29,15 +29,15 @@ export const FormStyle = styled(Box)(({ theme }) => ({
     padding: "3%",
     border: '5px solid',
     borderColor: theme.palette.primary.main,
-    marginTop:'10vh'                                                           
+    marginTop: '10vh'
 })
 )
 
 
-const ModalAddDog = forwardRef(({opMo},ref) => {
+const ModalAddDog = forwardRef(({ opMo }, ref) => {
 
     const fetcher = useFetcher();
-    const { cells,setTriggerFetch, loginDet } = useContext(ShelterContext);
+    const { cells, setTriggerFetch, loginDet } = useContext(ShelterContext);
 
     const breeds = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/Breeds');
     const colors = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/Colors');
@@ -85,53 +85,79 @@ const ModalAddDog = forwardRef(({opMo},ref) => {
 
         let dogToAdd = {};
         data.forEach((value, key) => (dogToAdd[key] = value));
-        dogToAdd ={ ...dogToAdd,
+        dogToAdd = {
+            ...dogToAdd,
             'numberId': 0,
             'breed': dogToAdd['breed'].split(','),
-            'color': dogToAdd['color'].split(','), 
+            'color': dogToAdd['color'].split(','),
             'attributes': dogToAdd['attributes'].split(','),
             'dateOfBirth': dateBirth,
             'entranceDate': arrivalDate,
             'files': data.getAll("files"),
             'cellId': cell,
-            'isReturned': dogToAdd['isReturned']=="לא" ? false : true,
+            'isReturned': dogToAdd['isReturned'] == "לא" ? false : true,
             'isAdoptable': false,
-            'adopted': false ,
-            'profileImage':data.getAll("profileImage")
+            'adopted': false,
+            'profileImage': data.getAll("profileImage")
         }
 
         const files = dogToAdd['files'];
+        const filesData = new FormData();
+        for (let i = 0; i < files.length; i++) {
+            filesData.append("files", files[i]);
+        };
+
         const profileImg = dogToAdd['profileImage'];
+        const imagesData = new FormData();
+        for (let i = 0; i < profileImg.length; i++) {
+            imagesData.append("images", profileImg[i])
+        };
 
         console.log('dogToAdd', dogToAdd)
-        // delete dogToAdd['files'];
-        // delete dogToAdd['profileImage'];
+        delete dogToAdd['files'];
+        dogToAdd['profileImage'] = "";
 
         fetch(import.meta.env.VITE_APP_SERVERURL + 'Dogs', {
             method: "POST",
-            headers:{
-                'Content-Type' : 'application/json'
+            headers: {
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(dogToAdd),
-          }).then((res) => {
+        }).then((res) => {
             console.log('res', res)
             return res.json();
-          }).then((data) => {
+        }).then((data) => {
             opMo(false);
-            setTriggerFetch(prev=>++prev);
-            uploadProfileImg(data)
-          } )
+            setTriggerFetch(prev => ++prev);
+            console.log('data', data)
+            uploadProfileImg(data);
+        })
 
-          const uploadProfileImg=(dogId)=>{
-            fetch(import.meta.env.VITE_APP_SERVERURL + 'Images/shelterId/'+ loginDet.shelterNumber +'/dogId/'+{dogId}, {
+        const uploadProfileImg = (dogId) => {
+            console.log('rooonniiii', dogId);
+            fetch(import.meta.env.VITE_APP_SERVERURL + 'Images/shelterId/' + loginDet.shelterNumber + '/dogId/' + dogId, {
                 method: "POST",
-                body: data,
-          
-              }).then((res) => {
+                body: imagesData,
+
+            }).then((res) => {
                 console.log('res', res)
                 return res.json()
-              }).then((data) => console.log('data', data))
-          }
+            }).then((data) => { 
+                console.log('data', data);
+                uploadFile(dogId);
+             })
+        }
+
+        const uploadFile = (dogId) => {
+            fetch(import.meta.env.VITE_APP_SERVERURL + 'Files/shelterId/' + loginDet.shelterNumber + '/dogId/' + dogId, {
+                method: "POST",
+                body: filesData,
+
+            }).then((res) => {
+                console.log('res', res)
+                return res.json()
+            }).then((data) => console.log('data', data))
+        }
     }
 
     const [dateBirth, setDateBirth] = useState({});
@@ -155,7 +181,7 @@ const ModalAddDog = forwardRef(({opMo},ref) => {
                 <Grid item xs={3}><UploadFileButton></UploadFileButton></Grid>
                 <Grid item xs={6}><CharacteristicsSelect field={selectInputs[3]}></CharacteristicsSelect></Grid>
                 <Grid item xs={3}></Grid>
-                <Grid item xs={6}><CellsBox cells={cells.loading?[]:cells.value} setVal={setCell} val={cell}></CellsBox></Grid>
+                <Grid item xs={6}><CellsBox cells={cells.loading ? [] : cells.value} setVal={setCell} val={cell}></CellsBox></Grid>
                 <Grid item xs={3}></Grid>
                 <Grid item xs={12} display={'flex'} justifyContent={'center'}><Button variant="contained" type="submit" sx={{ fontSize: '18px', width: '150px' }}>הוסף כלב</Button></Grid>
             </Grid>

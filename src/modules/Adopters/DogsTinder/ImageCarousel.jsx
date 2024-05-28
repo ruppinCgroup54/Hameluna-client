@@ -10,6 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // import required modules
 import { Pagination, Navigation } from "swiper/modules";
+import useImageURL from "../../../utilis/useImageURL";
 
 export default function ImageCarousel({ images }) {
 
@@ -39,7 +40,7 @@ export default function ImageCarousel({ images }) {
               height: "100%",
               objectFit: "cover",
             }}
-            src={image}
+            src={useImageURL(image)}
           ></img>
         </SwiperSlide>
       ))}

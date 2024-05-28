@@ -21,6 +21,7 @@ import {
 } from "@mui/material";
 import { Favorite, Share } from "@mui/icons-material";
 import useAdoptersContext from "../../../utilis/useAdoptersContext";
+import useImageURL from "../../../utilis/useImageURL";
 
 export const DogCardStyle = styled(Card)(({ theme }) => ({
   width: "clamp(100px,80dvw,310px)",
@@ -108,7 +109,7 @@ export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDo
     <DogCardStyle>
       <CardMedia>
         {/* <ImageCarousel images={dog?.images} /> */}
-      <img src={dog.profileImage} alt="" style={{height:'100%',width:'100%',objectFit:'cover'}} />
+      <img src={useImageURL( dog.profileImage)} alt="" style={{height:'100%',width:'100%',objectFit:'cover'}} />
      
       </CardMedia>
       <CardContent>
