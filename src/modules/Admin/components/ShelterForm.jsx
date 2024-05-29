@@ -18,8 +18,10 @@ export default function ShelterForm({ register, formState, control }) {
       <Typography variant='h3' color='primary.dark' sx={{ textAlign: 'center', mb: 3 }}>
         פרטי הכלבייה
       </Typography>
-      < Box sx={{ width: '100%', display: 'grid' , gap: "30px" }}>
+      < Box sx={{ width: '100%', display: 'grid', gap: "30px 10%", display: 'flex' ,flexWrap:'wrap',justifyContent:'center'}}>
+
         <Textinput {...register("name")}
+          sx={{ width: '45%' }}
           label="שם הכלבייה"
           error={!!errors.name}
           helperText={errors.name?.message}
@@ -32,6 +34,7 @@ export default function ShelterForm({ register, formState, control }) {
           }} />
 
         <Textinput {...register("timeToReport")}
+          sx={{ width: '45%' }}
           label="זמן דיווח חריגות"
           type='time'
           error={!!errors.timeToReport}
@@ -43,6 +46,7 @@ export default function ShelterForm({ register, formState, control }) {
           name='dailyRoutine'
           render={({ field: { onChange, value } }) => (
             <Autocomplete
+            sx={{width:"50%"}}
               multiple
               options={["1", "2", "3", "4"]}
               getOptionLabel={option => option}

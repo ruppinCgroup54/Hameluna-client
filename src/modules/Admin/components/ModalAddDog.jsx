@@ -127,7 +127,7 @@ const ModalAddDog = forwardRef(({ opMo }, ref) => {
             return res.json();
         }).then((data) => {
             opMo(false);
-            // setTriggerFetch(prev => prev + 1);
+            setTriggerFetch(prev => prev + 1);
             uploadProfileImg(data);
         })
 
@@ -153,7 +153,7 @@ const ModalAddDog = forwardRef(({ opMo }, ref) => {
             }).then((res) => {
                 console.log('res', res)
                 return res.json()
-            }).then((data) => navigate(0))
+            }).then((data) => console.log('data', data))
         }
     }
 

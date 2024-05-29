@@ -14,7 +14,7 @@ export default function AdminForm({ register,formState }) {
 
   return (
     < >
-      <Typography variant='h3' color='primary.dark' sx={{ textAlign: 'center', mb: 3 }}>
+      <Typography variant='h3' color='primary.dark' sx={{ textAlign: 'center', mb: 1 }}>
         פרטי מנהל
       </Typography>
       <Box style={{ width: '100%', display: 'grid', gap: "30px", gridTemplate: "50px/ auto auto" }}>

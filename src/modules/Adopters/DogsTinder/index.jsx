@@ -28,6 +28,7 @@ export default function DogsTinder() {
       <Swiper
         effect={"creative"}
         grabCursor={true}
+        lazy={true}
         modules={[EffectCreative, Manipulation]}
         creativeEffect={{
           prev: {

@@ -40,15 +40,16 @@ export default function CellsBox({ cells, setVal, val }) {
                                 <Skeleton
                                     key={c.number}
                                     variant='h4'
-                                    animation = {(c.capacity - c.dogsInCell.length != maxEmpty || val == c.number    ? false : 'pulse')}
-                                    onClick={()=> setVal(c.number)}
+                                    animation = {(c.capacity - c.dogsInCell.length != maxEmpty || val == c.id    ? false : 'pulse')}
+                                    onClick={()=> setVal(c.id)}
                                     sx={{
                                         minWidth: '50px',
                                         height:'50px',
                                         textAlign:'center',
                                         alignContent:'center',
                                         m: '2%',
-                                        backgroundColor: (c.capacity - c.dogsInCell.length == maxEmpty&&val==null || (val == c.number )) ? color : '',
+                                        cursor:'pointer',
+                                        backgroundColor: (c.capacity - c.dogsInCell.length == maxEmpty&&val==null || (val == c.id )) ? color : '',
                                     }}>
                                     {c.number}
                                 </Skeleton>

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 
 
-const DEFAULT_OPTIONS = {
+export const DEFAULT_OPTIONS = {
   headers: { "Content-Type": "application/json","dataType": "json", },
 }
 

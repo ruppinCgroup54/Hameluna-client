@@ -22,6 +22,7 @@ import {
 import { Favorite, Share } from "@mui/icons-material";
 import useImageURL from "../../../utilis/useImageURL";
 import useAdoptersContext from "../../../utilis/useAdopterContext";
+import useFetch from "../../../utilis/useFetch";
 
 export const DogCardStyle = styled(Card)(({ theme }) => ({
   width: "clamp(100px,80dvw,310px)",
@@ -81,6 +82,8 @@ export const DogCardStyle = styled(Card)(({ theme }) => ({
 export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDog=()=>{}}) {
   const { AddToFavorites } = useAdoptersContext();
 
+  const images = useFetch(import.meta.env.VITE_APP_SERVERURL+"images/dogId/"+dog.numberId)
+
   const [open, setOpen] = useState(false);
 
   const addDog = () => {
@@ -109,8 +112,8 @@ export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDo
   return (
     <DogCardStyle>
       <CardMedia>
-        {/* <ImageCarousel images={dog?.images} /> */}
-      <img src={useImageURL( dog.profileImage)} alt="" style={{height:'100%',width:'100%',objectFit:'cover'}} />
+        <ImageCarousel images={images?.value} />
+      {/* <img src={useImageURL( dog.profileImage)} alt="" style={{height:'100%',width:'100%',objectFit:'cover'}} /> */}
      
       </CardMedia>
       <CardContent>

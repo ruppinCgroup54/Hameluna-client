@@ -4,7 +4,7 @@ import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 
 const img = "images/Dogs/profileDog.png";
 
-export default function AddImage() {
+export default function AddImage({getImage=()=>{},style={}}) {
 
     const inputRef = useRef(null);
     const [src, setSrc] = useState(img);
@@ -15,21 +15,22 @@ export default function AddImage() {
 
     const imageChange = (e) => {
         setSrc(e.target.files[0]);
+        getImage(e.target.files[0])
     }
     
     return (
-        <div onClick={handleImage} style={{ position: 'absolute', top: '-60px', right: '-90px',cursor:'pointer' }}>
+        <div onClick={handleImage} style={{ position: 'absolute', top: '-60px', right: '-90px',cursor:'pointer',...style }}>
             <Box sx={{ position: 'relative' }}>
                 <Avatar
                     src={src != img ? URL.createObjectURL(src) : src}
                     sx={{
-                        width: '230px',
-                        height: '230px',
+                        width: '15vw',
+                        height: '15vw',
                         border: '7px solid',
                         borderColor: 'primary.main',
                     }}>
                 </Avatar>
-                <input type="file" name="profileImage" onChange={imageChange} ref={inputRef} style={{ display: 'none' }}></input>
+                <input requierd type="file" name="profileImage" onChange={imageChange} ref={inputRef} style={{ display: 'none' }}></input>
 
                 <Avatar src=""
                     sx={{

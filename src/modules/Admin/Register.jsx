@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import BackgroundLayout from '../../layouts/BackgroundLayout'
 import { FormStyle } from './components/ModalAddDog'
 import { FormProvider, useForm, useWatch } from 'react-hook-form'
@@ -10,59 +10,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Box, Button, Stack, Step, StepLabel, Stepper, Typography } from '@mui/material'
 import AddImage from '../../components/AddImage'
 import CellsForm from './components/CellsForm'
-import { ChevronLeftRounded, ChevronRightRounded } from '@mui/icons-material'
+import { ChevronLeftRounded, ChevronRightRounded, ForkRightOutlined } from '@mui/icons-material'
+import { requestSchema } from '../../Data/Schemas'
+import { useNavigate } from 'react-router-dom'
+
 
 const BackgroundImage = 'images/Layouts/LogIn.png'
-
-const requestSchema = z.object({
-  "shelterId": z.number(),
-  "adminDetails": z.object({
-    firstName: z
-      .string()
-      .regex(
-        new RegExp("^[a-zA-Z\u0590-\u05FF\u200f\u200e ]+$"),
-        "שם חייב להכיל אותיות בעברית או באנגלית"
-      ),
-    lastName: z
-      .string()
-      .regex(
-        new RegExp("^[a-zA-Z\u0590-\u05FF\u200f\u200e ]+$"),
-        "שם חייב להכיל אותיות בעברית או באנגלית"
-      ),
-    phoneNumber: z.string().regex(new RegExp("^05+[0-9]{8}$"), "מספר לא תקין"),
-    email: z.string().email("אימייל לא תקין"),
-    userName: z.string().max(12, "שם משתשמש לא ארוך יותר מ12 תווים"),
-    password: z.string().max(20, "שם משתשמש לא ארוך יותר מ20 תווים")
-  }),
-  "facebookUserName": z.string(),
-  "facebookPassword": z.string(),
-  "instagramUserName": z.string(),
-  "instagramPassword": z.string(),
-  "timeToReport": z.string(),
-  "name": z.string(),
-  "photoUrl": z.string(),
-  "address": z.object({
-    "id": z.number(),
-    city: z.string(),
-    streetName: z.string(),
-    houseNumber: z.string().regex(new RegExp("^[0-9]+$")),
-    "region": z.string()
-  }),
-  "dailyRoutine": z.array(
-    z.string()
-  ),
-  "cells": z.array(
-    z.object({
-      "number": z.number(),
-      "capacity": z.number(),
-      "id": z.number(),
-      "shelterNumber": z.number(),
-      "dogsInCell": z.array()
-
-    })
-  )
-
-});
 
 const defaultSchema = {
   "shelterId": 0,
@@ -99,10 +52,37 @@ const defaultSchema = {
     }
   ]
 }
+const uploadFile = async (image) => {
+  // let data = e.currentTarget.stam.files
+  const data = new FormData();
+  debugger;
+  const files = [image]
+
+  if (files.length) {
+    for (let i = 0; i < files.length; i++) {
+      console.log('files[i]', files[i])
+      data.append("images", files[i]);
+    }
+  }
+
+  const res = await fetch(import.meta.env.VITE_APP_SERVERURL + 'Images/shelterImage', {
+    method: "POST",
+    body: data,
+  })
+
+  if (res.ok) {
+    return await res.text()
+  }
+  return ""
+}
 
 export default function Register() {
 
+  const navigate = useNavigate();
+
   const [activeStep, setActiveStep] = useState(0);
+
+  const [image, setImage] = useState();
 
   const forms = ["פרטי מנהל", "פרטי כלבייה", "הוספת תאים"]
 
@@ -125,7 +105,7 @@ export default function Register() {
         return <AdminForm {...methods} />;
       case 1:
         return <>
-          <AddImage {...methods} />
+          <AddImage getImage={setImage} {...methods} style={{ top: "-5vh", right: '-5vh' }} />
           <ShelterForm {...methods} />
           <br />
           <AddressForm {...methods} />
@@ -145,24 +125,45 @@ export default function Register() {
 
   const watchRoutine = watch();
 
-  useEffect(() => {
-    console.log(watchRoutine)
-  })
+  // useEffect(() => {
+  //   console.log(watchRoutine)
+  // })
 
   console.log('errors', errors)
-  const submit = (data) => {
+  const submit = async (data) => {
+
+    data.photoUrl = await uploadFile(image);
+    debugger;
     console.log('data', data)
+
+    const res = await fetch(import.meta.env.VITE_APP_SERVERURL + "shelters", {
+      method: 'POST',
+      headers: { "Content-Type": "application/json", "dataType": "json" },
+      body: JSON.stringify(data)
+    })
+
+    if (res.ok) {
+      const shelter = await res.json();
+      let loginDet = {
+        phone:shelter.adminDetails.phoneNumber,
+        password: shelter.adminDetails.password,
+        shelterNumber :shelter.shelterId
+      };
+      localStorage.setItem("loginDet",JSON.stringify(loginDet))
+      handleNext()
+    }
+
   }
   return (
     <BackgroundLayout image={BackgroundImage} dir={"col"}  >
 
-      <FormStyle style={{ position: "relative" ,height:'85vh'}} >
+      <FormStyle style={{ position: "relative", height: '90vh', display: 'flex', top: '-5vh', flexDirection: 'column', justifyContent: 'space-between' }} >
         <Box>
           <Stepper
             activeStep={activeStep}
             sx={{
               width: '100%',
-              height: 40,
+              height: 30,
             }}
           >
             {forms.map((label) => (
@@ -178,15 +179,14 @@ export default function Register() {
             ))}
           </Stepper>
         </Box>
-        <form onSubmit={handleSubmit(submit)} style={{ width: '100%',height:'100%' ,display:'flex', flexDirection:'column', justifyContent:'space-between'}}  >
+        <form onSubmit={handleSubmit(submit)} style={{ width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flexGrow: 1 }}  >
           {activeStep === forms.length ? (
             <Stack spacing={2} useFlexGap>
-              <Typography variant="h1">📦</Typography>
-              <Typography variant="h5">Thank you for your order!</Typography>
+              <img src="/images/WelcomeDog.png" width={200} />
+              <Typography variant="h5">ברוכים הבאים למלונה</Typography>
               <Typography variant="body1" color="text.secondary">
-                Your order number is
-                <strong>&nbsp;#140396</strong>. We have emailed your order
-                confirmation and will update you once its shipped.
+                איזה כיף שהצטרפתם אלינו,
+                <br /> כעת תוכלו לעבור לדף הבית ולהתחיל לנהל את הכלבייה שלכם בצורה נוחה ואיכותית
               </Typography>
               <Button
                 variant="contained"
@@ -194,43 +194,49 @@ export default function Register() {
                   alignSelf: 'start',
                   width: { xs: '100%', sm: 'auto' },
                 }}
+                onClick={()=>navigate('/admin/shelter')}
               >
-                Go to my orders
+                למעבר לכלבייה
               </Button>
             </Stack>
           ) : (
             <>
               {getStepContent(activeStep)}
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection:'row-reverse' ,
-                  justifyContent: activeStep !== 0 ? 'space-between' : 'flex-start',
-                  alignItems: 'end',
-                  flexGrow: 1,
-                  gap: 1,
-                  pb: 3 ,
-                  mt: 3 ,
-                }}
-              >
-                <Button
-                  startIcon={<ChevronLeftRounded />}
-                  onClick={handleNext}
-                  variant="contained" >
-                  הבא
-                </Button>
 
-                {activeStep!==0 && <Button
-                  startIcon={<ChevronRightRounded />}
-                  onClick={handleBack}
-                  variant="outlined"
-                >
-                  הקודם
-                </Button>}
-
-              </Box>
             </>)}
-          {activeStep === forms.length - 1 && < Button variant='contained' type='submit'>שמור</Button>}
+          {activeStep !== forms.length && <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row-reverse',
+              justifyContent: activeStep !== 0 ? 'space-between' : 'flex-start',
+              alignItems: 'end',
+              flexGrow: 1,
+              gap: 1,
+              pb: 3,
+              mt: 3,
+            }}
+          >
+
+            {activeStep === forms.length - 1 &&
+              < Button variant='contained' type='submit'
+              >שמור</Button> }
+            {activeStep !== forms.length -1 &&  <Button
+                startIcon={<ChevronLeftRounded />}
+                onClick={handleNext}
+                variant="contained" 
+                type='button'>
+                הבא
+              </Button>}
+
+            {activeStep !== 0 && <Button
+              startIcon={<ChevronRightRounded />}
+              onClick={handleBack}
+              variant="outlined"
+            >
+              הקודם
+            </Button>}
+
+          </Box>}
         </form>
 
       </FormStyle>

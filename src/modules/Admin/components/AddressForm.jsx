@@ -35,7 +35,7 @@ export default function AddressForm({ register,formState }) {
 
   return (
     < >
- <Typography variant='h6' color='primary.dark' sx={{ mb: 3 }}>
+ <Typography variant='h6' color='primary.dark' sx={{ mb: 1 }}>
         כתובת
       </Typography>
       <Box  style={{
