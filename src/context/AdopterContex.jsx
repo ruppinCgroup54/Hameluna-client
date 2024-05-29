@@ -3,9 +3,11 @@ import { useRouteLoaderData } from "react-router-dom";
 
 import useLocalStorage from "../utilis/useLocalStorge";
 
+
+
 export const AdoptersContext = createContext();
 
-export default function AdoptersContextProvider({ children }) {
+export function AdoptersContextProvider({ children }) {
 
   const favorites = useRouteLoaderData("adopter");
 

@@ -19,7 +19,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 export default function TopBarMobile() {
 
-  const {favoritesDogs}=useAdoptersContext();
+  const adopter=useAdoptersContext();
 
   const navigate = useNavigate();
 
@@ -37,7 +37,7 @@ export default function TopBarMobile() {
               <img src={BotHead} alt="Bot head" />
             </IconButton>
             <IconButton onClick={()=>navigate('/favorites')}>
-              <StyledBadge badgeContent={favoritesDogs?.length}>
+              <StyledBadge badgeContent={adopter?.favoritesDogs?.length}>
                 <Favorite sx={{ color: "white", fontSize: "2rem" }} />
               </StyledBadge>
             </IconButton>

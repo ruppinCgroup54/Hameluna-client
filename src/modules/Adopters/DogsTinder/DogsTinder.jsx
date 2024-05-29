@@ -1,8 +1,9 @@
 import AdoptersLayout from "../../../layouts/AdoptersLayout";
 import Dogs from "../../../Data/Dogs";
+import DogSwipeCard from "./DogSwipeCard";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCreative, Manipulation } from "swiper/modules";
-import DogSwipeCard from "./DogSwipeCard";
 
 export default function DogsTinder() {
   
@@ -11,6 +12,7 @@ export default function DogsTinder() {
   return (
     <AdoptersLayout>
       <Swiper
+      lazy="true"
         effect={"creative"}
         grabCursor={true}
         modules={[EffectCreative, Manipulation]}

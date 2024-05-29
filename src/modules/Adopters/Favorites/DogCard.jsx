@@ -38,13 +38,13 @@ const CardStyle = styled(Card)(({ theme }) => ({
 }));
 
 export default function DogCard({ dog }) {
-  const { RemoveFromFavorites,loading } = useAdoptersContext();
+  const adopter = useAdoptersContext();
   const [open, setOpen] = useState(true);
   const navigate =useNavigate();
 
   const handleRemove = ()=>{
     setOpen(false);
-    RemoveFromFavorites(dog)
+    adopter.RemoveFromFavorites(dog)
   }
 
   return (
@@ -62,7 +62,7 @@ export default function DogCard({ dog }) {
           </Typography>
           <CardActions sx={{ p: 0 }}>
             <CircleIcons>
-              <IconButton onClick={handleRemove } disabled={loading}>
+              <IconButton onClick={handleRemove } disabled={adopter.loading}>
                 <Clear color="error" />
               </IconButton>
               <IconButton onClick={()=>navigate(`/sendrequest/dogId/${dog.numberId}/dogName/${dog.name}`)}>

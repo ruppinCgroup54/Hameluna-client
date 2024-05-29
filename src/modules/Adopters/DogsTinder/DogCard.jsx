@@ -1,13 +1,14 @@
 import PropTypes, { string } from "prop-types";
 
 import { useState } from "react";
-import { useSwiper } from "swiper/react";
 
 import { Link } from "react-router-dom";
 
 import ImageCarousel from "./ImageCarousel";
 import CircleIcons from "../../../components/CircleIcons";
 import AlertComp from "../../../components/AlertComp";
+import useAdoptersContext from "../../../utilis/useAdopterContext";
+import useFetch from "../../../utilis/useFetch";
 
 import {
   Button,
@@ -20,9 +21,6 @@ import {
   styled,
 } from "@mui/material";
 import { Favorite, Share } from "@mui/icons-material";
-import useImageURL from "../../../utilis/useImageURL";
-import useAdoptersContext from "../../../utilis/useAdopterContext";
-import useFetch from "../../../utilis/useFetch";
 
 export const DogCardStyle = styled(Card)(({ theme }) => ({
   width: "clamp(100px,80dvw,310px)",
@@ -80,7 +78,7 @@ export const DogCardStyle = styled(Card)(({ theme }) => ({
 }));
 
 export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDog=()=>{}}) {
-  const { AddToFavorites } = useAdoptersContext();
+  const adopter = useAdoptersContext();
 
   const images = useFetch(import.meta.env.VITE_APP_SERVERURL+"images/dogId/"+dog.numberId)
 
@@ -88,7 +86,7 @@ export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDo
 
   const addDog = () => {
     setOpen(true);
-    AddToFavorites(dog);
+    adopter.AddToFavorites(dog);
     handleSwipeAddDog();
   };
 
