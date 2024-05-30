@@ -20,7 +20,6 @@ export default function ImageCarousel({ images }) {
       loop={true}
       pagination={true}
       navigation={true}
-      lazy="true"
       modules={[Pagination, Navigation]}
       style={{
         width: "100%",

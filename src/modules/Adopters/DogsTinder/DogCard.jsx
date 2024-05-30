@@ -78,7 +78,9 @@ export const DogCardStyle = styled(Card)(({ theme }) => ({
 }));
 
 export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDog=()=>{}}) {
-  const adopter = useAdoptersContext();
+  const {AddToFavorites} = useAdoptersContext();
+  
+
 
   const images = useFetch(import.meta.env.VITE_APP_SERVERURL+"images/dogId/"+dog.numberId)
 
@@ -86,7 +88,7 @@ export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDo
 
   const addDog = () => {
     setOpen(true);
-    adopter.AddToFavorites(dog);
+    AddToFavorites(dog);
     handleSwipeAddDog();
   };
 

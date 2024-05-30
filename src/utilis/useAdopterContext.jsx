@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { AdoptersContext } from "../context/AdopterContex";
+import { AdopterContext } from "../context/AdopterContex";
 
 
- const useAdoptersContext=()=> useContext(AdoptersContext)
+ const useAdoptersContext=()=> useContext(AdopterContext)
 export default useAdoptersContext;

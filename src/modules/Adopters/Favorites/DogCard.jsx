@@ -38,13 +38,14 @@ const CardStyle = styled(Card)(({ theme }) => ({
 }));
 
 export default function DogCard({ dog }) {
-  const adopter = useAdoptersContext();
+  const {RemoveFromFavorites} = useAdoptersContext();
   const [open, setOpen] = useState(true);
   const navigate =useNavigate();
 
+
   const handleRemove = ()=>{
     setOpen(false);
-    adopter.RemoveFromFavorites(dog)
+    RemoveFromFavorites(dog)
   }
 
   return (

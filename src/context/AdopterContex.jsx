@@ -4,8 +4,7 @@ import { useRouteLoaderData } from "react-router-dom";
 import useLocalStorage from "../utilis/useLocalStorge";
 
 
-
-export const AdoptersContext = createContext();
+export const AdopterContext = createContext();
 
 export function AdoptersContextProvider({ children }) {
 
@@ -51,7 +50,7 @@ export function AdoptersContextProvider({ children }) {
 
 
   return (
-    <AdoptersContext.Provider
+    <AdopterContext.Provider
       value={{
         loading,
         favoritesDogs,
@@ -62,6 +61,6 @@ export function AdoptersContextProvider({ children }) {
     >
       {children}
 
-    </AdoptersContext.Provider>
+    </AdopterContext.Provider>
   );
 }

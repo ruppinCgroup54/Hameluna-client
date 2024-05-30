@@ -7,7 +7,7 @@ import useAdoptersContext from "../../../utilis/useAdopterContext";
 
 export default function FavoritesList() {
 
-  const adopter = useAdoptersContext();
+  const {favoritesDogs} = useAdoptersContext();
 
 
   return (
@@ -17,7 +17,7 @@ export default function FavoritesList() {
         {/* // favoritesDogs?.length > 0 ? */}
           <TransitionGroup>
 
-            {adopter.favoritesDogs.map((dog) => (
+            {favoritesDogs.map((dog) => (
               <DogCard key={dog.numberId} dog={dog} />
             ))}
           </TransitionGroup>

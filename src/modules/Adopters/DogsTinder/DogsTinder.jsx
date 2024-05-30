@@ -12,7 +12,7 @@ export default function DogsTinder() {
   return (
     <AdoptersLayout>
       <Swiper
-      lazy="true"
+      lazyPreloadPrevNext={3}
         effect={"creative"}
         grabCursor={true}
         modules={[EffectCreative, Manipulation]}
@@ -31,7 +31,7 @@ export default function DogsTinder() {
         className="mySwiper"
       >
         {Dogs.map((item) => (
-          <SwiperSlide key={item.numberId}>
+          <SwiperSlide key={item.numberId} >
             <DogSwipeCard dog={item} />
           </SwiperSlide>
         ))}
