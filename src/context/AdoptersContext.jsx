@@ -1,12 +1,10 @@
-import { createContext, useState } from "react";
-import { useRouteLoaderData } from "react-router-dom";
-
-import useLocalStorage from "../utilis/useLocalStorge";
-
+import React, { createContext, useState } from 'react'
+import { useRouteLoaderData } from 'react-router-dom';
+import useLocalStorage from '../utilis/useLocalStorge';
 
 export const AdopterContext = createContext();
 
-export function AdoptersContextProvider({ children }) {
+export default function AdoptersContextProvider({ children }) {
 
   const favorites = useRouteLoaderData("adopter");
 
@@ -50,17 +48,9 @@ export function AdoptersContextProvider({ children }) {
 
 
   return (
-    <AdopterContext.Provider
-      value={{
-        loading,
-        favoritesDogs,
-        // setFavoritesDogs,
-        AddToFavorites,
-        RemoveFromFavorites,
-      }}
-    >
-      {children}
 
+    <AdopterContext.Provider value={{ favoritesDogs, setFavoritesDogs, AddToFavorites, RemoveFromFavorites }}>
+      {children}
     </AdopterContext.Provider>
-  );
+  )
 }

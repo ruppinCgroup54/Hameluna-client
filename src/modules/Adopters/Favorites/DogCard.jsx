@@ -6,10 +6,11 @@ import Typography from "@mui/material/Typography";
 import CircleIcons from "../../../components/CircleIcons";
 import { Clear, Email } from "@mui/icons-material";
 import { Collapse, IconButton, styled } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useImageURL from "../../../utilis/useImageURL";
-import useAdoptersContext from "../../../utilis/useAdopterContext";
+import useAdoptersContext from "../../../utilis/useAdoptersContext";
+import { AdopterContext } from "../../../context/AdoptersContext";
 
 const CardStyle = styled(Card)(({ theme }) => ({
   minHeight: 150,
@@ -38,7 +39,7 @@ const CardStyle = styled(Card)(({ theme }) => ({
 }));
 
 export default function DogCard({ dog }) {
-  const {RemoveFromFavorites} = useAdoptersContext();
+  const {RemoveFromFavorites,loading} = useAdoptersContext();
   const [open, setOpen] = useState(true);
   const navigate =useNavigate();
 
@@ -63,7 +64,7 @@ export default function DogCard({ dog }) {
           </Typography>
           <CardActions sx={{ p: 0 }}>
             <CircleIcons>
-              <IconButton onClick={handleRemove } disabled={adopter.loading}>
+              <IconButton onClick={handleRemove } disabled={loading}>
                 <Clear color="error" />
               </IconButton>
               <IconButton onClick={()=>navigate(`/sendrequest/dogId/${dog.numberId}/dogName/${dog.name}`)}>

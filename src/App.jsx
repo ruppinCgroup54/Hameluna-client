@@ -14,12 +14,15 @@ import { Outlet, RouterProvider, createHashRouter } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage";
 import FallbackElement from "./components/FallbackElement";
 import { adminRouts, adopterRoutes, employeesRoutes } from "./modules/Routes";
+import IndexAdopter from "./modules/Adopters/index.jsx";
+import IndexAdmin from "./modules/Admin/index";
 
 const router = createHashRouter([
   {//adopters root
     path: "/",
     // element: <IndexAdopters />,
-    lazy: () => import("./modules/Adopters/index"),
+    // lazy: () => import("./modules/Adopters/index"),
+    element:<IndexAdopter/>,
     children: adopterRoutes,
     errorElement: <ErrorPage />,
     id:"adopter",
@@ -38,7 +41,8 @@ const router = createHashRouter([
   },
   {//admin root
     path: "/admin",
-    lazy: () => import("./modules/Admin/index"),
+    // lazy: () => import("./modules/Admin/index"),
+    element:<IndexAdmin/>,
     children: adminRouts,
     errorElement: <ErrorPage />
   },

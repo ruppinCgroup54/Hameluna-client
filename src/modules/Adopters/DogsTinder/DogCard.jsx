@@ -1,13 +1,12 @@
 import PropTypes, { string } from "prop-types";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { Link } from "react-router-dom";
 
 import ImageCarousel from "./ImageCarousel";
 import CircleIcons from "../../../components/CircleIcons";
 import AlertComp from "../../../components/AlertComp";
-import useAdoptersContext from "../../../utilis/useAdopterContext";
 import useFetch from "../../../utilis/useFetch";
 
 import {
@@ -21,6 +20,8 @@ import {
   styled,
 } from "@mui/material";
 import { Favorite, Share } from "@mui/icons-material";
+import useAdoptersContext from "../../../utilis/useAdoptersContext";
+import { AdopterContext } from "../../../context/AdoptersContext";
 
 export const DogCardStyle = styled(Card)(({ theme }) => ({
   width: "clamp(100px,80dvw,310px)",
@@ -80,8 +81,6 @@ export const DogCardStyle = styled(Card)(({ theme }) => ({
 export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDog=()=>{}}) {
   const {AddToFavorites} = useAdoptersContext();
   
-
-
   const images = useFetch(import.meta.env.VITE_APP_SERVERURL+"images/dogId/"+dog.numberId)
 
   const [open, setOpen] = useState(false);

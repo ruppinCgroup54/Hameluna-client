@@ -4,7 +4,9 @@ import { AppBar, Badge, Box, IconButton, Toolbar, styled } from "@mui/material";
 import { Favorite } from "@mui/icons-material";
 
 import { Link, useNavigate } from "react-router-dom";
-import useAdoptersContext from "../utilis/useAdopterContext";
+import useAdoptersContext from "../utilis/useAdoptersContext";
+import { useContext } from "react";
+import { AdopterContext } from "../context/AdoptersContext";
 
 const BotHead = "images/BotHead.svg";
 
@@ -19,7 +21,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 export default function TopBarMobile() {
 
-  const adopter=useAdoptersContext();
+  const {favoritesDogs}=useAdoptersContext();
 
   const navigate = useNavigate();
 
@@ -37,7 +39,7 @@ export default function TopBarMobile() {
               <img src={BotHead} alt="Bot head" />
             </IconButton>
             <IconButton onClick={()=>navigate('/favorites')}>
-              <StyledBadge badgeContent={adopter?.favoritesDogs?.length}>
+              <StyledBadge badgeContent={favoritesDogs?.length}>
                 <Favorite sx={{ color: "white", fontSize: "2rem" }} />
               </StyledBadge>
             </IconButton>

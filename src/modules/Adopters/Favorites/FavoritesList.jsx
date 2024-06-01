@@ -3,7 +3,9 @@ import DogCard from "./DogCard";
 import { Collapse, Grow, Skeleton, Typography } from "@mui/material";
 import { TransitionGroup } from 'react-transition-group';
 import ListSkeleton from "./ListSkeleton";
-import useAdoptersContext from "../../../utilis/useAdopterContext";
+import useAdoptersContext from "../../../utilis/useAdoptersContext";
+import { useContext } from "react";
+import { AdopterContext } from "../../../context/AdoptersContext";
 
 export default function FavoritesList() {
 

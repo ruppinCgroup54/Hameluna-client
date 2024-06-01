@@ -8,10 +8,11 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Email } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AlertComp from "../../../components/AlertComp";
 import { Textinput } from "../../../components/Textinput";
-import useAdoptersContext from "../../../utilis/useAdopterContext";
+import useAdoptersContext from "../../../utilis/useAdoptersContext";
+import { AdopterContext } from "../../../context/AdoptersContext";
 
 const formStyle = {
   backgroundColor: "rgba(255,255,255,0.5)",
@@ -44,7 +45,7 @@ const requestSchema = z.object({
 
 export default function SendRequest() {
   const { dogId, dogName } = useParams();
-  const { RemoveFromFavorites } = useAdoptersContext();
+  const { RemoveFromFavorites } = useContext(AdopterContext);
   const adopter = useLoaderData();
 
   const [Alert, setAlert] = useState(false);

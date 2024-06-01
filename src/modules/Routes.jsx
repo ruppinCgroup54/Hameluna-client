@@ -28,6 +28,7 @@ import EmpSignUp from "./Employees/EmpSignUp";
 import DogsList from "./Employees/DogsList";
 import DogsId from "./Employees/DogsID";
 import { json, redirect } from "react-router-dom";
+import { element } from "prop-types";
 
 
 export const pathes = [
@@ -60,10 +61,11 @@ export const adminRouts = [
   },
   {
     path: "/admin/register",
-    async lazy() {
-      let Register = await import("./Admin/Register");
-      return { Component: Register.default };
-    },
+    element:<Register/>
+    // async lazy() {
+    //   let Register = await import("./Admin/Register");
+    //   return { Component: Register.default };
+    // },
   },
   {
     path: "/admin/shelter",
