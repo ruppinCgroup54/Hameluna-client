@@ -11,7 +11,7 @@ import { Box, Button, Stack, Step, StepLabel, Stepper, Typography } from '@mui/m
 import AddImage from '../../components/AddImage'
 import CellsForm from './components/CellsForm'
 import { ChevronLeftRounded, ChevronRightRounded, ForkRightOutlined } from '@mui/icons-material'
-import { requestSchema } from '../../Data/Schemas'
+import { ShelterSchema } from '../../Data/Schemas'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -88,7 +88,7 @@ export default function Register() {
 
   const methods = useForm({
     defaultValues: defaultSchema,
-    resolver: zodResolver(requestSchema),
+    resolver: zodResolver(ShelterSchema),
   });
 
   const handleNext = () => {
@@ -145,11 +145,11 @@ export default function Register() {
     if (res.ok) {
       const shelter = await res.json();
       let loginDet = {
-        phone:shelter.adminDetails.phoneNumber,
+        phone: shelter.adminDetails.phoneNumber,
         password: shelter.adminDetails.password,
-        shelterNumber :shelter.shelterId
+        shelterNumber: shelter.shelterId
       };
-      localStorage.setItem("loginDet",JSON.stringify(loginDet))
+      localStorage.setItem("loginDet", JSON.stringify(loginDet))
       handleNext()
     }
 
@@ -194,7 +194,7 @@ export default function Register() {
                   alignSelf: 'start',
                   width: { xs: '100%', sm: 'auto' },
                 }}
-                onClick={()=>navigate('/admin/shelter')}
+                onClick={() => navigate('/admin/shelter')}
               >
                 למעבר לכלבייה
               </Button>
@@ -219,14 +219,14 @@ export default function Register() {
 
             {activeStep === forms.length - 1 &&
               < Button variant='contained' type='submit'
-              >שמור</Button> }
-            {activeStep !== forms.length -1 &&  <Button
-                startIcon={<ChevronLeftRounded />}
-                onClick={handleNext}
-                variant="contained" 
-                type='button'>
-                הבא
-              </Button>}
+              >שמור</Button>}
+            {activeStep !== forms.length - 1 && <Button
+              startIcon={<ChevronLeftRounded />}
+              onClick={handleNext}
+              variant="contained"
+              type='button'>
+              הבא
+            </Button>}
 
             {activeStep !== 0 && <Button
               startIcon={<ChevronRightRounded />}

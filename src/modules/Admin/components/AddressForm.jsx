@@ -10,20 +10,21 @@ import useFetch from '../../../utilis/useFetch';
 
 
 const requestSchema = z.object({
- 
+
 
 });
 
 
-export default function AddressForm({ register,formState }) {
+export default function AddressForm({ register, formState, relativeObject = "" }) {
 
-  const {errors}=formState;
+  const { errors } = formState;
+
+  const objectErrors=relativeObject.length>0 ? errors[relativeObject]:errors;
 
   const cities = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/Cities');
 
   useEffect(() => {
-
-    console.log('citys.value', cities.value)
+console.log('ob', objectErrors)
   }, [cities])
 
 
@@ -35,34 +36,34 @@ export default function AddressForm({ register,formState }) {
 
   return (
     < >
- <Typography variant='h6' color='primary.dark' sx={{ mb: 1 }}>
+      {relativeObject.length === 0 && <Typography variant='h6' color='primary.dark' sx={{ mb: 1 }}>
         כתובת
-      </Typography>
-      <Box  style={{
+      </Typography>}
+      <Box style={{
         width: '100%', display: 'grid', gap: "30px",
         gridTemplate: "60px/30% 40% 20%"
       }}>
 
         <Autocomplete
-          options={cities.loading? []:cities.value}
+          options={cities.loading ? [] : cities.value}
           renderInput={(params) => <Textinput {...params}
             label="עיר"
-            {...register("address.city")}
-            error={!!errors.address?.city}
-            helperText={errors.address?.city?.message} />}
+            {...register(relativeObject + "address.city")}
+            error={!!objectErrors?.address?.city}
+            helperText={objectErrors?.address?.city?.message} />}
         />
 
-        <Textinput {...register("address.streetName")}
+        <Textinput {...register(relativeObject + "address.streetName")}
           label="רחוב"
-          error={!!errors.address?.streetName}
-          helperText={errors.address?.streetName?.message} />
+          error={!!objectErrors?.address?.streetName}
+          helperText={objectErrors?.address?.streetName?.message} />
 
         <Textinput
-          {...register("address.houseNumber")}
+          {...register(relativeObject + "address.houseNumber")}
           label="מספר בית"
           type='number'
-          error={!!errors.address?.houseNumber}
-          helperText={errors.address?.houseNumber?.message} />
+          error={!!objectErrors?.address?.houseNumber}
+          helperText={objectErrors?.address?.houseNumber?.message} />
 
 
       </Box>

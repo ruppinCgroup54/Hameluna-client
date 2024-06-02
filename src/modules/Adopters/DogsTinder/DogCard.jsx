@@ -24,7 +24,7 @@ import useAdoptersContext from "../../../utilis/useAdoptersContext";
 import { AdopterContext } from "../../../context/AdoptersContext";
 
 export const DogCardStyle = styled(Card)(({ theme }) => ({
-  width: "clamp(100px,80dvw,310px)",
+  width: "clamp(100px,100%,310px)",
   borderRadius: "20px",
   // boxShadow: `${theme.shadows[15]}`,
   position: "relative",
@@ -36,9 +36,10 @@ export const DogCardStyle = styled(Card)(({ theme }) => ({
     maxHeight: 350,
   },
   "& .MuiCardContent-root": {
+    transition:'all 0.5s',
     height: "55%",
     position: "absolute",
-    width: "clamp(100px,80vw,310px)",
+    width: "clamp(100px,100%,310px)",
     backgroundColor: theme.palette.common.white,
     bottom: 0,
     boxShadow: `${theme.shadows[6]}`,
