@@ -1,12 +1,12 @@
-import { Box, Button, CardContent, CardMedia, Grid, Modal, Typography, styled } from '@mui/material';
+import { Box, Button, CardContent, CardMedia, Fade, Grid, Modal, Typography, styled } from '@mui/material';
 import React, { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import DogCard, { DogCardStyle } from '../Adopters/DogsTinder/DogCard';
 import useImageURL from '../../utilis/useImageURL';
 import AdoptionDogCard from './components/AdoptionDogCard';
 import BackgroundLayout from '../../layouts/BackgroundLayout';
 import AdoptionForm from './components/AdoptionForm';
-import { CheckCircle } from '@mui/icons-material';
+import { CheckCircle, FormatColorReset } from '@mui/icons-material';
 
 const ModalStyle = styled(Box)(({ theme }) => ({
   backgroundColor: "#fff",
@@ -31,43 +31,50 @@ const ModalStyle = styled(Box)(({ theme }) => ({
 
 
 export default function AdoptionPage() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  
   const { state } = useLocation();
-
-  const { dog, adopter } = state;
-
-  console.log('dog', dog)
-
-  let defaultRequest = {
-    adopter: adopter !== undefined ? adopter : {},
+  
+  const { dog, request } = state;
+  
+  const navigate = useNavigate()
+  
+  let defaultRequest = request ? request : {
+    requestId: -1,
+    adopter: { address: { id: -1, region: "" } },
     sendate: new Date().toISOString(),
-    dogId: dog.numberId,  
-    status: "open"
+    dog: dog,
   }
+
+  defaultRequest.status = "trial period";
+
 
   return (
     <>
       <Grid sx={{ width: '90%', margin: "0 5vw 0", paddingTop: '100px' }} spacing={2} container>
         <Grid item xs={3}>
-          <AdoptionDogCard dog={dog} />
+          <AdoptionDogCard dog={dog === undefined ? request.dog : dog} />
         </Grid>
 
         <Grid item xs={9}>
-          <AdoptionForm defaultRequest={defaultRequest} />
+          <AdoptionForm defaultRequest={defaultRequest} setOpenModal={handleOpen} />
         </Grid>
       </Grid>
 
       <Modal open={open}
-        onClose={handleClose}>
+        onClose={handleClose}
+      >
+        <Fade in={open}>
 
-        <ModalStyle >
-          <CheckCircle sx={{ fontSize: '60px' }} color='primary' />
-          <Typography variant='h4' fontWeight={'bold'}>{dog.name} אומץ בהצלחה!</Typography>
-          <Button variant='contained'>לדף הבית</Button>
-        </ModalStyle >
+          <ModalStyle >
+            <CheckCircle sx={{ fontSize: '60px' }} color='primary' />
+            <Typography variant='h4' fontWeight={'bold'}>{dog.name} אומץ בהצלחה!</Typography>
+            <Button variant='contained' onClick={()=>navigate("/admin/shelter")}>לדף הבית</Button>
+          </ModalStyle >
+        </Fade>
       </Modal>
 
     </>

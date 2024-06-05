@@ -22,7 +22,7 @@ export default function AlertComp({
         onClose={handleClose}
         severity={type}
         color={color}
-        sx={{ width: "100%" }}
+        sx={{ width: "100%",fontSize:'1.5em'}}
       >
         {text}
       </Alert>

@@ -24,7 +24,7 @@ export default function AdoptionDogCard({ dog }) {
           <Box sx={{ display: 'grid', gridTemplateColumns: 'auto auto', padding: '20px 20px', gap: '20px 15px',}}>
 
             {keysToShow.map((key) => {
-              return <Box sx={{ display: 'flex', gap: '5px', alignItems: 'flex-end', flexGrow: 0.5 }}>
+              return <Box key={key} sx={{ display: 'flex', gap: '5px', alignItems: 'flex-end', flexGrow: 0.5 }}>
                 <img src="images/bone.png" width={30} height={30} />
                 <Typography variant='body1' >{dog[key]}</Typography>
               </Box>

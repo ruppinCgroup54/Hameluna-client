@@ -7,24 +7,21 @@ import { z } from 'zod';
 import { Autocomplete, Box, Button, InputAdornment, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { AccountCircle, AdminPanelSettings, Email, Password, Phone } from '@mui/icons-material';
 import useFetch from '../../../utilis/useFetch';
+import AutocompleteInput from '../../../components/AutocompleteInput';
 
 
-const requestSchema = z.object({
 
+export default function AddressForm({ register, formState, relativeObject = "",methods }) {
 
-});
+  const { errors, dirtyFields } = formState;
 
-
-export default function AddressForm({ register, formState, relativeObject = "" }) {
-
-  const { errors } = formState;
-
-  const objectErrors=relativeObject.length>0 ? errors[relativeObject]:errors;
+  const objectErrors = relativeObject.length > 0 ? errors[relativeObject] : errors;
+  const objectDirty = relativeObject.length > 0 ? dirtyFields[relativeObject] : dirtyFields;
 
   const cities = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/Cities');
 
   useEffect(() => {
-console.log('ob', objectErrors)
+    console.log('ob', objectErrors)
   }, [cities])
 
 
@@ -43,27 +40,36 @@ console.log('ob', objectErrors)
         width: '100%', display: 'grid', gap: "30px",
         gridTemplate: "60px/30% 40% 20%"
       }}>
-
-        <Autocomplete
+        <AutocompleteInput {...methods} name={relativeObject + ".address.city"} label={"עיר"} data={cities.loading ? [] : cities.value} />
+        {/* <Autocomplete
+          size='small'
           options={cities.loading ? [] : cities.value}
           renderInput={(params) => <Textinput {...params}
             label="עיר"
-            {...register(relativeObject + "address.city")}
+            {...register(relativeObject + ".address.city")}
             error={!!objectErrors?.address?.city}
             helperText={objectErrors?.address?.city?.message} />}
-        />
+        /> */}
 
-        <Textinput {...register(relativeObject + "address.streetName")}
+        <Textinput {...register(relativeObject + ".address.streetName")}
           label="רחוב"
+          size='small'
           error={!!objectErrors?.address?.streetName}
-          helperText={objectErrors?.address?.streetName?.message} />
+          helperText={objectErrors?.address?.streetName?.message}
+          InputLabelProps={{
+            shrink: objectDirty?.address?.streetName
+          }} />
 
         <Textinput
-          {...register(relativeObject + "address.houseNumber")}
+          {...register(relativeObject + ".address.houseNumber")}
           label="מספר בית"
+          size='small'
           type='number'
           error={!!objectErrors?.address?.houseNumber}
-          helperText={objectErrors?.address?.houseNumber?.message} />
+          helperText={objectErrors?.address?.houseNumber?.message}
+          InputLabelProps={{
+            shrink: objectDirty?.address?.streetName
+          }} />
 
 
       </Box>

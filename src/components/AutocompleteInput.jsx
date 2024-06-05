@@ -7,30 +7,36 @@ import PropTypes from 'prop-types';
 
 
 export default function AutocompleteInput({ control, formState, name, label, data, isMulti = false }) {
-  const { errors } = formState;
 
   return (
     <Controller
       control={control}
       name={name}
-      render={({ field: { onChange, value },fieldState:{invalid,error} }) => (
+      render={({ field: { onChange, value, ref }, fieldState: { invalid, error, isDirty } }) => (
         <Autocomplete
+          size='small'
           multiple={isMulti}
           options={data}
           getOptionLabel={option => option}
+          ref={ref}
+          value={value||null}
           renderInput={params => (
             <Textinput
               {...params}
               label={label}
               error={invalid}
               helperText={error?.message}
+              InputLabelProps={{
+                shrink: isDirty
+              }}
+
             />
           )}
           onChange={(event, data) => {
             onChange(data)
             return data;
           }}
-          defaultValue={isMulti?[]:''}
+          defaultValue={isMulti ? [] : ""}
         />
       )}
 
