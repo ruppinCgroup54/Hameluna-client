@@ -4,10 +4,10 @@ import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 
 const img = "images/Dogs/profileDog.png";
 
-export default function AddImage({getImage=()=>{},style={}}) {
+export default function AddImage({getImage=()=>{},style={},defaultImg=""}) {
 
     const inputRef = useRef(null);
-    const [src, setSrc] = useState(img);
+    const [src, setSrc] = useState(defaultImg===""?img:defaultImg);
 
     const handleImage = () => {
         inputRef.current.click();

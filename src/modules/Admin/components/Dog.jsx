@@ -66,7 +66,7 @@ export default function Dog({ dogItem }) {
           <IconButton onClick={() =>naivgate("/admin/shelter/whosHome/adoption", {state:{dog:dogItem}})}>
             <PetsOutlinedIcon color="primary"></PetsOutlinedIcon>
           </IconButton>
-          <IconButton>
+          <IconButton onClick={() =>naivgate("/admin/shelter/whosHome/dogProfile")}>
             <CreateOutlinedIcon color="primary"></CreateOutlinedIcon>
           </IconButton>
         </CircleIcons>
