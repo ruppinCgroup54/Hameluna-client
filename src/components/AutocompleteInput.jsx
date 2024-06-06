@@ -6,7 +6,7 @@ import { Textinput } from './Textinput';
 import PropTypes from 'prop-types';
 
 
-export default function AutocompleteInput({ control, formState, name, label, data, isMulti = false }) {
+export default function AutocompleteInput({ control, formState, name, label, data, isMulti = false ,disabled=false}) {
 
   return (
     <Controller
@@ -15,6 +15,7 @@ export default function AutocompleteInput({ control, formState, name, label, dat
       render={({ field: { onChange, value, ref }, fieldState: { invalid, error, isDirty } }) => (
         <Autocomplete
           size='small'
+          disabled={disabled}
           multiple={isMulti}
           options={data}
           getOptionLabel={option => option}
@@ -27,7 +28,7 @@ export default function AutocompleteInput({ control, formState, name, label, dat
               error={invalid}
               helperText={error?.message}
               InputLabelProps={{
-                shrink: isDirty
+                shrink: value!==null
               }}
 
             />

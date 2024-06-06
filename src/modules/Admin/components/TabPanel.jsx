@@ -12,11 +12,11 @@ export default function TabPanel(props) {
       id={`full-width-tabpanel-${index}`}
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
-      
+  
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography >{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
