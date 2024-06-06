@@ -3,7 +3,7 @@ import BackgroundLayout from "../../layouts/BackgroundLayout";
 import TopbarEmp from "../Employees/components/TopbarEmp";
 
 import { useLoaderData } from "react-router-dom";
-import CardComp from "./components/CardComp";
+import CardComp from "./components/cardComp";
 
 const dogImg02 = "images/Dogs/image 5.png";
 const dogImg = "images/Dogs/image 1.png";

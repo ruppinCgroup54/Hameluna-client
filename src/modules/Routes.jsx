@@ -31,6 +31,7 @@ import { json, redirect } from "react-router-dom";
 import { element } from "prop-types";
 import DogsInShelter from "./Admin/DogsInShelter";
 import AdoptionPage from "./Admin/AdoptionPage";
+import RequestsPage from "./Admin/RequestsPage";
 import AdminDogPage from "./Admin/AdminDogPage";
 
 
@@ -62,6 +63,11 @@ export const pathes = [
     path: "/admin/shelter/whosHome/",
     element: <WhosHome />,
     id: "משימות"
+  },
+  {
+    path: "/admin/shelter/requestsPage/",
+    element: <RequestsPage />,
+    id: "בקשות"
   },
   {
     path: "/admin/shelter/whosHome/",
