@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 
-const dogSchema = z.object({
+export const dogSchema = z.object({
   "chipNumber": z.string(),
   "numberId": z.number(),
   "name": z.string(),

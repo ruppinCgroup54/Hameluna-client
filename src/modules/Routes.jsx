@@ -32,6 +32,7 @@ import { element } from "prop-types";
 import DogsInShelter from "./Admin/DogsInShelter";
 import AdoptionPage from "./Admin/AdoptionPage";
 import RequestsPage from "./Admin/RequestsPage";
+import AdminDogPage from "./Admin/AdminDogPage";
 
 
 export const pathes = [
@@ -51,10 +52,9 @@ export const pathes = [
       {
         path: "/admin/shelter/whosHome/adoption",
         element: <AdoptionPage />,
-      } ,
-      {
-        path: "/admin/shelter/whosHome/DogProfile",
-        element: <AdoptionPage />,
+      } ,{
+        path: "/admin/shelter/whosHome/dogProfile",
+        element: <AdminDogPage />,
       }
     ],
     id: "מי בבית"
