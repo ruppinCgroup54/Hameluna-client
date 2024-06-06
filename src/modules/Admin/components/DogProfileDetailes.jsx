@@ -82,7 +82,7 @@ export default function DogProfileDetailes({dog}) {
         aria-label="full width tabs example"
       >
 
-        {DogTabs.map((t, i) => { return <Tab label={t.name} {...a11yProps(i)} /> })}
+        {DogTabs.map((t, i) => { return <Tab key={i} label={t.name} {...a11yProps(i)} /> })}
 
       </StyleTabs>
       {/* <SwipeableViews

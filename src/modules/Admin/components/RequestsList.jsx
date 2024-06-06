@@ -1,4 +1,4 @@
-import { Divider, List } from "@mui/material";
+import { Box, Divider, List } from "@mui/material";
 import Request from "../../../components/Request";
 import { get, getDatabase, onValue, ref } from "firebase/database";
 import { app } from "../../../../FirebaseConfig";
@@ -44,7 +44,7 @@ export default function RequestsList({close}) {
             borderColor: 'primary.main',
             borderRadius: '20px'
         }}>
-            {requests.map((r,i) => <><Request key={r.requestId} req={r} close={close}/>{i!=requests.length-1&&<Divider />}</>)}
+            {requests.map((r,i) => <Box key={r.requestId}><Request  req={r} close={close}/>{i!=requests.length-1&&<Divider />}</Box>)}
         </List>
     )
 }
