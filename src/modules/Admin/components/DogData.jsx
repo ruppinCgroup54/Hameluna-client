@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { dogSchema } from '../../../Data/Schemas';
-import { Box, } from '@mui/material';
+import { Box, Button, } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Textinput } from '../../../components/Textinput';
@@ -9,7 +9,7 @@ import { date } from 'zod';
 
 export default function DogData({ dog }) {
 
-  const [editable, setEditable] = useState(false);
+  const [isReadOnly, setIsReadOnly] = useState(true);
 
   const methods = useForm({
     defaultValues: dog,
@@ -84,27 +84,32 @@ export default function DogData({ dog }) {
     return filedsToShow.map((f, i) => {
 
       if (f.isDropDown) {
-        return <AutocompleteInput {...methods} label={f.label} name={f.name} data={f.data} isMulti={f.isMulti !==undefined} disabled={true}/>
+        return <AutocompleteInput {...methods} label={f.label} name={f.name} data={f.data} isMulti={f.isMulti !==undefined} disabled={isReadOnly}/>
       }
 
       return <Textinput
+      
         {...register(f.name)}
-        disabled={true}
         size='small'
         label={f.label}
         error={!!errors[f.name]?.phoneNumber}
         helperText={errors[f.name]?.message}
+        InputProps={{
+          readOnly:isReadOnly
+        }}
       />
     });
   }
 
   return (
 
-    <Box sx={{
-      display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', rowGap: '5vh',
-      "&>.MuiTextField-root, &>.MuiAutocomplete-root": { width: '22%' }
+    <Box component={'form'} sx={{
+      display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly',rowGap:'5vh',height:'70%',marginTop:'5vh',alignItems:'center',
+      "&>.MuiTextField-root, &>.MuiAutocomplete-root": { width: '22%' },
+      // "& *.Mui-disabled ": { WebkitTextFillColor:'black', borderColor:(theme)=>theme.palette.primary.main }
     }}>
       {renderFileds()}
+      {isReadOnly&& <Box sx={{width:1,textAlign:'center'}}> <Button  variant='contained'>שמור</Button></Box>}
     </Box>
 
   )

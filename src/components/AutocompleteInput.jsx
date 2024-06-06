@@ -15,12 +15,12 @@ export default function AutocompleteInput({ control, formState, name, label, dat
       render={({ field: { onChange, value, ref }, fieldState: { invalid, error, isDirty } }) => (
         <Autocomplete
           size='small'
-          disabled={disabled}
           multiple={isMulti}
           options={data}
           getOptionLabel={option => option}
           ref={ref}
           value={value||null}
+readOnly={disabled}
           renderInput={params => (
             <Textinput
               {...params}
@@ -30,7 +30,6 @@ export default function AutocompleteInput({ control, formState, name, label, dat
               InputLabelProps={{
                 shrink: value!==null
               }}
-
             />
           )}
           onChange={(event, data) => {

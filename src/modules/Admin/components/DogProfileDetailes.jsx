@@ -91,7 +91,7 @@ export default function DogProfileDetailes({dog}) {
         onChangeIndex={handleChangeIndex}
       > */}
 
-      <Box>
+      <Box sx={{height:'100%'}}>
         {DogTabs.map((t, i) => { return <TabPanel key={i} value={value} index={i} >
           {t.component}
         </TabPanel> })}
