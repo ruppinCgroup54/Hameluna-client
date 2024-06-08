@@ -82,7 +82,7 @@ export default function DogProfileDetailes({dog}) {
         aria-label="full width tabs example"
       >
 
-        {DogTabs.map((t, i) => { return <Tab label={t.name} {...a11yProps(i)} /> })}
+        {DogTabs.map((t, i) => { return <Tab key={i} label={t.name} {...a11yProps(i)} /> })}
 
       </StyleTabs>
       {/* <SwipeableViews
@@ -91,7 +91,7 @@ export default function DogProfileDetailes({dog}) {
         onChangeIndex={handleChangeIndex}
       > */}
 
-      <Box>
+      <Box sx={{height:'100%'}}>
         {DogTabs.map((t, i) => { return <TabPanel key={i} value={value} index={i} >
           {t.component}
         </TabPanel> })}

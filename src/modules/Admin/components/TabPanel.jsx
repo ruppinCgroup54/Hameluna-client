@@ -12,10 +12,10 @@ export default function TabPanel(props) {
       id={`full-width-tabpanel-${index}`}
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
-  
+      style={{height:'100%'}}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 3,height:'100%' }}>
           {children}
         </Box>
       )}

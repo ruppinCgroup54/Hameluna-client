@@ -11,8 +11,9 @@ import useImageURL from '../../utilis/useImageURL'
 
 export default function AdminDogPage() {
 
-const {state} = useLocation();
-const {dog} = state;
+  const { state } = useLocation();
+  const { dog } = state;
+
 
   return (
     <Grid sx={{
@@ -26,7 +27,7 @@ const {dog} = state;
 
           <Box sx={{ position: 'relative', marginBottom: '15vw' }}>
 
-            <AddImage style={{ top: "0", right: '50%', translate: '50%' }} defaultImg={useImageURL(dog.profileImage)}/>
+            <AddImage style={{ top: "0", right: '50%', translate: '50%' }} defaultImg={useImageURL(dog.profileImage)} />
           </Box>
           <Typography variant='h4' textAlign={'center'} fontWeight={'bold'}>{dog.name}</Typography>
           <Typography variant='h6' textAlign={'center'} fontWeight={'bold'}>סטטוס אימוץ</Typography>
