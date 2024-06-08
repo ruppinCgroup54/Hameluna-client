@@ -45,6 +45,7 @@ export default function NavBarAdmin() {
     setAnchorElUser(null);
   };
 
+  const [badgeNum, setBadgeNum] = useState(0);
   return (
     <>
       <AppBar sx={{ borderRadius: "0px 0px 15px 15px" }}>
@@ -131,14 +132,21 @@ export default function NavBarAdmin() {
               >
                 <Box>
                   <IconButton onClick={handleOpenUserMenu} >
-                    <Badge badgeContent={3}>
-
-                      <EmailOutlinedIcon fontSize="large" ></EmailOutlinedIcon>
+                    <Badge badgeContent={badgeNum}>
+                      <EmailOutlinedIcon fontSize="large" sx={{ color: '#fff' }}></EmailOutlinedIcon>
                     </Badge>
                   </IconButton>
-
                   <Menu
-                    sx={{ mt: '45px' }}
+                    sx={{
+                      mt: '45px',
+                      mr:'-30px',
+                      "& .MuiList-root": {
+                        p: '0',
+                      },
+                      "& .MuiMenu-paper":{
+                        borderRadius:'20px',
+                      }
+                    }}
                     id="menu-appbar"
                     anchorEl={anchorElUser}
                     anchorOrigin={{
@@ -146,14 +154,10 @@ export default function NavBarAdmin() {
                       horizontal: 'right',
                     }}
                     keepMounted
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                   >
-                    <RequestsList close={handleCloseUserMenu} />
+                    <RequestsList close={handleCloseUserMenu} setBadge={setBadgeNum} />
                   </Menu>
                 </Box>
                 <Badge badgeContent={4}>

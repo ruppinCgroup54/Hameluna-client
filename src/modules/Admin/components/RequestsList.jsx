@@ -5,7 +5,7 @@ import { app } from "../../../../FirebaseConfig";
 import { useEffect, useState } from "react";
 
 
-export default function RequestsList({close}) {
+export default function RequestsList({close, setBadge}) {
     const [requests, setRequests] = useState([]);
 
     const db = getDatabase();
@@ -21,7 +21,7 @@ export default function RequestsList({close}) {
           const requestsList = data ? Object.values(data) : [];
           setRequests(requestsList);
           console.log('first', requestsList)
-
+          setBadge(requestsList.length);
         });
 
         // Cleanup subscription on unmount
@@ -39,7 +39,6 @@ export default function RequestsList({close}) {
             width: '100%',
             maxWidth: 600,
             bgcolor: 'background.paper',
-            mt: '10px',
             border: '1px solid',
             borderColor: 'primary.main',
             borderRadius: '20px'
