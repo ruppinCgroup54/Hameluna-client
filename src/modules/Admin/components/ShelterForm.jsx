@@ -1,12 +1,9 @@
 
-import React, { useState } from 'react'
+import React from 'react'
 import { Textinput } from '../../../components/Textinput'
-import { Controller, useForm, useFormContext } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { Autocomplete, Box, Button, InputAdornment, Typography } from '@mui/material';
-import { AccountCircle, AdminPanelSettings, Email, Password, Phone } from '@mui/icons-material';
-import AddImage from '../../../components/AddImage';
+import { Controller } from 'react-hook-form';
+import { Autocomplete, Box, InputAdornment, Typography } from '@mui/material';
+import { AccountCircle } from '@mui/icons-material';
 
 
 

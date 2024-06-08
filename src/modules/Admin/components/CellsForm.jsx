@@ -60,14 +60,16 @@ export default function CellsForm({ register, formState, control }) {
             </Box>)
         }
 
-        <Button onClick={() => append({
+        <Button
+        sx={{height:'fit-content',marginTop:'110px'}}
+         onClick={() => append({
           "number": 0,
           "capacity": 0,
           "id": 0,
           "shelterNumber": 0,
           "dogsInCell": []
         })}>
-          <AddBox fontSize='large' />
+          <AddBox fontSize='large'  />
         </Button>
       </Box>
     </>

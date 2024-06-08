@@ -108,7 +108,7 @@ export default function Register() {
           <AddImage getImage={setImage} {...methods} style={{ top: "-5vh", right: '-5vh' }} />
           <ShelterForm {...methods} />
           <br />
-          <AddressForm {...methods} />
+          <AddressForm {...methods} methods={methods}/>
         </>;
       case 2:
         return <CellsForm {...methods} />;

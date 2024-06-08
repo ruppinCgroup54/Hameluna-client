@@ -7,20 +7,6 @@ import PropTypes from 'prop-types';
 
 
 export default function AutocompleteInput({ control, formState, name, label, data, isMulti = false, disabled = false }) {
-  const [dataSt, setDataSt] = useState([])
-  const [loading, setLoading] = useState(true)
-  useEffect(() => {
-    if ( data instanceof Promise) {
-      if (data.state === 'fulfilled') {
-
-        setDataSt(data)
-        setLoading(false)
-      }
-    } else {
-      setDataSt([])
-      setLoading(true)
-    }
-  }, [data])
 
 
   return (
@@ -31,11 +17,11 @@ export default function AutocompleteInput({ control, formState, name, label, dat
         <Autocomplete
           size='small'
           multiple={isMulti}
-          options={dataSt}
+          options={ data instanceof Array?data:[]}
           getOptionLabel={option => option}
           ref={ref}
           value={value || null}
-          loading={loading}
+          loading={!(data instanceof Array)}
           readOnly={disabled}
           renderInput={params => (
             <Textinput

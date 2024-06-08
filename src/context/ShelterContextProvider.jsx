@@ -10,13 +10,11 @@ export default function ShelterContextProvider(props) {
   const navigate = useNavigate();
 
   const [triggerFetch, setTriggerFetch] = useState(0)
-  console.log('triggerFetch', triggerFetch)
   // const cellsData = useRouteLoaderData("כלבייה");
   const [loginDet, setLoginDet] = useLocalStorage("loginDet", {});
   const cells = useFetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/` + loginDet.shelterNumber,{},[triggerFetch])
   // const [cells, setCells] = useState(cellsData?cellsData.value:[]);
 
-  console.log('cells', cells)
 
   const [dogs, setDogs] = useState([]);
   useEffect(() => {
