@@ -38,7 +38,9 @@ export default function AdoptionPage() {
   
   const { state } = useLocation();
   
-  const { dog, request } = state;
+  let { dog, request } = state;
+
+  dog = (dog === undefined ? request.dog : dog)
   
   const navigate = useNavigate()
   
@@ -56,7 +58,7 @@ export default function AdoptionPage() {
     <>
       <Grid sx={{ width: '90%', margin: "0 5vw 0", paddingTop: '100px' }} spacing={2} container>
         <Grid item xs={3}>
-          <AdoptionDogCard dog={dog === undefined ? request.dog : dog} />
+          <AdoptionDogCard dog={dog} />
         </Grid>
 
         <Grid item xs={9}>
