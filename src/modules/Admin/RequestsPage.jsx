@@ -11,7 +11,7 @@ export default function RequestsPage() {
         alignItems: 'center',
         margin:'auto'
       }}>
-      <Typography variant="h4">בקשות לאימוץ</Typography>
+      <Typography variant="h4" mb={'20px'}>בקשות לאימוץ</Typography>
       <RequestsList></RequestsList>
     </Box>
   )

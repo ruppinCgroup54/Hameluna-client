@@ -138,6 +138,7 @@ export default function NavBarAdmin() {
                   </IconButton>
                   <Menu
                     sx={{
+                     maxHeight:'60vh' ,
                       mt: '45px',
                       mr:'-30px',
                       "& .MuiList-root": {

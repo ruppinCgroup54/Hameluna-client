@@ -23,14 +23,6 @@ export default function RequestsList({close, setBadge}) {
           console.log('first', requestsList)
           setBadge(requestsList.length);
         });
-
-        // Cleanup subscription on unmount
-       // return () => requestsRef.off();
-      
-        // if (snapshot.exists()) {
-        //     setRequests(Object.values(snapshot.val()))
-        // }
-
     }, [])
 
 
