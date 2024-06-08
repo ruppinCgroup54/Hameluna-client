@@ -23,7 +23,7 @@ export default function DogData({ dog }) {
     handleSubmit,
     register,
     setValue,
-    formState: { errors, dirtyFields,isLoading }
+    formState: { errors, dirtyFields, isLoading }
   } = methods;
 
 
@@ -72,8 +72,8 @@ export default function DogData({ dog }) {
       name: "gender",
       label: "מין",
       isDropDown: true,
-      isMulti:false,
-      data: ['זכר','נקבה']
+      isMulti: false,
+      data: ['זכר', 'נקבה']
     }, {
       name: "attributes",
       label: "תכונות",
@@ -116,32 +116,33 @@ export default function DogData({ dog }) {
     });
   }
 
-const submit=async (data)=>{
-  const res = await fetch(import.meta.env.VITE_APP_SERVERURL+'dogs/'+dog.numberId,{
-    method:"PUT",
-    ...DEFAULT_OPTIONS,
-    body:JSON.stringify(data)
-  })
-
-  if (res.ok) {
-    setIsReadOnly(true)
+  const submit = async (data) => {
+    const res = await fetch(import.meta.env.VITE_APP_SERVERURL + 'dogs/' + dog.numberId, {
+      method: "PUT",
+      ...DEFAULT_OPTIONS,
+      body: JSON.stringify(data)
+    })
+    console.log('res', res)
+    if (res.ok) {
+      setIsReadOnly(true)
+    }
   }
-}
-console.log('errors', errors)
+  console.log('errors', errors)
   return (
+    <>
+      <Box component={'form'} onSubmit={handleSubmit(submit)} sx={{
+        display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', rowGap: '5vh', height: '70%', marginTop: '5vh', alignItems: 'center',
+        "&>.MuiTextField-root, &>.MuiAutocomplete-root": { width: '22%' },
+        // "& *.Mui-disabled ": { WebkitTextFillColor:'black', borderColor:(theme)=>theme.palette.primary.main }
+      }}>
+        {renderFileds()}
+        <Box sx={{ width: 1, textAlign: 'center' }}>
+          {!isReadOnly &&
+            <Button sx={{ fontSize: '20px' }} type='submit' endIcon={!isLoading ? <Save /> : <CircularProgress />} variant='contained' >שמירה </Button>
+          }</Box>
+      </Box>
 
-    <Box component={'form'} onSubmit={handleSubmit(submit)} sx={{
-      display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', rowGap: '5vh', height: '70%', marginTop: '5vh', alignItems: 'center',
-      "&>.MuiTextField-root, &>.MuiAutocomplete-root": { width: '22%' },
-      // "& *.Mui-disabled ": { WebkitTextFillColor:'black', borderColor:(theme)=>theme.palette.primary.main }
-    }}>
-      {renderFileds()}
-      <Box sx={{ width: 1, textAlign: 'center' }}>
-        {!isReadOnly ?
-          <Button sx={{ fontSize: '20px' }} type='submit' endIcon={!isLoading ? <Save />:<CircularProgress />} variant='contained' >שמירה </Button> :
-          <Button sx={{ fontSize: '20px' }} type='button' onClick={()=>setIsReadOnly(false)} endIcon={<Edit />} variant='contained'>עריכה</Button>
-        }</Box>
-    </Box>
-
+      {isReadOnly && <Button sx={{ fontSize: '20px' }} type='button' onClick={() => setIsReadOnly(false)} endIcon={<Edit />} variant='contained'>עריכה</Button>}
+    </>
   )
 }
