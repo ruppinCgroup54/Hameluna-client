@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
-import { Navigate, useNavigate, useRouteLoaderData } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import useFetch from "../utilis/useFetch";
 import useLocalStorage from "../utilis/useLocalStorge";
 
@@ -11,9 +12,10 @@ export default function ShelterContextProvider(props) {
   const [triggerFetch, setTriggerFetch] = useState(0)
   // const cellsData = useRouteLoaderData("כלבייה");
   const [loginDet, setLoginDet] = useLocalStorage("loginDet", {});
-  const cells = useFetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/` + loginDet.shelterNumber, [triggerFetch])
-console.log('cells', cells)
+  const cells = useFetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/` + loginDet.shelterNumber,{},[triggerFetch])
   // const [cells, setCells] = useState(cellsData?cellsData.value:[]);
+
+
   const [dogs, setDogs] = useState([]);
   useEffect(() => {
     const allDogs = [];

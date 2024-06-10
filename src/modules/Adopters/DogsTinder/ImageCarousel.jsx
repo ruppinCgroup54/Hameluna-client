@@ -17,7 +17,7 @@ export default function ImageCarousel({ images }) {
 
   return (
     <Swiper
-      loop={true}
+      loop={images?.length>1}
       pagination={true}
       navigation={true}
       modules={[Pagination, Navigation]}

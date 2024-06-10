@@ -5,6 +5,7 @@ import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import Box from "@mui/material/Box";
 import useImageURL from "../../../utilis/useImageURL";
+import { useNavigate } from "react-router-dom";
 
 const dog = "images/Dogs/image 1.png";
 
@@ -15,7 +16,7 @@ export default function Dog({ dogItem }) {
   const differentTime = date - entranceDate;
   const calcDate = Math.round(differentTime / (24 * 3600 * 1000 * 7));
 
-
+  const naivgate = useNavigate();
   return (
     <Box
       sx={{
@@ -62,10 +63,10 @@ export default function Dog({ dogItem }) {
         flexDirection={"row"}
       >
         <CircleIcons>
-          <IconButton>
+          <IconButton onClick={() =>naivgate("/admin/shelter/whosHome/adoption", {state:{dog:dogItem}})}>
             <PetsOutlinedIcon color="primary"></PetsOutlinedIcon>
           </IconButton>
-          <IconButton>
+          <IconButton onClick={() =>naivgate("/admin/shelter/whosHome/dogProfile",{state:{dog:dogItem}})}>
             <CreateOutlinedIcon color="primary"></CreateOutlinedIcon>
           </IconButton>
         </CircleIcons>

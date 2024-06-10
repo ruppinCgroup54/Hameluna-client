@@ -13,17 +13,17 @@ export default function CellsForm({ register, formState, control }) {
 
   return (
     <>
-     <Typography variant='h3' color='primary.dark' sx={{ textAlign: 'center', mb: 3 }}>
+     <Typography variant='h3' color='primary.dark' sx={{ textAlign: 'center', mb: 1 }}>
         הוספת תאים
       </Typography>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', rowGap: '50px', columnGap: 'calc(20% / 3)', width: '100%' }}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', rowGap: '50px', columnGap: 'calc(20% / 3)', width: '100%',height:'45vh', overflow:'scroll'}}>
 
         {
           fields.map((c, i) =>
             <Box key={c.id}
               sx={{
-                display: 'flex', marginTop: '10px', flexWrap: 'wrap', gap: '20px', width: '20%', padding: '10px', borderRadius: '15px',
-                border: (theme) => `2px solid ${theme.palette.primary.main}`,
+                display: 'flex', marginTop: '60px', flexWrap: 'wrap', gap: '20px', width: '20%', padding: '10px', borderRadius: '15px',
+                border: (theme) => `2px solid ${theme.palette.primary.main}`,height:'fit-content',
                 justifyContent: 'center', position: 'relative',
                 "&:hover": {
                   "& .MuiButtonBase-root": {
@@ -35,8 +35,8 @@ export default function CellsForm({ register, formState, control }) {
               <Textinput
                 {...register(`cells[${i}].number`)}
                 label="מספר תא"
-                error={!!errors.cells?.number}
-                helperText={errors.name?.message}
+                error={!!errors.cells?.[i].number}
+                helperText={errors.cells?.[i].number.message}
                 type='number'
               />
               <Textinput
@@ -60,14 +60,16 @@ export default function CellsForm({ register, formState, control }) {
             </Box>)
         }
 
-        <Button onClick={() => append({
+        <Button
+        sx={{height:'fit-content',marginTop:'110px'}}
+         onClick={() => append({
           "number": 0,
           "capacity": 0,
           "id": 0,
           "shelterNumber": 0,
           "dogsInCell": []
         })}>
-          <AddBox fontSize='large' />
+          <AddBox fontSize='large'  />
         </Button>
       </Box>
     </>

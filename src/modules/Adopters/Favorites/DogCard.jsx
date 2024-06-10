@@ -6,10 +6,11 @@ import Typography from "@mui/material/Typography";
 import CircleIcons from "../../../components/CircleIcons";
 import { Clear, Email } from "@mui/icons-material";
 import { Collapse, IconButton, styled } from "@mui/material";
-import useAdoptersContext from "../../../utilis/useAdoptersContext";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useImageURL from "../../../utilis/useImageURL";
+import useAdoptersContext from "../../../utilis/useAdoptersContext";
+import { AdopterContext } from "../../../context/AdoptersContext";
 
 const CardStyle = styled(Card)(({ theme }) => ({
   minHeight: 150,
@@ -38,9 +39,10 @@ const CardStyle = styled(Card)(({ theme }) => ({
 }));
 
 export default function DogCard({ dog }) {
-  const { RemoveFromFavorites,loading } = useAdoptersContext();
+  const {RemoveFromFavorites,loading} = useAdoptersContext();
   const [open, setOpen] = useState(true);
   const navigate =useNavigate();
+
 
   const handleRemove = ()=>{
     setOpen(false);

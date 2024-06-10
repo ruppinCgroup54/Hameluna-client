@@ -1,13 +1,13 @@
 import PropTypes, { string } from "prop-types";
 
-import { useState } from "react";
-import { useSwiper } from "swiper/react";
+import { useContext, useState } from "react";
 
 import { Link } from "react-router-dom";
 
 import ImageCarousel from "./ImageCarousel";
 import CircleIcons from "../../../components/CircleIcons";
 import AlertComp from "../../../components/AlertComp";
+import useFetch from "../../../utilis/useFetch";
 
 import {
   Button,
@@ -21,10 +21,10 @@ import {
 } from "@mui/material";
 import { Favorite, Share } from "@mui/icons-material";
 import useAdoptersContext from "../../../utilis/useAdoptersContext";
-import useImageURL from "../../../utilis/useImageURL";
+import { AdopterContext } from "../../../context/AdoptersContext";
 
 export const DogCardStyle = styled(Card)(({ theme }) => ({
-  width: "clamp(100px,80dvw,310px)",
+  width: "clamp(100px,100%,310px)",
   borderRadius: "20px",
   // boxShadow: `${theme.shadows[15]}`,
   position: "relative",
@@ -36,9 +36,10 @@ export const DogCardStyle = styled(Card)(({ theme }) => ({
     maxHeight: 350,
   },
   "& .MuiCardContent-root": {
+    transition:'all 0.5s',
     height: "55%",
     position: "absolute",
-    width: "clamp(100px,80vw,310px)",
+    width: "clamp(100px,100%,310px)",
     backgroundColor: theme.palette.common.white,
     bottom: 0,
     boxShadow: `${theme.shadows[6]}`,
@@ -79,7 +80,10 @@ export const DogCardStyle = styled(Card)(({ theme }) => ({
 }));
 
 export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDog=()=>{}}) {
-  const { AddToFavorites } = useAdoptersContext();
+  const {AddToFavorites} = useAdoptersContext();
+  
+  const images = useFetch(import.meta.env.VITE_APP_SERVERURL+"images/dogId/"+dog.numberId)
+
   const [open, setOpen] = useState(false);
 
   const addDog = () => {
@@ -108,8 +112,8 @@ export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDo
   return (
     <DogCardStyle>
       <CardMedia>
-        {/* <ImageCarousel images={dog?.images} /> */}
-      <img src={useImageURL( dog.profileImage)} alt="" style={{height:'100%',width:'100%',objectFit:'cover'}} />
+        <ImageCarousel images={images?.value} />
+      {/* <img src={useImageURL( dog.profileImage)} alt="" style={{height:'100%',width:'100%',objectFit:'cover'}} /> */}
      
       </CardMedia>
       <CardContent>

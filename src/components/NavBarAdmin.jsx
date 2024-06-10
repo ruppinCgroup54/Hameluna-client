@@ -1,4 +1,4 @@
-import { AppBar, Badge, Box, Grid, Toolbar, useTheme } from "@mui/material";
+import { AppBar, Badge, Box, Grid, IconButton, Menu, Toolbar, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Logo from "./Logo";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
@@ -11,6 +11,7 @@ import {
   useRouteLoaderData,
 } from "react-router-dom";
 import { pathes } from "../modules/Routes";
+import RequestsList from "../modules/Admin/components/RequestsList";
 
 export default function NavBarAdmin() {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ export default function NavBarAdmin() {
     location.pathname == pathes[0].path ? setKeyVal("") : 0;
     console.log('location', location.pathname)
   }, [location])
-  
+
 
   const styleDiv = {
     borderRadius: "10px 10px 0 0",
@@ -34,6 +35,17 @@ export default function NavBarAdmin() {
     textAlign: "center",
   };
 
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const [badgeNum, setBadgeNum] = useState(0);
   return (
     <>
       <AppBar sx={{ borderRadius: "0px 0px 15px 15px" }}>
@@ -118,9 +130,37 @@ export default function NavBarAdmin() {
                   },
                 }}
               >
-                <Badge badgeContent={3}>
-                  <EmailOutlinedIcon fontSize="large"></EmailOutlinedIcon>
-                </Badge>
+                <Box>
+                  <IconButton onClick={handleOpenUserMenu} >
+                    <Badge badgeContent={badgeNum}>
+                      <EmailOutlinedIcon fontSize="large" sx={{ color: '#fff' }}></EmailOutlinedIcon>
+                    </Badge>
+                  </IconButton>
+                  <Menu
+                    sx={{
+                     maxHeight:'60vh' ,
+                      mt: '45px',
+                      mr:'-30px',
+                      "& .MuiList-root": {
+                        p: '0',
+                      },
+                      "& .MuiMenu-paper":{
+                        borderRadius:'20px',
+                      }
+                    }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    <RequestsList close={handleCloseUserMenu} setBadge={setBadgeNum} />
+                  </Menu>
+                </Box>
                 <Badge badgeContent={4}>
                   <NotificationsOutlinedIcon fontSize="large"></NotificationsOutlinedIcon>
                 </Badge>

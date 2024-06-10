@@ -1,18 +1,8 @@
-import { createContext, useCallback, useEffect, useReducer, useState } from "react";
-import Dogs from "../Data/Dogs";
-import { Alert } from "@mui/material";
-import useLocalStorage from "../utilis/useLocalStorge";
-import { useNavigate, useNavigation, useRouteLoaderData } from "react-router-dom";
-import useFetch from "../utilis/useFetch";
-import { promise } from "zod";
+import React, { createContext, useState } from 'react'
+import { useRouteLoaderData } from 'react-router-dom';
+import useLocalStorage from '../utilis/useLocalStorge';
 
-export const AdoptersContext = createContext({
-  favoritesDogs: [],
-  loading:false,
-  setFavoritesDogs: () => { },
-  AddToFavorites: () => { },
-  RemoveFromFavorites: () => { },
-});
+export const AdopterContext = createContext();
 
 export default function AdoptersContextProvider({ children }) {
 
@@ -58,17 +48,9 @@ export default function AdoptersContextProvider({ children }) {
 
 
   return (
-    <AdoptersContext.Provider
-      value={{
-        loading,
-        favoritesDogs,
-        // setFavoritesDogs,
-        AddToFavorites,
-        RemoveFromFavorites,
-      }}
-    >
-      {children}
 
-    </AdoptersContext.Provider>
-  );
+    <AdopterContext.Provider value={{ favoritesDogs, setFavoritesDogs, AddToFavorites, RemoveFromFavorites }}>
+      {children}
+    </AdopterContext.Provider>
+  )
 }

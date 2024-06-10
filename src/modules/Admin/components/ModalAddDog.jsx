@@ -12,7 +12,7 @@ import { ShelterContext } from "../../../context/ShelterContextProvider";
 import AddImage from "../../../components/AddImage";
 import { useForm } from "react-hook-form";
 import { DoorFront } from "@mui/icons-material";
-import { useFetcher } from "react-router-dom";
+import { useFetcher, useNavigate } from "react-router-dom";
 
 
 
@@ -36,7 +36,7 @@ export const FormStyle = styled(Box)(({ theme }) => ({
 
 const ModalAddDog = forwardRef(({ opMo }, ref) => {
 
-    const fetcher = useFetcher();
+    const navigate  = useNavigate();
     const { cells, setTriggerFetch, loginDet } = useContext(ShelterContext);
 
     const breeds = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/Breeds');
@@ -88,9 +88,9 @@ const ModalAddDog = forwardRef(({ opMo }, ref) => {
         dogToAdd = {
             ...dogToAdd,
             'numberId': 0,
-            'breed': dogToAdd['breed'].split(','),
-            'color': dogToAdd['color'].split(','),
-            'attributes': dogToAdd['attributes'].split(','),
+            'breed': dogToAdd['breed'].split(',').filter(a=>a!==""),
+            'color': dogToAdd['color'].split(',').filter(a=>a!==""),
+            'attributes': dogToAdd['attributes'].split(',').filter(a=>a!==""),
             'dateOfBirth': dateBirth,
             'entranceDate': arrivalDate,
             'files': data.getAll("files"),
@@ -113,7 +113,6 @@ const ModalAddDog = forwardRef(({ opMo }, ref) => {
             imagesData.append("images", profileImg[i])
         };
 
-        console.log('dogToAdd', dogToAdd)
         delete dogToAdd['files'];
         dogToAdd['profileImage'] = "";
 
@@ -128,13 +127,11 @@ const ModalAddDog = forwardRef(({ opMo }, ref) => {
             return res.json();
         }).then((data) => {
             opMo(false);
-            setTriggerFetch(prev => ++prev);
-            console.log('data', data)
+            setTriggerFetch(prev => prev + 1);
             uploadProfileImg(data);
         })
 
         const uploadProfileImg = (dogId) => {
-            console.log('rooonniiii', dogId);
             fetch(import.meta.env.VITE_APP_SERVERURL + 'Images/shelterId/' + loginDet.shelterNumber + '/dogId/' + dogId, {
                 method: "POST",
                 body: imagesData,

@@ -67,3 +67,4 @@ export default function SelectInput({ field, changeFunc, isMulti }) {
       </FormControl>
   );
 }
+

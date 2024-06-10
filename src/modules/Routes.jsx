@@ -1,5 +1,4 @@
 import { get } from "react-hook-form";
-import lazyLoad from "../utilis/LazyLoad";
 import useLocalStorage from "../utilis/useLocalStorge";
 
 // Admin Rouets
@@ -29,6 +28,11 @@ import EmpSignUp from "./Employees/EmpSignUp";
 import DogsList from "./Employees/DogsList";
 import DogsId from "./Employees/DogsID";
 import { json, redirect } from "react-router-dom";
+import { element } from "prop-types";
+import DogsInShelter from "./Admin/DogsInShelter";
+import AdoptionPage from "./Admin/AdoptionPage";
+import RequestsPage from "./Admin/RequestsPage";
+import AdminDogPage from "./Admin/AdminDogPage";
 
 
 export const pathes = [
@@ -39,13 +43,31 @@ export const pathes = [
   },
   {
     path: "/admin/shelter/whosHome/",
-    element: <WhosHome />,
+    element: <DogsInShelter />,
+    children:[
+      {
+        path: "/admin/shelter/whosHome/",
+        element: <WhosHome />,
+      },
+      {
+        path: "/admin/shelter/whosHome/adoption",
+        element: <AdoptionPage />,
+      } ,{
+        path: "/admin/shelter/whosHome/dogProfile",
+        element: <AdminDogPage />,
+      }
+    ],
     id: "מי בבית"
   },
   {
     path: "/admin/shelter/whosHome/",
     element: <WhosHome />,
     id: "משימות"
+  },
+  {
+    path: "/admin/shelter/requestsPage/",
+    element: <RequestsPage />,
+    id: "בקשות"
   },
   {
     path: "/admin/shelter/whosHome/",
@@ -61,10 +83,11 @@ export const adminRouts = [
   },
   {
     path: "/admin/register",
-    async lazy() {
-      let Register = await import("./Admin/Register");
-      return { Component: Register.default };
-    },
+    element:<Register/>
+    // async lazy() {
+    //   let Register = await import("./Admin/Register");
+    //   return { Component: Register.default };
+    // },
   },
   {
     path: "/admin/shelter",

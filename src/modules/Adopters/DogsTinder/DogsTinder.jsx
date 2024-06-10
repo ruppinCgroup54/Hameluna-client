@@ -1,15 +1,18 @@
 import AdoptersLayout from "../../../layouts/AdoptersLayout";
 import Dogs from "../../../Data/Dogs";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCreative, Manipulation } from "swiper/modules";
 import DogSwipeCard from "./DogSwipeCard";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCreative, Manipulation } from "swiper/modules";
+
 export default function DogsTinder() {
+  
   // const AllDogs = useLoaderData();
   // console.log("AllDogs", AllDogs);
   return (
     <AdoptersLayout>
       <Swiper
+      lazyPreloadPrevNext={3}
         effect={"creative"}
         grabCursor={true}
         modules={[EffectCreative, Manipulation]}
@@ -28,7 +31,7 @@ export default function DogsTinder() {
         className="mySwiper"
       >
         {Dogs.map((item) => (
-          <SwiperSlide key={item.numberId}>
+          <SwiperSlide key={item.numberId} >
             <DogSwipeCard dog={item} />
           </SwiperSlide>
         ))}
