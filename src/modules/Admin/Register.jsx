@@ -169,8 +169,8 @@ export default function Register() {
             {forms.map((label) => (
               <Step
                 sx={{
-                  ':first-child': { pl: 0 },
-                  ':last-child': { pr: 0 },
+                  ':first-of-type': { pl: 0 },
+                  ':last-of-type': { pr: 0 },
                 }}
                 key={label}
               >

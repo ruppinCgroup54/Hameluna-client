@@ -19,9 +19,11 @@ export default function AdminDogPage() {
 
   const dogNew = useFetch(import.meta.env.VITE_APP_SERVERURL + 'dogs/' + dog.numberId)
 
+  console.log("dog",dogNew);
+
   return (
     <Grid sx={{
-      width: '90%', margin: "5vh 5vw", paddingTop: '100px', height: '90vh',
+      width: '90vw', margin: "15vh 5vw 0", height: '85vh',
     }} columnSpacing={2} container>
 
       {!dogNew.loading?

@@ -118,6 +118,9 @@ export default function DogData({ dog }) {
   }
 
   const submit = async (data) => {
+
+    console.log('data12', data)
+
     const res = await fetch(import.meta.env.VITE_APP_SERVERURL + 'dogs/' + dog.numberId, {
       method: "PUT",
       ...DEFAULT_OPTIONS,
