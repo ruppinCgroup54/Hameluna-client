@@ -3,7 +3,11 @@ import BackgroundLayout from "../../layouts/BackgroundLayout";
 import CardComp2 from "./components/cardComp2";
 import DogCard from "./components/DogsCard";
 import TopBarMobile from "./components/TopbarEmp";
-import AvatarList from "../Employees/components/avatarList"
+import AvatarList from "../Employees/components/avatarList";
+import { useLoaderData } from "react-router-dom";
+import useImageURL from "../../utilis/useImageURL";
+
+
 
 
 const phoneStyle = {
@@ -15,7 +19,7 @@ const phoneStyle = {
 const bcgImg = "images/Layouts/background.png";
 
 
-export default function DogsId(){
+export default function DogsId() {
 
     let dog={
         name: "לילי",
@@ -24,6 +28,11 @@ export default function DogsId(){
         img : "images/Dogs/image 1.png"
         }; 
 
+        const dogs = useLoaderData();
+        console.log(dogs);
+
+       
+       
     return(
         <>
         <BackgroundLayout image={bcgImg} style={{ display: "block"}}>
@@ -36,8 +45,10 @@ export default function DogsId(){
             marginTop: "70px",
           }}>
             <TopBarMobile></TopBarMobile>
-            <DogCard dog={dog}></DogCard>
+            {/* <h1>{dogs.name}</h1> */}
+            <DogCard dog={dogs}></DogCard>
             {/* <AvatarList></AvatarList> */}
+            
             </div>
           </BackgroundLayout>;
 </>

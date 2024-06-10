@@ -169,8 +169,8 @@ export default function OTPInput() {
         gap: 2,
       }}
     >
-      <OTP separator={<span>-</span>} value={otp} onChange={setOtp} length={5} />
-      <span>Entered value: {otp}</span>
+      <OTP separator={<span></span>} value={otp} onChange={setOtp} length={5} />
+      {/* <span>Entered value: {otp}</span> */}
     </Box>
   );
 }
