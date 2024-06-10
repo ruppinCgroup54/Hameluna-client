@@ -13,12 +13,14 @@ import CardComp2 from "./cardComp2";
 import { useTheme } from '@emotion/react';
 import { useState } from 'react';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { useNavigate } from 'react-router-dom';
 
-export default function CardComp({ image1, cell, dogsName }) {
+export default function CardComp({ image1, cell, dogsName , dogId }) {
 
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-
+console.log("תא:"+cell,dogId,dogsName);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -36,7 +38,7 @@ export default function CardComp({ image1, cell, dogsName }) {
             </Typography>
             <Stack spacing={2} direction="row" paddingTop={2} marginLeft={-1.5}>
 
-              <Button variant='contained' sx={{ backgroundColor: '#EADCCF', color: 'common.black', boxShadow: theme.shadows[12], borderColor: 'black', '&:hover': { backgroundColor: 'primary.light' }, maxHeight: 50, width: 120, fontSize: 11 }}>צפייה בכרטיס כלב<PetsIcon /></Button>
+              <Button variant='contained' sx={{ backgroundColor: '#EADCCF', color: 'common.black', boxShadow: theme.shadows[12], borderColor: 'black', '&:hover': { backgroundColor: 'primary.light' }, maxHeight: 50, width: 120, fontSize: 11 }} onClick={()=>navigate("/employees/dogsid/"+ dogId)}>צפייה בכרטיס כלב<PetsIcon /></Button>
               <Button variant='contained' sx={{ backgroundColor: '#EADCCF', color: 'common.black', boxShadow: theme.shadows[12], borderColor: 'black', '&:hover': { backgroundColor: 'primary.light' }, maxHeight: 50, width: 120, fontSize: 11 }} onClick={() => setOpen(prev => !prev)}>צקליסט  <CheckCircleOutlineIcon sx={{ position: "relative", left: 15 }}></CheckCircleOutlineIcon></Button>
             </Stack>
 

@@ -170,8 +170,12 @@ export const employeesRoutes = [
     },
   },
   {
-    path: "/employees/dogsid",
+    path: "/employees/dogsid/:dogId",
     element: <DogsId />,
+    loader: async ({ params}) => {
+      return fetch(import.meta.env.VITE_APP_SERVERURL + "Dogs/" + params.dogId);
+
+    }
   },
 
 ]
