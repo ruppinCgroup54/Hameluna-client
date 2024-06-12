@@ -91,7 +91,7 @@ export default function WhosHome() {
   const handleClose = () => setOpenModal(false);
 
   return (
-    <Grid container mt={"120px"} sx={{ mx: "auto" }} width={"100%"}>
+    <Grid container sx={{ mx: "auto",mt:'120px'}}  width={"100%"}>
       <Grid item md={12}>
         <Grid container>
           <Grid item md={2}></Grid>

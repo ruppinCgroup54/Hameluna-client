@@ -7,7 +7,7 @@ import { Textinput } from '../../../components/Textinput';
 import AutocompleteInput from '../../../components/AutocompleteInput';
 import { date } from 'zod';
 import { Edit, Save } from '@mui/icons-material';
-import { DEFAULT_OPTIONS } from '../../../utilis/useFetch';
+import useFetch, { DEFAULT_OPTIONS } from '../../../utilis/useFetch';
 import { set } from 'firebase/database';
 
 export default function DogData({ dog }) {
@@ -27,10 +27,10 @@ export default function DogData({ dog }) {
   } = methods;
 
 
-  const getList = async (name) => {
-    const res = await fetch(import.meta.env.VITE_APP_SERVERURL + 'Data/' + name)
-    const data = await res.json();
-    return data;
+  const getList = (name) => {
+    let data = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/' + name)
+    console.log('first', data.error)
+    return data.value
   }
   const filedsToShow = [
     {
@@ -61,13 +61,13 @@ export default function DogData({ dog }) {
       label: "צבע",
       isDropDown: true,
       isMulti: true,
-      data: getList("colors").then(res => res)
+      data: getList("colors")
     }, {
       name: "breed",
       label: "גזע",
       isDropDown: true,
       isMulti: true,
-      data: getList("Breeds").then(res => res)
+      data: getList("Breeds")
     }, {
       name: "gender",
       label: "מין",
@@ -79,7 +79,7 @@ export default function DogData({ dog }) {
       label: "תכונות",
       isDropDown: true,
       isMulti: true,
-      date: getList("Characteristics").then(res => res)
+      data: getList("Characteristics")
     }, {
       name: "isReturned",
       label: "כלב חוזר?",
@@ -98,6 +98,7 @@ export default function DogData({ dog }) {
       }
 
       if (f.isDropDown) {
+        console.log('f.data', f.data)
         return <AutocompleteInput key={i} {...methods} label={f.label} name={f.name} data={f.data} isMulti={f.isMulti} disabled={isReadOnly} />
       }
 
@@ -117,6 +118,9 @@ export default function DogData({ dog }) {
   }
 
   const submit = async (data) => {
+
+    console.log('data12', data)
+
     const res = await fetch(import.meta.env.VITE_APP_SERVERURL + 'dogs/' + dog.numberId, {
       method: "PUT",
       ...DEFAULT_OPTIONS,
@@ -124,6 +128,8 @@ export default function DogData({ dog }) {
     })
     console.log('res', res)
     if (res.ok) {
+      const data = res.json()
+      console.log('data', data)
       setIsReadOnly(true)
     }
   }
@@ -138,11 +144,14 @@ export default function DogData({ dog }) {
         {renderFileds()}
         <Box sx={{ width: 1, textAlign: 'center' }}>
           {!isReadOnly &&
-            <Button sx={{ fontSize: '20px' }} type='submit' endIcon={!isLoading ? <Save /> : <CircularProgress />} variant='contained' >שמירה </Button>
-          }</Box>
+            <Button sx={{ fontSize: '20px' }} type='submit' endIcon={!isLoading ? <Save /> : <CircularProgress />} variant='contained' >שמירה </Button>}
+            </Box>
       </Box>
-
-      {isReadOnly && <Button sx={{ fontSize: '20px' }} type='button' onClick={() => setIsReadOnly(false)} endIcon={<Edit />} variant='contained'>עריכה</Button>}
+      <Box sx={{ width: 1, textAlign: 'center' }}>
+        {isReadOnly &&
+          <Button sx={{ fontSize: '20px' }} onClick={() => setIsReadOnly(false)} endIcon={<Edit />} variant='contained'>עריכה</Button>
+        }</Box>
     </>
+
   )
 }

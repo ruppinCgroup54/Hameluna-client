@@ -108,7 +108,7 @@ export default function Register() {
           <AddImage getImage={setImage} {...methods} style={{ top: "-5vh", right: '-5vh' }} />
           <ShelterForm {...methods} />
           <br />
-          <AddressForm {...methods} />
+          <AddressForm {...methods} methods={methods}/>
         </>;
       case 2:
         return <CellsForm {...methods} />;
@@ -169,8 +169,8 @@ export default function Register() {
             {forms.map((label) => (
               <Step
                 sx={{
-                  ':first-child': { pl: 0 },
-                  ':last-child': { pr: 0 },
+                  ':first-of-type': { pl: 0 },
+                  ':last-of-type': { pr: 0 },
                 }}
                 key={label}
               >

@@ -30,7 +30,7 @@ export default function DogsList() {
       //   age: dogis[c].age
       // }
 
-      let dog = <CardComp dogsName={dogis[c].name} cell={cells[i].number} age={dogis[c].age} image1={useImageURL(dogis[c].profileImage)}/>
+      let dog = <CardComp dogsName={dogis[c].name} cell={cells[i].number} age={dogis[c].age} image1={useImageURL(dogis[c].profileImage)} dogId={dogis[c].numberId}/>
 
       dogsToRender.push(dog);
 

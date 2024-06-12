@@ -13,7 +13,7 @@ export default function AdoptionDogCard({ dog }) {
   const keysToShow = ['gender', 'breed', 'age', 'size']
 
   return (
-    <DogCardStyle sx={{"&:hover .MuiCardContent-root":{height:'90%',transition:'all 0.5s'}}}>
+    <DogCardStyle sx={{border:'2px solid', borderColor:'primary.main',"&:hover .MuiCardContent-root":{height:'90%',transition:'all 0.5s'}}}>
       <CardMedia>
         <img src={useImageURL(dog.profileImage)} alt="" style={{ height: '100%', width: '100%', objectFit: 'cover' }} />
 

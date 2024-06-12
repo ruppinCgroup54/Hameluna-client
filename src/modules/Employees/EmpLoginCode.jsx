@@ -5,6 +5,8 @@ import TopBarMobile from "./components/TopbarEmp";
 import SignIn from "../../components/SignIn";
 import SignInComp from "./components/SignInComp";
 import { position } from "stylis";
+import Button from "@mui/material/Button";
+
 import Logo from "../../components/Logo";
 
 const phoneStyle = {
@@ -33,8 +35,29 @@ export default function EmpLogin() {
 ברוכים הבאים!                    </h2>
         </div> */}
         <div>
+        
           <h1>הזן את הקוד</h1>
+          
           <SignInComp.code></SignInComp.code>
+<div style={{paddingTop:"20px"}}>          <Button
+        type="submit"
+        variant="contained"
+        onClick={()=>navigate('/employees/code')}
+        sx={{
+          mx: "auto",
+          display: "block",
+          color: "#000",
+          mt: "5px",
+          fontSize: "14px",
+        }}
+        fullWidth
+        size="small"
+        color="info"
+      >
+כניסה
+      </Button>
+      </div>
+ 
         </div>
       </div>
     </BackgroundLayout>

@@ -7,7 +7,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useFetch from "../../../utilis/useFetch";
 import { Height } from "@mui/icons-material";
-import Code from "./Code"
+import Code from "./Code";
+
 // TODO remove, this demo shouldn't need to reset the theme.
 const StyledTextfield = {
   bgcolor: "rgba(255,255,255,0.7)",
@@ -94,6 +95,7 @@ export default function SignIn() {
       <Button
         type="submit"
         variant="contained"
+        onClick={()=>navigate('/employees/code')}
         sx={{
           mx: "auto",
           display: "block",
