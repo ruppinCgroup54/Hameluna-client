@@ -3,18 +3,19 @@ import Request from "../../../components/Request";
 import { get, getDatabase, onValue, ref } from "firebase/database";
 import { app } from "../../../../FirebaseConfig";
 import { useEffect, useState } from "react";
+import useShelterContext from "../../../utilis/useShelterContext";
 
 
 export default function RequestsList({close=()=>{}, setBadge=()=>{}}) {
     const [requests, setRequests] = useState([]);
-
+    const {loginDet} = useShelterContext();
     const db = getDatabase();
     // const dbRef = ref(db, "requests/1");
     // const snapshot = await get(dbRef);
 
 
     useEffect(() => {
-        const requestsRef = ref(db,'requests/1');
+        const requestsRef = ref(db,'requests/'+ loginDet.shelterNumber);
 
         onValue(requestsRef, (snapshot) => {
           const data = snapshot.val();

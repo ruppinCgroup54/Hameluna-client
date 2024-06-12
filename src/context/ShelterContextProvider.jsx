@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import useFetch from "../utilis/useFetch";
 import useLocalStorage from "../utilis/useLocalStorge";
+import { postFetch } from "../Data/Fetches";
 
 export const ShelterContext = createContext();
 
@@ -45,21 +46,30 @@ export default function ShelterContextProvider(props) {
       shelterNumber: loginDet.shelterNumber
     };
 
-    fetch(import.meta.env.VITE_APP_SERVERURL + "Cells", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", dataType: "json" },
-      body: JSON.stringify(cell),
-    }).then((res) => {
-      if (res.ok) {
-        console.log('res', res);
-        setTriggerFetch(prev => prev + 1);
-      }
-      else {
-        if (res.status === 409) {
-          throw new Error(res.text());
-        }
-      }
-    });
+    const sucInsertCell = () =>{
+      setTriggerFetch(prev => prev + 1);
+    };
+
+    const errInsertCell = (message) =>{
+      alert(JSON.stringify(message));
+    };
+
+    postFetch("Cells", cell, sucInsertCell, errInsertCell);
+    // fetch(import.meta.env.VITE_APP_SERVERURL + "Cells", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json", dataType: "json" },
+    //   body: JSON.stringify(cell),
+    // }).then((res) => {
+    //   if (res.ok) {
+    //     console.log('res', res);
+    //     setTriggerFetch(prev => prev + 1);
+    //   }
+    //   else {
+    //     if (res.status === 409) {
+    //       throw new Error(res.text());
+    //     }
+    //   }
+    // });
   }
 
   return (
