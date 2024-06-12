@@ -7,6 +7,7 @@ export default function Cell({ cellItem }) {
   return (
     <Box
       sx={{
+        cursor: 'pointer',
         width: "20%",
         //maxWidth:'185px',
         bgcolor: `${
