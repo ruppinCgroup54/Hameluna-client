@@ -98,7 +98,8 @@ const ModalAddDog = forwardRef(({ opMo }, ref) => {
             'isReturned': dogToAdd['isReturned'] == "לא" ? false : true,
             'isAdoptable': false,
             'adopted': false,
-            'profileImage': data.getAll("profileImage")
+            'profileImage': data.getAll("profileImage"),
+            'shelterNumber':-1
         }
 
         const files = dogToAdd['files'];

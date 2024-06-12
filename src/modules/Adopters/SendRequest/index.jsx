@@ -13,6 +13,8 @@ import AlertComp from "../../../components/AlertComp";
 import { Textinput } from "../../../components/Textinput";
 import useAdoptersContext from "../../../utilis/useAdoptersContext";
 import { AdopterContext } from "../../../context/AdoptersContext";
+import { postFetch } from "../../../Data/Fetches";
+import { getDatabase, ref, set } from "firebase/database";
 
 const formStyle = {
   backgroundColor: "rgba(255,255,255,0.5)",
@@ -73,16 +75,24 @@ export default function SendRequest() {
     };
 
     localStorage.setItem("adopter", data.phoneNumber);
+    const sucPostRequest =(data)=>{
+      const db = getDatabase();
+      set(ref(db, 'requests/' + loginDet.shelterNumber + '/' + id), null);
 
-    await fetch(import.meta.env.VITE_APP_SERVERURL + "AdoptionRequests", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", dataType: "json" },
-      body: JSON.stringify(request),
-    }).then((res) => {
-      if (res.status === 409) {
-        throw new Error(res.text());
-      }
-    });
+    }
+    const errorPostRequest = (err)=>{
+
+    }
+    postFetch("AdoptionRequests",request,sucPostRequest,errorPostRequest)
+    // await fetch(import.meta.env.VITE_APP_SERVERURL + "AdoptionRequests", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json", dataType: "json" },
+    //   body: JSON.stringify(request),
+    // }).then((res) => {
+    //   if (res.status === 409) {
+    //     throw new Error(res.text());
+    //   }
+    // });
   };
 
   useEffect(() => {
