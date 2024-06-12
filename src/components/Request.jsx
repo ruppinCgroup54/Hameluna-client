@@ -21,7 +21,7 @@ export default function Request({ req, close }) {
                         primary={"בקשה חדשה מאת " + fullName}
                         secondary={
                             <>
-                                <Typography variant="subtitle2">{fullName + " הגישה בקשה לאימוץ עבור הכלב " + dog}</Typography>
+                                <Typography variant="subtitle2">{fullName + " הגיש/ה בקשה לאימוץ עבור הכלב/ה " + dog}</Typography>
                                 <Typography variant="caption">{date}</Typography>
                             </>
                         }

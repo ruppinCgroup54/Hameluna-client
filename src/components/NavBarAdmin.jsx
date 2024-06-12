@@ -138,14 +138,16 @@ export default function NavBarAdmin() {
                   </IconButton>
                   <Menu
                     sx={{
-                     maxHeight:'60vh' ,
+                      maxHeight: '60vh',
                       mt: '45px',
-                      mr:'-30px',
+                      mr: '-30px',
                       "& .MuiList-root": {
                         p: '0',
                       },
-                      "& .MuiMenu-paper":{
-                        borderRadius:'20px',
+                      "& .MuiMenu-paper": {
+                        borderRadius: '20px',
+                        border: '2px solid',
+                        borderColor: 'primary.main'
                       }
                     }}
                     id="menu-appbar"

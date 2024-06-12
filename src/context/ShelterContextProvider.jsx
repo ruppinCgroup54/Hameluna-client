@@ -13,7 +13,7 @@ export default function ShelterContextProvider(props) {
   console.log('triggerFetch', triggerFetch)
   // const cellsData = useRouteLoaderData("כלבייה");
   const [loginDet, setLoginDet] = useLocalStorage("loginDet", {});
-  const cells = useFetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/` + loginDet.shelterNumber,{},[triggerFetch])
+  const cells = useFetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/` + loginDet.shelterNumber, {}, [triggerFetch])
   // const [cells, setCells] = useState(cellsData?cellsData.value:[]);
 
   console.log('cells', cells)
@@ -39,8 +39,33 @@ export default function ShelterContextProvider(props) {
     }
   }, [loginDet])
 
+  const newCell = (e) => {
+    e.preventDefault;
+    const cell = {
+      number: e.target.cellNumber.value,
+      capacity: e.target.capacity.value,
+      shelterNumber: loginDet.shelterNumber
+    };
+
+    fetch(import.meta.env.VITE_APP_SERVERURL + "Cells", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", dataType: "json" },
+      body: JSON.stringify(cell),
+    }).then((res) => {
+      if (res.ok) {
+        console.log('res', res);
+        setTriggerFetch(prev => prev + 1);
+      }
+      else {
+        if (res.status === 409) {
+          throw new Error(res.text());
+        }
+      }
+    });
+  }
+
   return (
-    <ShelterContext.Provider value={{ setDogs, dogs, cells, setTriggerFetch, setLoginDet, loginDet }}>
+    <ShelterContext.Provider value={{ setDogs, dogs, cells, setTriggerFetch, setLoginDet, loginDet, newCell }}>
       {props.children}
     </ShelterContext.Provider>
   );
