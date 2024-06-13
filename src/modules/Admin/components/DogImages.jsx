@@ -28,19 +28,19 @@ export default function DogImages({ dog }) {
   const [change, setChange] = useState(0);
 
   const images = useFetch(import.meta.env.VITE_APP_SERVERURL + 'images/dogId/' + dog.numberId,{} ,[change]);
+
   console.log('images', images)
-  const renderImages = images.value?.map(i => <Image img={useImageURL(i)} isProfile={i === dog.profileImage} />)
+  const renderImages = images.value?.map(i => <Image key={i} setDelete={setChange} img={i} isProfile={i === dog.profileImage} dogId={dog.numberId} />)
 
   const uploadImages = async (e) => {
     e.preventDefault();
     const files = e.target.files.files;
-    console.log('files', files)
+
     const filesData = new FormData();
     for (let i = 0; i < files.length; i++) {
         filesData.append("images", files[i]);
     };
 
-    console.log('images', images);
      uploadFiles(dog.numberId, loginDet.shelterNumber, filesData).then(setChange).catch(rej=> console.log('rej', rej)) ;
 
     e.target.reset();
@@ -55,7 +55,7 @@ export default function DogImages({ dog }) {
         </Button>
       </Box>
 
-      <ImageList sx={{ height:'fit-content', maxHeight: '90%', overflow: 'scroll',padding:'10px' }} gap={'32px'} cols={4} rowHeight={150}>
+      <ImageList sx={{ height:'fit-content', maxHeight: '90%', overflow: 'scroll',padding:'15px'  }} cols={4} >
 
         {
           renderImages

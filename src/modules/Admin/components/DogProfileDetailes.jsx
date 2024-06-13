@@ -13,6 +13,7 @@ import ShelterForm from './ShelterForm';
 import { Textinput } from '../../../components/Textinput';
 import DogData from './DogData';
 import DogImages from './DogImages';
+import DogFiles from './DogFiles';
 
 const StyleTabs = styled(Tabs)(({ theme }) => ({
   borderBottom: '1px solid #e8e8e8',
@@ -61,7 +62,7 @@ export default function DogProfileDetailes({dog}) {
       component: <DogImages dog={dog}/>
     }, {
       name: 'קבצים',
-      component: <Textinput />
+      component: <DogFiles dog={dog} />
     },
   ]
 

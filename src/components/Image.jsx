@@ -2,18 +2,21 @@ import { Delete, DeleteForever, ExitToAppOutlined, Height, Scale, X } from "@mui
 import { Backdrop, Box, IconButton, ImageListItem, ImageListItemBar, Modal, styled } from "@mui/material";
 import { useState } from "react";
 import { position } from "stylis";
+import ConfirmationDialog from "./ConfirmationDialog";
+import { useEffect } from "react";
+import useImageURL from "../utilis/useImageURL";
 
 const StyledImageItem = styled(ImageListItem)(({ theme }) => ({
-  "& img":{
-    boxShadow:theme.shadows[10],
-    borderRadius:'15px',
+  "& img": {
+    boxShadow: theme.shadows[10],
+    borderRadius: '15px',
     transition: 'all 0.3s',
 
   },
-   "&:hover":{
-    scale:"1.1",
+  "&:hover": {
+    scale: "1.1",
     transition: 'all 0.3s',
-    
+
   },
   "&:hover .MuiBox-root ": {
     opacity: 1,
@@ -35,36 +38,51 @@ const StyledImageItem = styled(ImageListItem)(({ theme }) => ({
 
 
 
-export default function Image({ img, isProfile = false }) {
+export default function Image({ img, dogId, setDelete, isProfile = false }) {
   const [open, setOpen] = useState(false)
+  const [openDialog, setOpenDialog] = useState(false)
+  const [dialogAns, setDialogAns] = useState(false);
 
-  const deleteImage=()=>{
-    
+  const deleteImage = async () => {
+    fetch(import.meta.env.VITE_APP_SERVERURL + `images/${dogId}`, {
+      method: 'DELETE',
+      headers: {
+        "content-type": 'application/json'
+      },
+      body: JSON.stringify({url:img})
+    }).then(res => res.ok ? setDelete(img) : res.text().then(alert))
+      
   }
+
+  useEffect(() => {
+    if (dialogAns) {
+      deleteImage()
+    }
+
+  }, [dialogAns])
+
 
   return (
     <>
       <StyledImageItem  >
         <img
           onClick={() => setOpen(true)}
-          srcSet={`${img}?w=150&h=150&fit=crop&auto=format 2x`}
-          src={`${img}?w=150&h=150&fit=crop&auto=format`}
+          srcSet={`${useImageURL(img)}?w=150&h=150&fit=crop&auto=format 2x`}
+          src={`${useImageURL(img)}?w=150&h=150&fit=crop&auto=format`}
           alt={img}
           loading="lazy"
         />
-        {/* <ImageListItemBar
-          title={img?.split("_").pop()}
-          sx={{ textAlign: 'right' }}
-        /> */}
+
         <Box>
-          <IconButton onClick={deleteImage}>
+          <IconButton onClick={() => setOpenDialog(true)}>
 
             <DeleteForever color='error' fontSize="large" />
           </IconButton>
         </Box>
       </StyledImageItem>
+      <ConfirmationDialog content={"את/ה בטוח/ה שתרצה למחוק את התמונה?"} isOpen={openDialog} setOpen={setOpenDialog} setSelectedValue={setDialogAns} />
       <Modal open={open} onClose={() => setOpen(false)} >
-   
+
         <img src={img} alt={img} style={{ position: 'absolute', top: '50%', right: '50%', translate: '50% -50%' }} />
       </Modal>
     </>

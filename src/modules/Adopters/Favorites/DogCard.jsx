@@ -67,7 +67,7 @@ export default function DogCard({ dog }) {
               <IconButton onClick={handleRemove } disabled={loading}>
                 <Clear color="error" />
               </IconButton>
-              <IconButton onClick={()=>navigate(`/sendrequest/dogId/${dog.numberId}/dogName/${dog.name}`)}>
+              <IconButton onClick={()=>navigate(`/sendrequest`,{state:{dog}})}>
                 <Email color="primary" />
               </IconButton>
             </CircleIcons>

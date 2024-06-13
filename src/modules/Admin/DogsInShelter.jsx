@@ -4,11 +4,10 @@ import BackgroundLayout from '../../layouts/BackgroundLayout'
 
 export default function DogsInShelter() {
 
-
   return (
     <>
       <Suspense>
-        <BackgroundLayout style={{alignItems:'start'}}>
+        <BackgroundLayout image={"images/Layouts/RequestBackground.png"} style={{alignItems:'start'}}>
 
           <Outlet />
         </BackgroundLayout>

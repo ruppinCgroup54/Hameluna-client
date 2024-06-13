@@ -5,7 +5,7 @@ import { position } from 'stylis'
 import { to } from '@react-spring/web'
 import StepperComponnent from '../../components/StepperComponnent'
 import DogProfileDetailes from './components/DogProfileDetailes'
-import { useLocation } from 'react-router-dom'
+import { useLoaderData, useLocation } from 'react-router-dom'
 import useImageURL from '../../utilis/useImageURL'
 import useFetch from '../../utilis/useFetch'
 import FallbackElement from '../../components/FallbackElement'
@@ -13,11 +13,13 @@ import FallbackElement from '../../components/FallbackElement'
 
 export default function AdminDogPage() {
 
-  const { state } = useLocation();
+  // const { state } = useLocation();
 
-  const { dog } = state;
+  // const { dog } = state;
 
-  const dogNew = useFetch(import.meta.env.VITE_APP_SERVERURL + 'dogs/' + dog.numberId)
+  // const dogNew = useFetch(import.meta.env.VITE_APP_SERVERURL + 'dogs/' + dog.numberId)
+
+  const dogNew = useLoaderData();
 
   console.log("dog",dogNew);
 
@@ -36,9 +38,9 @@ export default function AdminDogPage() {
 
             <Box sx={{ position: 'relative', marginBottom: '15vw' }}>
 
-              <AddImage style={{ top: "0", right: '50%', translate: '50%' }} defaultImg={useImageURL(dogNew.value.profileImage)} />
+              <AddImage style={{ top: "0", right: '50%', translate: '50%' }} defaultImg={useImageURL(dogNew.profileImage)} />
             </Box>
-            <Typography variant='h4' textAlign={'center'} fontWeight={'bold'}>{dogNew.value.name}</Typography>
+            <Typography variant='h4' textAlign={'center'} fontWeight={'bold'}>{dogNew.name}</Typography>
             <Typography variant='h6' textAlign={'center'} fontWeight={'bold'}>סטטוס אימוץ</Typography>
             {/* need to ad the phase of adoption */}
             <StepperComponnent options={["pending", "trial period", "adopted"]} currentStep={"pending"} />
@@ -46,7 +48,7 @@ export default function AdminDogPage() {
           </Box>
         </Grid>
         <Grid item xs={9.5}>
-          <DogProfileDetailes dog={dogNew.value} />
+          <DogProfileDetailes dog={dogNew} />
         </Grid>
       </>:
       <FallbackElement/>

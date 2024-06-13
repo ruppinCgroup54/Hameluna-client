@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate, useParams } from "react-router-dom";
 
 import AdoptersLayout from "../../../layouts/AdoptersLayout";
 import { Button, TextField, Typography, styled } from "@mui/material";
@@ -46,7 +46,8 @@ const requestSchema = z.object({
 });
 
 export default function SendRequest() {
-  const { dogId, dogName } = useParams();
+  const { state } = useLocation();
+  const {dog}=state;
   const { RemoveFromFavorites } = useContext(AdopterContext);
   const adopter = useLoaderData();
 
@@ -54,36 +55,38 @@ export default function SendRequest() {
 
   const navigate = useNavigate();
 
-  const {
+  let defaultRequest = {
+    requestId: -1,
+    adopter: {...adopter, address: { id: -1, region: "" } },
+    sendate: new Date().toISOString(),
+    dog: dog,
+  }
+
+    const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm({
-    defaultValues: {
-      ...adopter,
-    },
+    defaultValues:defaultRequest,
     resolver: zodResolver(requestSchema),
   });
 
   const formSubmit = async (data) => {
-    let request = {
-      requestId: 0,
-      dogId: dogId,
-      sendDate: new Date().toISOString(),
-      status: "open",
-      adopter: data,
-    };
+ 
 
     localStorage.setItem("adopter", data.phoneNumber);
-    const sucPostRequest =(data)=>{
+
+    const sucPostRequest = (data) => {
       const db = getDatabase();
-      set(ref(db, 'requests/' + loginDet.shelterNumber + '/' + id), null);
+      set(ref(db, 'requests/' + dog.shelterNumber + '/' + id), data);
 
     }
-    const errorPostRequest = (err)=>{
+    const errorPostRequest = (err) => {
+      alert(JSON.stringify(err))
+      setAlert(true);
 
     }
-    postFetch("AdoptionRequests",request,sucPostRequest,errorPostRequest)
+    postFetch("AdoptionRequests", request, sucPostRequest, errorPostRequest)
     // await fetch(import.meta.env.VITE_APP_SERVERURL + "AdoptionRequests", {
     //   method: "POST",
     //   headers: { "Content-Type": "application/json", dataType: "json" },
@@ -97,14 +100,13 @@ export default function SendRequest() {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      RemoveFromFavorites({ numberId: dogId });
+      RemoveFromFavorites({ numberId: dog.numberId });
       navigate(-1);
     }
   }, [isSubmitSuccessful]);
 
   const handleSubmitAndError = (e) => {
     handleSubmit(formSubmit)(e).catch((err) => {
-      setAlert(true);
     });
   };
 
@@ -112,26 +114,26 @@ export default function SendRequest() {
     <AdoptersLayout>
       <form onSubmit={handleSubmitAndError} style={formStyle}>
         <Typography variant="body1" textAlign={"center"} fontWeight={900}>
-          שלח לנו את הפרטים שלך לגבי <u>{dogName}</u>
+          שלח לנו את הפרטים שלך לגבי <u>{dog.name}</u>
         </Typography>
         <Textinput
           size="small"
           // onBlur={fetchAdpterData}
-          {...register("phoneNumber")}
+          {...register("adoper.phoneNumber")}
           label="מספר פלאפון"
           error={!!errors.phoneNumber}
           helperText={errors.phoneNumber?.message}
         />
         <Textinput
           size="small"
-          InputProps={{ ...register("firstName") }}
+          InputProps={{ ...register("adopter.firstName") }}
           label="שם פרטי"
           error={!!errors.firstName}
           helperText={errors.firstName?.message}
         />
         <Textinput
           size="small"
-          {...register("lastName")}
+          {...register("adopter.lastName")}
           label="שם משפחה"
           error={!!errors.lastName}
           helperText={errors.lastName?.message}
@@ -139,7 +141,7 @@ export default function SendRequest() {
 
         <Textinput
           size="small"
-          {...register("email")}
+          {...register("adopter.email")}
           label="אימייל"
           error={!!errors.email}
           helperText={errors.email?.message}
