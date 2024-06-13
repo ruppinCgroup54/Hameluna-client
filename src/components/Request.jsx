@@ -21,13 +21,6 @@ export default function Request({ req, close }) {
     const sucDeleteReq = async (id) => {
         const db = getDatabase();
         set(ref(db, 'requests/' + loginDet.shelterNumber + '/' + id), null);
-        // .then(() => {
-        //     // Data saved successfully!
-        // })
-        // .catch((error) => {
-        //     // The write failed...
-        // });
-        //const reqRef = doc(db, 'requests/'+ loginDet.shelterNumber, id);
     };
 
     const errDeleteReq = (message) => {
@@ -44,6 +37,7 @@ export default function Request({ req, close }) {
             <ListItem width="50%">
                 <ListItemButton>
                     <ListItemText
+                        disableTypography={true}
                         onClick={sAdoption}
                         primary={"בקשה חדשה מאת " + fullName}
                         secondary={
@@ -53,7 +47,7 @@ export default function Request({ req, close }) {
                             </>
                         }
                     />
-                    <IconButton sx={{ zIndex: '1' }} onClick={() => deleteRequest(req.requestId)}>
+                    <IconButton onClick={() => deleteRequest(req.requestId)}>
                         <DeleteForeverOutlinedIcon color="error"></DeleteForeverOutlinedIcon>
                     </IconButton>
                 </ListItemButton>
