@@ -55,7 +55,7 @@ export default function DogImages({ dog }) {
         </Button>
       </Box>
 
-      <ImageList sx={{ height:'fit-content', maxHeight: '90%', overflow: 'scroll' }} gap={'32px'} cols={4} rowHeight={150}>
+      <ImageList sx={{ height:'fit-content', maxHeight: '90%', overflow: 'scroll',padding:'10px' }} gap={'32px'} cols={4} rowHeight={150}>
 
         {
           renderImages
