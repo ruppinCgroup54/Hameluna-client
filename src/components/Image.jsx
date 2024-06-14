@@ -67,8 +67,8 @@ export default function Image({ img, dogId, setDelete, isProfile = false }) {
       <StyledImageItem  >
         <img
           onClick={() => setOpen(true)}
-          srcSet={`${useImageURL(img)}?w=150&h=150&fit=crop&auto=format 2x`}
-          src={`${useImageURL(img)}?w=150&h=150&fit=crop&auto=format`}
+          srcSet={`${useImageURL(img)}`}
+          src={`${useImageURL(img)}`}
           alt={img}
           loading="lazy"
         />
@@ -83,7 +83,7 @@ export default function Image({ img, dogId, setDelete, isProfile = false }) {
       <ConfirmationDialog content={"את/ה בטוח/ה שתרצה למחוק את התמונה?"} isOpen={openDialog} setOpen={setOpenDialog} setSelectedValue={setDialogAns} />
       <Modal open={open} onClose={() => setOpen(false)} >
 
-        <img src={img} alt={img} style={{ position: 'absolute', top: '50%', right: '50%', translate: '50% -50%' }} />
+        <img src={useImageURL(img)} alt={img} style={{ position: 'absolute', top: '50%', right: '50%', translate: '50% -50%',maxHeight:'70vh' }} />
       </Modal>
     </>
   );

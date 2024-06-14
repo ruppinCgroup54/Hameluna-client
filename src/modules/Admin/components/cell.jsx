@@ -58,7 +58,7 @@ export default function Cell({ cellItem }) {
                 transform: `translate(${(i + 1) * -125}%,-50%)`
               }}
             >
-              <Grow in={open} timeout={i*1000}>
+              <Grow in={open} timeout={(i+1)*1000}>
                 <Box>
                   <Avatar
                     onClick={() => navigate('/admin/shelter/whosHome/dogProfile', { state: { dog: d } })}

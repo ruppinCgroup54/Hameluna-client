@@ -33,7 +33,7 @@ export default function File({ url,dogId,setDelete }) {
   const svgUrl = `images/files_svg/${extenstion?.toUpperCase()}.svg`
 
   return (
-    <Box sx={{ width: '15%',position:'relative', "&:hover .MuiBox-root.delBox":{opacity:1}}}  >
+    <Box sx={{ width: '15%',maxWidth:'100px',position:'relative', "&:hover .MuiBox-root.delBox":{opacity:1}}}  >
       <a href={useImageURL(url)} download={true} target='_blank'>
         <img style={{ width: '100%', filter: "drop-shadow(8px 8px 10px gray)" }} src={extenstion !== undefined && svgUrl} />
       </a>

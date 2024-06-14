@@ -30,13 +30,13 @@ export default function ConfirmationDialog({ content, setSelectedValue, isOpen,s
       aria-describedby="alert-dialog-slide-description"
     >
       <DialogContent>
-        <DialogContentText id="alert-dialog-slide-description">
+        <DialogContentText fontWeight={'bold'} id="alert-dialog-slide-description">
           {content}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => handleClose(false)}>לא</Button>
-        <Button color='warning' onClick={() => handleClose(true)}>כן</Button>
+        <Button variant='outlined' onClick={() => handleClose(false)}>לא</Button>
+        <Button variant='contained' color='error' onClick={() => handleClose(true)}>כן</Button>
       </DialogActions>
     </Dialog>
   );
