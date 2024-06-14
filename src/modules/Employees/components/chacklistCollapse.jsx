@@ -1,35 +1,23 @@
 import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
-import AccordionActions from '@mui/material/AccordionActions';
-import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Button from '@mui/material/Button';
-import Chcklcomp from "./chacklistComp"
-import zIndex from '@mui/material/styles/zIndex';
-import { useTheme } from '@emotion/react';
+import Chcklcomp from "./chacklistComp";
+import { Box } from '@mui/material';
 
-export default function AccordionUsage() {
+export default function ChacklistCollapse({ dogsID, onComplete }) {
+
+  const handleSubmit = (result) => {
+    console.log(result);
+    onComplete();
+  };
+
   return (
-    <div> 
-     
-    
-      <Accordion defaultExpanded sx={{width: 400 , backgroundColor: "#EADCCF" }}> 
-        {/* <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel3-content"
-          id="panel3-header"        
-        >
-          Accordion Actions
-        </AccordionSummary> */}
-        <AccordionDetails sx={{}}>
-        <Chcklcomp></Chcklcomp>
+    <Box sx={{ width: '100%' ,borderRadius:3}}>
+      <Accordion defaultExpanded sx={{ width: '100%',backgroundColor: '#EADCCF', borderRadius: 9 }}>
+        <AccordionDetails sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+          <Chcklcomp dogsId={dogsID} onSubmit={handleSubmit} />
         </AccordionDetails>
-        <AccordionActions sx={{ position: "relative", paddingRight: 21}}>
-          {/* <Button>ביטול</Button> */}
-          <Button style={{fontSize: 17 }}>שלח</Button>
-        </AccordionActions>
       </Accordion>
-    </div>
+    </Box>
   );
 }

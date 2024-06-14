@@ -85,9 +85,9 @@ export default function MediaCard({ dog }) {
 
 
   return (
-    <Card sx={{ maxwidth: 330, borderRadius: 7 }}>
+    <Card sx={{ maxWidth: 330, width:"90%", borderRadius: 7 , height: "100%"}}>
       <CardMedia
-        sx={{ height: 200 }}
+        sx={{ height: 270}}
         image={`${useImageURL(dog.profileImage)}`}
         title="green iguana"
       />
