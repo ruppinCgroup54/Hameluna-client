@@ -44,7 +44,7 @@ export const pathes = [
   {
     path: "/admin/shelter/whosHome/",
     element: <DogsInShelter />,
-    children:[
+    children: [
       {
         path: "/admin/shelter/whosHome/",
         element: <WhosHome />,
@@ -52,9 +52,12 @@ export const pathes = [
       {
         path: "/admin/shelter/whosHome/adoption",
         element: <AdoptionPage />,
-      } ,{
-        path: "/admin/shelter/whosHome/dogProfile",
+      }, {
+        path: "/admin/shelter/whosHome/dogProfile/:id",
         element: <AdminDogPage />,
+        loader: async ({ params }) => {
+          return fetch(`${import.meta.env.VITE_APP_SERVERURL}Dogs/${params.id}`);
+        },
       }
     ],
     id: "מי בבית"
@@ -83,7 +86,7 @@ export const adminRouts = [
   },
   {
     path: "/admin/register",
-    element:<Register/>
+    element: <Register />
     // async lazy() {
     //   let Register = await import("./Admin/Register");
     //   return { Component: Register.default };
@@ -153,7 +156,7 @@ export const adopterRoutes = [
 
   },
   {
-    path: "/sendrequest/dogId/:dogId/dogName/:dogName",
+    path: "/sendrequest",
     element: <SendRequest />,
     loader: async () => {
       let adopter = localStorage.getItem("adopter");
@@ -195,7 +198,7 @@ export const employeesRoutes = [
   {
     path: "/employees/dogsid/:dogId",
     element: <DogsId />,
-    loader: async ({ params}) => {
+    loader: async ({ params }) => {
       return fetch(import.meta.env.VITE_APP_SERVERURL + "Dogs/" + params.dogId);
 
     }

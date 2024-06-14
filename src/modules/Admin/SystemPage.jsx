@@ -13,6 +13,7 @@ export default function SystemPage() {
 
         <Suspense fallback={<FallbackElement />}>
           <Outlet />
+          <FallbackElement/>
         </Suspense>
       </ShelterContextProvider>
     </>

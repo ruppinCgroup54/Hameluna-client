@@ -137,7 +137,7 @@ export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDo
           <Typography variant="body2">{dog.shelter}</Typography>
           <Typography variant="body1">{dog.note}</Typography>
         </div>
-        <Link to={`/sendrequest/dogId/${dog.numberId}/dogName/${dog.name}`}>
+        <Link to={`/sendrequest`} state={{dog}}>
           <Button variant="contained" fullWidth disabled={open}>
             לשליחת פרטים
           </Button>
@@ -157,7 +157,8 @@ DogCard.propTypes = {
     shelter: PropTypes.string,
     note: PropTypes.string,
     images: PropTypes.arrayOf(string),
-    profileImage: PropTypes.string
+    profileImage: PropTypes.string,
+    shelterNumber:PropTypes.number
   }),
   handleSwipeClose:PropTypes.func,
   handleSwipeAddDog:PropTypes.func

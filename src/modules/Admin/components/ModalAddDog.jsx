@@ -36,7 +36,7 @@ export const FormStyle = styled(Box)(({ theme }) => ({
 
 const ModalAddDog = forwardRef(({ opMo }, ref) => {
 
-    const navigate  = useNavigate();
+    const navigate = useNavigate();
     const { cells, setTriggerFetch, loginDet } = useContext(ShelterContext);
 
     const breeds = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/Breeds');
@@ -88,9 +88,9 @@ const ModalAddDog = forwardRef(({ opMo }, ref) => {
         dogToAdd = {
             ...dogToAdd,
             'numberId': 0,
-            'breed': dogToAdd['breed'].split(',').filter(a=>a!==""),
-            'color': dogToAdd['color'].split(',').filter(a=>a!==""),
-            'attributes': dogToAdd['attributes'].split(',').filter(a=>a!==""),
+            'breed': dogToAdd['breed'].split(',').filter(a => a !== ""),
+            'color': dogToAdd['color'].split(',').filter(a => a !== ""),
+            'attributes': dogToAdd['attributes'].split(',').filter(a => a !== ""),
             'dateOfBirth': dateBirth,
             'entranceDate': arrivalDate,
             'files': data.getAll("files"),
@@ -98,7 +98,8 @@ const ModalAddDog = forwardRef(({ opMo }, ref) => {
             'isReturned': dogToAdd['isReturned'] == "לא" ? false : true,
             'isAdoptable': false,
             'adopted': false,
-            'profileImage': data.getAll("profileImage")
+            'profileImage': data.getAll("profileImage"),
+            'shelterNumber':-1
         }
 
         const files = dogToAdd['files'];
@@ -127,7 +128,7 @@ const ModalAddDog = forwardRef(({ opMo }, ref) => {
             return res.json();
         }).then((data) => {
             opMo(false);
-            setTriggerFetch(prev => prev + 1);
+            console.log('data', data)
             uploadProfileImg(data);
         })
 
@@ -139,10 +140,10 @@ const ModalAddDog = forwardRef(({ opMo }, ref) => {
             }).then((res) => {
                 console.log('res', res)
                 return res.json()
-            }).then((data) => { 
+            }).then((data) => {
                 console.log('data', data);
                 uploadFile(dogId);
-             })
+            })
         }
 
         const uploadFile = (dogId) => {
@@ -152,7 +153,9 @@ const ModalAddDog = forwardRef(({ opMo }, ref) => {
 
             }).then((res) => {
                 console.log('res', res)
-                return res.json()
+                setTriggerFetch(prev => prev + 1);
+
+                return res.json();
             }).then((data) => console.log('data', data))
         }
     }
@@ -173,7 +176,7 @@ const ModalAddDog = forwardRef(({ opMo }, ref) => {
                 <Grid item xs={3}><SelectInput field={selectInputs[4]}></SelectInput></Grid>
                 <Grid item xs={3}><SelectInput isMulti={true} field={selectInputs[1]}></SelectInput></Grid>
                 <Grid item xs={3}><SelectInput isMulti={true} field={selectInputs[2]} ></SelectInput></Grid>
-                <Grid item xs={3}><SelectInput isMulti={true} field={selectInputs[0]}></SelectInput></Grid>
+                <Grid item xs={3}><SelectInput isMulti={false} field={selectInputs[0]}></SelectInput></Grid>
                 <Grid item xs={3}><DateInput label={"תאריך הגעה"} setVal={setArrivalDate}></DateInput></Grid>
                 <Grid item xs={3}><UploadFileButton></UploadFileButton></Grid>
                 <Grid item xs={6}><CharacteristicsSelect field={selectInputs[3]}></CharacteristicsSelect></Grid>

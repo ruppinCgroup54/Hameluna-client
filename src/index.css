@@ -17,3 +17,8 @@ body{
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+.flexBox-row{
+  display: flex;
+  flex-wrap: wrap;
+}
