@@ -2,7 +2,7 @@ import React from 'react'
 import useFetch from '../../../utilis/useFetch'
 import useImageURL from '../../../utilis/useImageURL';
 import Image from '../../../components/Image';
-import { Box, Button, IconButton, ImageList } from '@mui/material';
+import { Box, Button, CircularProgress, IconButton, ImageList } from '@mui/material';
 import UploadFileButton from '../../../components/UploadFileButton';
 import { Save } from '@mui/icons-material';
 import useLocalStorage from '../../../utilis/useLocalStorge';
@@ -55,12 +55,12 @@ export default function DogImages({ dog }) {
         </Button>
       </Box>
 
-      <ImageList sx={{ height:'fit-content', maxHeight: '90%', overflow: 'scroll',padding:'15px'  }} cols={4} >
+      {!images.loading?<ImageList sx={{ height:'fit-content', maxHeight: '90%', overflow: 'scroll',padding:'15px'  }} cols={4} >
 
         {
           renderImages
         }
-      </ImageList>
+      </ImageList>:<CircularProgress/>}
     </Box>
 
 

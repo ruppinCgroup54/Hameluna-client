@@ -2,7 +2,7 @@ import React from 'react'
 import useFetch from '../../../utilis/useFetch'
 import useImageURL from '../../../utilis/useImageURL';
 import Image from '../../../components/Image';
-import { Box, Button, IconButton, ImageList } from '@mui/material';
+import { Box, Button, CircularProgress, IconButton, ImageList } from '@mui/material';
 import UploadFileButton from '../../../components/UploadFileButton';
 import { Save } from '@mui/icons-material';
 import useLocalStorage from '../../../utilis/useLocalStorge';
@@ -55,7 +55,7 @@ export default function DogFiles({ dog }) {
         </Button>
       </Box>
       <Box className='flexBox-row' sx={{ gap: '32px', width: '100%', padding: '15px' }}>
-        {renderfiles}
+        {files.loading?<CircularProgress/> :renderfiles}
 
       </Box>
 

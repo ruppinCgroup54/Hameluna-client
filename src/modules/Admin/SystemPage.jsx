@@ -3,6 +3,8 @@ import NavBarAdmin from "../../components/NavBarAdmin";
 import { Suspense, useContext, useEffect } from "react";
 import FallbackElement from "../../components/FallbackElement";
 import ShelterContextProvider, { ShelterContext } from "../../context/ShelterContextProvider";
+import BackgroundLayout from "../../layouts/BackgroundLayout";
+
 
 export default function SystemPage() {
 
@@ -10,10 +12,9 @@ export default function SystemPage() {
     <>
       <ShelterContextProvider>
         <NavBarAdmin />
-
         <Suspense fallback={<FallbackElement />}>
-          <Outlet />
-          <FallbackElement/>
+            <Outlet />
+          <FallbackElement />
         </Suspense>
       </ShelterContextProvider>
     </>

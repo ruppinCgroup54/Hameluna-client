@@ -14,8 +14,9 @@ export default function FallbackElement() {
     setBackdrop(state === "loading");
   }, [state]);
   return (
+<>
 
-    <Backdrop
+   { backdrop && <Backdrop
       sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
       open={backdrop}
 
@@ -36,6 +37,7 @@ export default function FallbackElement() {
       >
         <img src={LoadingDog} style={{ height: "250px" }} />
       </Box>
-    </Backdrop>
+    </Backdrop>}
+    </>
   );
 }
