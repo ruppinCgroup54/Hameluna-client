@@ -1,20 +1,15 @@
 import * as React from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
 import Switch from '@mui/material/Switch';
-import WifiIcon from '@mui/icons-material/Wifi';
-import BluetoothIcon from '@mui/icons-material/Bluetooth';
+import { Box, TextField, Button } from '@mui/material';
+import { useState } from 'react';
+import dayjs from 'dayjs';
 
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-
-
-
-export default function SwitchListSecondary() {
-  const [checked, setChecked] = React.useState(['wifi']);
+export default function ChacklistComp({ dogsId, onSubmit }) {
+  const [checked, setChecked] = useState([]);
+  const [notes, setNotes] = useState('');
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -29,92 +24,54 @@ export default function SwitchListSecondary() {
     setChecked(newChecked);
   };
 
+  const handleNotesChange = (event) => {
+    setNotes(event.target.value);
+  };
+
+  const queryArr = [ // Example array of questions given by shelter
+    "האם יצא לטיול?", "האם עשה צרכים?", , "האם אכל ושתה?", "האם נראה חיוני?"
+  ];
+
+  const handleSubmit = () => {
+    const result = [
+      { key: "מזהה כלב", value: dogsId },
+      { key: "תאריך", value: dayjs().format('YYYY-MM-DD') },
+      ...queryArr.map((question, index) => ({
+        key: question,
+        value: checked.includes(index.toString()) ? 1 : 0
+      })),
+      { key: "הערות", value: notes }
+    ];
+    console.log(result);
+    onSubmit(result);
+  };
+
   return (
-    <List
-      sx={{ width: '100%', maxWidth: 360, bgcolor: '#eadef'}}
-      
-    >
-      <ListItem>
-        
-        <ListItemText id="switch-list-label-wifi" primary="יצא לטיול?" />
-        <Switch
-          edge="end"
-          onChange={handleToggle('wifi')}
-          checked={checked.indexOf('wifi') !== -1}
-          inputProps={{
-            'aria-labelledby': 'switch-list-label-wifi',
-          }}
-        />
-      </ListItem>
-      <ListItem>
-        
-        <ListItemText id="switch-list-label-poo" primary="עשה צרכים?" />
-        <Switch
-          edge="end"
-          onChange={handleToggle('poo')}
-          checked={checked.indexOf('poo') !== -1}
-          inputProps={{
-            'aria-labelledby': 'switch-list-label-bluetooth',
-          }}
-        />
-      </ListItem>
-
-
-      <ListItem>
-        
-        <ListItemText id="switch-list-label-medic" primary="קיבל תרופות?" />
-        <Switch
-          edge="end"
-          onChange={handleToggle('medic')}
-          checked={checked.indexOf('medic') !== -1}
-          inputProps={{
-            'aria-labelledby': 'switch-list-label-medic',
-          }}
-        />
-      </ListItem>
-
-
-      <ListItem>
-        
-        <ListItemText id="switch-list-label-medic" primary="אכל ושתה?" />
-        <Switch
-          edge="end"
-          onChange={handleToggle('ate')}
-          checked={checked.indexOf('ate') !== -1}
-          inputProps={{
-            'aria-labelledby': 'switch-list-label-ate',
-          }}
-        />
-      </ListItem>
-
-
-      <ListItem>
-        
-        <ListItemText id="switch-list-label-looks" primary="נראה חיוני? " />
-        <Switch
-          edge="end"
-          onChange={handleToggle('looks')}
-          checked={checked.indexOf('looks') !== -1}
-          inputProps={{
-            'aria-labelledby': 'switch-list-label-looks',
-          }}
-        />
-      </ListItem>
-
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <List sx={{ width: '100%', maxWidth: 360, bgcolor: '#EADCCF' }}>
+        {queryArr.map((question, index) => (
+          <ListItem key={index}>
+            <ListItemText primary={question} />
+            <Switch
+              edge="end"
+              onChange={handleToggle(index.toString())}
+              checked={checked.includes(index.toString())}
+            />
+          </ListItem>
+        ))}
+      </List>
       <TextField
-          id="outlined-multiline-static"
-          label="הערות"
-          multiline
-          rows={4}
-        
-          sx ={{width: 370, top:20}}
-        />
-    </List>
-    
-
-
-
-
-
+        id="outlined-multiline-static"
+        label="הערות"
+        multiline
+        rows={4}
+        value={notes}
+        onChange={handleNotesChange}
+        sx={{ width: '100%', marginTop: 2 }}
+      />
+      <Button variant="contained" sx={{ marginTop: 2 }} onClick={handleSubmit}>
+        שלח
+      </Button>
+    </Box>
   );
 }
