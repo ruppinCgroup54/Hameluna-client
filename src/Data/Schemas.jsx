@@ -44,7 +44,7 @@ const addressSchema = z.object({
   streetName: z.string(),
   houseNumber: z.coerce.number(),
   "region": z.string()
-})
+}).nullable()
 
 const cellSchema = z.object({
   "number": z.coerce.number(),
@@ -89,7 +89,7 @@ export const adopterSchema = z.object({
   phoneNumber: z.string().regex(new RegExp("^05+[0-9]{8}$"), "מספר לא תקין"),
   email: z.string().email("אימייל לא תקין"),
   "dateOfBirth":  z.preprocess((val) => new Date().toISOString(), z.string().datetime()),
-  "houseMembers": z.string({required_error:"שדה חובה"}),
+  "houseMembers": z.string({required_error:"שדה חובה"}) ,
   "dogsPlace": z.string({required_error:"שדה חובה"}),
   "additionalPets": z.string({required_error:"שדה חובה"}),
   "experience": z.string({required_error:"שדה חובה"}),

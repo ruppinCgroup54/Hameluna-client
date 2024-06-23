@@ -15,6 +15,8 @@ import useAdoptersContext from "../../../utilis/useAdoptersContext";
 import { AdopterContext } from "../../../context/AdoptersContext";
 import { postFetch } from "../../../Data/Fetches";
 import { getDatabase, ref, set } from "firebase/database";
+import { adoptionRequestSchema } from "../../../Data/Schemas";
+import { object } from "prop-types";
 
 const formStyle = {
   backgroundColor: "rgba(255,255,255,0.5)",
@@ -28,65 +30,82 @@ const formStyle = {
   padding: "5%",
 };
 
-const requestSchema = z.object({
-  firstName: z
-    .string()
-    .regex(
-      new RegExp("^[a-zA-Z\u0590-\u05FF\u200f\u200e ]+$"),
-      "שם חייב להכיל אותיות בעברית או באנגלית"
-    ),
-  lastName: z
-    .string()
-    .regex(
-      new RegExp("^[a-zA-Z\u0590-\u05FF\u200f\u200e ]+$"),
-      "שם חייב להכיל אותיות בעברית או באנגלית"
-    ),
-  phoneNumber: z.string().regex(new RegExp("^05+[0-9]{8}$"), "מספר לא תקין"),
-  email: z.string().email("אימייל לא תקין"),
-});
+// const requestSchema = z.object({
+//   firstName: z
+//     .string()
+//     .regex(
+//       new RegExp("^[a-zA-Z\u0590-\u05FF\u200f\u200e ]+$"),
+//       "שם חייב להכיל אותיות בעברית או באנגלית"
+//     ),
+//   lastName: z
+//     .string()
+//     .regex(
+//       new RegExp("^[a-zA-Z\u0590-\u05FF\u200f\u200e ]+$"),
+//       "שם חייב להכיל אותיות בעברית או באנגלית"
+//     ),
+//   phoneNumber: z.string().regex(new RegExp("^05+[0-9]{8}$"), "מספר לא תקין"),
+//   email: z.string().email("אימייל לא תקין"),
+// });
 
 export default function SendRequest() {
   const { state } = useLocation();
-  const {dog}=state;
+  const { dog } = state;
   const { RemoveFromFavorites } = useContext(AdopterContext);
-  const adopter = useLoaderData();
+  let adopter = useLoaderData();
 
   const [Alert, setAlert] = useState(false);
 
   const navigate = useNavigate();
-
+  adopter = typeof adopter === 'object' ? adopter : {}
   let defaultRequest = {
     requestId: -1,
-    adopter: {...adopter, address: { id: -1, region: "" } },
+    adopter: {
+      ...adopter,
+      "dateOfBirth": "",
+      "houseMembers": "",
+      "dogsPlace": "",
+      "additionalPets": "",
+      "experience": "",
+      "note": "",
+      address: {id:-1 ,
+        city: "",
+        streetName: "",
+        houseNumber:"",
+        "region": ""}
+    },
     sendate: new Date().toISOString(),
+    status: 'pending',
     dog: dog,
   }
 
-    const {
+  const {
+    watch,
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm({
-    defaultValues:defaultRequest,
-    resolver: zodResolver(requestSchema),
+    defaultValues: defaultRequest,
+    resolver: zodResolver(adoptionRequestSchema),
   });
 
   const formSubmit = async (data) => {
- 
 
-    localStorage.setItem("adopter", data.phoneNumber);
+    localStorage.setItem("adopter", data.adopter.phoneNumber);
 
     const sucPostRequest = (data) => {
+      console.log('data', data)
       const db = getDatabase();
       set(ref(db, 'requests/' + dog.shelterNumber + '/' + id), data);
 
+
     }
     const errorPostRequest = (err) => {
+      console.log('err', err)
       alert(JSON.stringify(err))
       setAlert(true);
 
     }
-    postFetch("AdoptionRequests", request, sucPostRequest, errorPostRequest)
+    postFetch("AdoptionRequests", data, sucPostRequest, errorPostRequest)
     // await fetch(import.meta.env.VITE_APP_SERVERURL + "AdoptionRequests", {
     //   method: "POST",
     //   headers: { "Content-Type": "application/json", dataType: "json" },
@@ -97,6 +116,12 @@ export default function SendRequest() {
     //   }
     // });
   };
+
+  useEffect(() => {
+    console.log('errors', errors)
+    console.log('watch', watch())
+  })
+
 
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -119,32 +144,32 @@ export default function SendRequest() {
         <Textinput
           size="small"
           // onBlur={fetchAdpterData}
-          {...register("adoper.phoneNumber")}
+          {...register("adopter.phoneNumber")}
           label="מספר פלאפון"
-          error={!!errors.phoneNumber}
-          helperText={errors.phoneNumber?.message}
+          error={!!errors.adopter?.phoneNumber}
+          helperText={errors.adopter?.phoneNumber?.message}
         />
         <Textinput
           size="small"
           InputProps={{ ...register("adopter.firstName") }}
           label="שם פרטי"
-          error={!!errors.firstName}
-          helperText={errors.firstName?.message}
+          error={!!errors.adopter?.firstName}
+          helperText={errors.adopter?.firstName?.message}
         />
         <Textinput
           size="small"
           {...register("adopter.lastName")}
           label="שם משפחה"
-          error={!!errors.lastName}
-          helperText={errors.lastName?.message}
+          error={!!errors.adopter?.lastName}
+          helperText={errors.adopter?.lastName?.message}
         />
 
         <Textinput
           size="small"
           {...register("adopter.email")}
           label="אימייל"
-          error={!!errors.email}
-          helperText={errors.email?.message}
+          error={!!errors.adopter?.email}
+          helperText={errors.adopter?.email?.message}
         />
 
         <Button
