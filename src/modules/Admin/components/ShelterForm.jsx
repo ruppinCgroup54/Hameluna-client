@@ -15,7 +15,7 @@ export default function ShelterForm({ register, formState, control }) {
       <Typography variant='h3' color='primary.dark' sx={{ textAlign: 'center', mb: 3 }}>
         פרטי הכלבייה
       </Typography>
-      < Box sx={{ width: '100%', display: 'grid', gap: "30px 10%", display: 'flex' ,flexWrap:'wrap',justifyContent:'center'}}>
+      < Box sx={{ width: '100%', gap: "30px 10%", display: 'flex' ,flexWrap:'wrap',justifyContent:'center'}}>
 
         <Textinput {...register("name")}
           sx={{ width: '45%' }}
