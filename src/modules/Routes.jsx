@@ -33,6 +33,7 @@ import DogsInShelter from "./Admin/DogsInShelter";
 import AdoptionPage from "./Admin/AdoptionPage";
 import RequestsPage from "./Admin/RequestsPage";
 import AdminDogPage from "./Admin/AdminDogPage";
+import ReportsPage from "./Admin/ReportsPage";
 
 
 export const pathes = [
@@ -73,8 +74,8 @@ export const pathes = [
     id: "בקשות"
   },
   {
-    path: "/admin/shelter/whosHome/",
-    element: <WhosHome />,
+    path: "/admin/shelter/reportPage/",
+    element: <ReportsPage />,
     id: "סיכומים"
   },
 ];

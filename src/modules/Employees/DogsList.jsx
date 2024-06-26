@@ -1,7 +1,7 @@
 import BackgroundLayout from "../../layouts/BackgroundLayout";
 import TopbarEmp from "../Employees/components/TopbarEmp";
 import { useLoaderData } from "react-router-dom";
-import CardComp from "./components/CardComp";
+import CardComp from "./components/cardComp";
 
 const bcgImg = "images/Layouts/background.png";
 import useImageURL from "../../utilis/useImageURL";
