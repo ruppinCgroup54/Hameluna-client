@@ -12,7 +12,8 @@ export const postFetch = async (api, data, success, error) => {
             return res.json().then(success);
         }
         else {
-            return res.json().then(error);
+            console.log('res', res)
+            return res.text().then(error);
         }
     });
 };

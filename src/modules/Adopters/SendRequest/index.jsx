@@ -52,7 +52,7 @@ export default function SendRequest() {
   const { dog } = state;
   const { RemoveFromFavorites } = useContext(AdopterContext);
   let adopter = useLoaderData();
-
+console.log('adopter', adopter)
   const [Alert, setAlert] = useState(false);
 
   const navigate = useNavigate();
@@ -61,17 +61,19 @@ export default function SendRequest() {
     requestId: -1,
     adopter: {
       ...adopter,
-      "dateOfBirth": "",
-      "houseMembers": "",
-      "dogsPlace": "",
-      "additionalPets": "",
-      "experience": "",
-      "note": "",
-      address: {id:-1 ,
-        city: "",
-        streetName: "",
-        houseNumber:"",
-        "region": ""}
+      // "dateOfBirth": "",
+      // "houseMembers": "",
+      // "dogsPlace": "",
+      // "additionalPets": "",
+      // "experience": "",
+      // "note": "",
+      // address: {
+      //   id: -1,
+      //   city: "",
+      //   streetName: "",
+      //   houseNumber: "",
+      //   "region": ""
+      // }
     },
     sendate: new Date().toISOString(),
     status: 'pending',
@@ -94,16 +96,18 @@ export default function SendRequest() {
 
     const sucPostRequest = (data) => {
       console.log('data', data)
+
+
       const db = getDatabase();
-      set(ref(db, 'requests/' + dog.shelterNumber + '/' + id), data);
+      set(ref(db, 'requests/' + dog.shelterNumber + '/' + data.requestId), data);
+
+      RemoveFromFavorites({ numberId: dog.numberId });
+      navigate(-1);
 
 
     }
     const errorPostRequest = (err) => {
-      console.log('err', err)
-      alert(JSON.stringify(err))
       setAlert(true);
-
     }
     postFetch("AdoptionRequests", data, sucPostRequest, errorPostRequest)
     // await fetch(import.meta.env.VITE_APP_SERVERURL + "AdoptionRequests", {
@@ -123,21 +127,9 @@ export default function SendRequest() {
   })
 
 
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      RemoveFromFavorites({ numberId: dog.numberId });
-      navigate(-1);
-    }
-  }, [isSubmitSuccessful]);
-
-  const handleSubmitAndError = (e) => {
-    handleSubmit(formSubmit)(e).catch((err) => {
-    });
-  };
-
   return (
     <AdoptersLayout>
-      <form onSubmit={handleSubmitAndError} style={formStyle}>
+      <form onSubmit={handleSubmit(formSubmit)} style={formStyle}>
         <Typography variant="body1" textAlign={"center"} fontWeight={900}>
           שלח לנו את הפרטים שלך לגבי <u>{dog.name}</u>
         </Typography>
