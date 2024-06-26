@@ -12,6 +12,7 @@ export default function Request({ req, close }) {
     const date = new Date(req.sendDate).toLocaleDateString('en-GB');
     const navigate = useNavigate();
     const { loginDet } = useShelterContext();
+    const db = getDatabase();
 
     const sAdoption = () => {
         close();
@@ -19,11 +20,14 @@ export default function Request({ req, close }) {
     };
 
     const sucDeleteReq = async (id) => {
-        const db = getDatabase();
-        set(ref(db, 'requests/' + loginDet.shelterNumber + '/' + id), null);
+        set(ref(db, 'requests/' + loginDet.shelterNumber + '/' + req.requestId), null);
     };
 
-    const errDeleteReq = (message) => {
+    const errDeleteReq = (message, status) => {
+        if (status === 404) {
+            set(ref(db, 'requests/' + loginDet.shelterNumber + '/' + req.requestId), null);
+
+        }
         alert(JSON.stringify(message));
     };
 

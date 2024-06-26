@@ -30,30 +30,14 @@ const formStyle = {
   padding: "5%",
 };
 
-// const requestSchema = z.object({
-//   firstName: z
-//     .string()
-//     .regex(
-//       new RegExp("^[a-zA-Z\u0590-\u05FF\u200f\u200e ]+$"),
-//       "שם חייב להכיל אותיות בעברית או באנגלית"
-//     ),
-//   lastName: z
-//     .string()
-//     .regex(
-//       new RegExp("^[a-zA-Z\u0590-\u05FF\u200f\u200e ]+$"),
-//       "שם חייב להכיל אותיות בעברית או באנגלית"
-//     ),
-//   phoneNumber: z.string().regex(new RegExp("^05+[0-9]{8}$"), "מספר לא תקין"),
-//   email: z.string().email("אימייל לא תקין"),
-// });
 
 export default function SendRequest() {
   const { state } = useLocation();
   const { dog } = state;
   const { RemoveFromFavorites } = useContext(AdopterContext);
   let adopter = useLoaderData();
-console.log('adopter', adopter)
-  const [Alert, setAlert] = useState(false);
+  console.log('adopter', adopter)
+  const [Alert, setAlert] = useState({open:false,message:""});
 
   const navigate = useNavigate();
   adopter = typeof adopter === 'object' ? adopter : {}
@@ -61,19 +45,13 @@ console.log('adopter', adopter)
     requestId: -1,
     adopter: {
       ...adopter,
-      // "dateOfBirth": "",
-      // "houseMembers": "",
-      // "dogsPlace": "",
-      // "additionalPets": "",
-      // "experience": "",
-      // "note": "",
-      // address: {
-      //   id: -1,
-      //   city: "",
-      //   streetName: "",
-      //   houseNumber: "",
-      //   "region": ""
-      // }
+      "dateOfBirth": "",
+      "houseMembers": "",
+      "dogsPlace": "",
+      "additionalPets": "",
+      "experience": "",
+      "note": "",
+      address:null
     },
     sendate: new Date().toISOString(),
     status: 'pending',
@@ -95,7 +73,6 @@ console.log('adopter', adopter)
     localStorage.setItem("adopter", data.adopter.phoneNumber);
 
     const sucPostRequest = (data) => {
-      console.log('data', data)
 
 
       const db = getDatabase();
@@ -107,18 +84,10 @@ console.log('adopter', adopter)
 
     }
     const errorPostRequest = (err) => {
-      setAlert(true);
+      setAlert({open:true,message:err});
     }
     postFetch("AdoptionRequests", data, sucPostRequest, errorPostRequest)
-    // await fetch(import.meta.env.VITE_APP_SERVERURL + "AdoptionRequests", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json", dataType: "json" },
-    //   body: JSON.stringify(request),
-    // }).then((res) => {
-    //   if (res.status === 409) {
-    //     throw new Error(res.text());
-    //   }
-    // });
+
   };
 
   useEffect(() => {
@@ -174,11 +143,11 @@ console.log('adopter', adopter)
           שלח פרטים
         </Button>
         <AlertComp
-          handleClose={() => setAlert(false)}
-          isOpen={Alert}
+          handleClose={() => setAlert({open:false})}
+          isOpen={Alert.open}
           type="error"
           color="error"
-          text={"כבר שלחת בקשה על הכלב הזה, נווו...."}
+          text={Alert.message}
         />
       </form>
     </AdoptersLayout>

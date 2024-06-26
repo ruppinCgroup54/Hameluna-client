@@ -24,10 +24,11 @@ export const deleteFetch = async (api, id, success, error) => {
         headers: { "Content-Type": "application/json", dataType: "json" },
     }).then((res) => {
         if (res.ok) {
-            return res.json().then(() => success(id));
+            return res.json().then(() => success(id)).catch(()=>success(id)  );
+
         }
         else {
-            return res.json().then(error);
+            return res.text().then((txt) => error(txt, res.status));
         }
     });
 };
