@@ -24,8 +24,7 @@ export const deleteFetch = async (api, id, success, error) => {
         headers: { "Content-Type": "application/json", dataType: "json" },
     }).then((res) => {
         if (res.ok) {
-            return res.json().then(() => success(id)).catch(()=>success(id)  );
-
+            return res.json().then(() => success(id)).catch(()=>success(id));
         }
         else {
             return res.text().then((txt) => error(txt, res.status));
@@ -46,7 +45,7 @@ export const putFetch = async (api, data, success, error) => {
             return res.json().then(success);
         }
         else {
-            return res.json().then(error);
+            return res.text().then((txt) => error(txt, res.status));
         }
     });
 };

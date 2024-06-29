@@ -55,7 +55,6 @@ const defaultSchema = {
 const uploadFile = async (image) => {
   // let data = e.currentTarget.stam.files
   const data = new FormData();
-  debugger;
   const files = [image]
 
   if (files.length) {
@@ -133,7 +132,6 @@ export default function Register() {
   const submit = async (data) => {
 
     data.photoUrl = await uploadFile(image);
-    debugger;
     console.log('data', data)
 
     const res = await fetch(import.meta.env.VITE_APP_SERVERURL + "shelters", {

@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import { pathes } from "../modules/Routes";
 import RequestsList from "../modules/Admin/components/RequestsList";
+import ExceptionsList from "../modules/Admin/components/ExceptionsList";
 
 export default function NavBarAdmin() {
   const navigate = useNavigate();
@@ -45,7 +46,20 @@ export default function NavBarAdmin() {
     setAnchorElUser(null);
   };
 
+  const [anchorElUserExc, setAnchorElUserExc] = React.useState(null);
+
+  const handleOpenUserMenuExc = (event) => {
+    setAnchorElUserExc(event.currentTarget);
+  };
+
+  const handleCloseUserMenuExc = () => {
+    setAnchorElUserExc(null);
+  };
+
+
+
   const [badgeNum, setBadgeNum] = useState(0);
+  const [badgeNumExc, setBadgeNumExc] = useState(0);
   return (
     <>
       <AppBar sx={{ borderRadius: "0px 0px 15px 15px" }}>
@@ -91,6 +105,7 @@ export default function NavBarAdmin() {
                         style={{
                           ...styleDiv,
                           backgroundColor: keyVal == nav.id ? "#fff" : "",
+                          cursor: 'pointer'
                         }}
                       >
                         <p
@@ -163,9 +178,39 @@ export default function NavBarAdmin() {
                     <RequestsList close={handleCloseUserMenu} setBadge={setBadgeNum} />
                   </Menu>
                 </Box>
-                <Badge badgeContent={4}>
-                  <NotificationsOutlinedIcon fontSize="large"></NotificationsOutlinedIcon>
-                </Badge>
+                <Box>
+                  <IconButton onClick={handleOpenUserMenuExc}>
+                    <Badge badgeContent={badgeNumExc}>
+                      <NotificationsOutlinedIcon fontSize="large" sx={{ color: '#fff' }}></NotificationsOutlinedIcon>
+                    </Badge>
+                  </IconButton>
+                  <Menu
+                    sx={{
+                      maxHeight: '60vh',
+                      mt: '45px',
+                      mr: '-30px',
+                      "& .MuiList-root": {
+                        p: '0',
+                      },
+                      "& .MuiMenu-paper": {
+                        borderRadius: '20px',
+                        border: '2px solid',
+                        borderColor: 'primary.main'
+                      }
+                    }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUserExc}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    open={Boolean(anchorElUserExc)}
+                    onClose={handleCloseUserMenuExc}
+                  >
+                    <ExceptionsList close={handleCloseUserMenuExc} setBadge={setBadgeNumExc} />
+                  </Menu>
+                </Box>
               </Box>
             </Grid>
           </Grid>

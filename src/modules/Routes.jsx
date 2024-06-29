@@ -76,7 +76,7 @@ export const pathes = [
   {
     path: "/admin/shelter/reportPage/",
     element: <ReportsPage />,
-    id: "סיכומים"
+    id: "חריגות"
   },
 ];
 

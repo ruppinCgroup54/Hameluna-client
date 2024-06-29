@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import BackgroundLayout from "../../layouts/BackgroundLayout";
+import ExceptionsList from "../Admin/components/ExceptionsList";
 
 const requestBackground = "images/Layouts/RequestBackground.png";
 
@@ -16,7 +17,7 @@ export default function ReportsPage() {
                     margin: 'auto',
                 }}>
                 <Typography variant="h4" mb={'20px'} fontWeight={'bold'}>דו"ח חריגות</Typography>
-                {/* <RequestsList></RequestsList> */}
+                {<ExceptionsList></ExceptionsList>}
             </Box>
         </BackgroundLayout>
 
