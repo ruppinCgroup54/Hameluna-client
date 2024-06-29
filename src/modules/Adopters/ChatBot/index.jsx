@@ -84,7 +84,8 @@ export default function ChatBot() {
       setLoading(false)
     }
     else {
-      console.log('response.', response)
+      setLoading(false)
+
     }
 
   }
