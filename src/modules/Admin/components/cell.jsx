@@ -1,12 +1,16 @@
-import { Avatar, Box, Fade, Grid, Grow, Modal, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Fade, Grid, Grow, IconButton, Modal, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import useImageURL from "../../../utilis/useImageURL";
 import { useNavigate } from "react-router-dom";
 import DraggableDog from "../../../components/DraggableDog";
 import { useDndMonitor, useDraggable } from "@dnd-kit/core";
 import DropableCell from "../../../components/DropableCell";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { deleteFetch } from "../../../Data/Fetches";
+import useShelterContext from "../../../utilis/useShelterContext";
 
 export default function Cell({ cellItem }) {
+  const {setTriggerFetch} = useShelterContext();
   const navigate = useNavigate();
   const dogs = cellItem.dogsInCell;
   const passDaily = 0;
@@ -20,9 +24,17 @@ export default function Cell({ cellItem }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const deleteCell = (cellId) => {
+    console.log('cellItem', cellItem)
+    deleteFetch('Cells/', cellId, suc, err=>{});
+  }
+
+  const suc = () =>{
+    setTriggerFetch(prev => prev + 1);
+  }
   return (
     <>
-      <DropableCell style={{backgroundColor: 'white',width: "20%", borderRadius: "10px"}} cellId={cellItem.id} capacity={cellItem.capacity} dogsInCell={dogs.length}>
+      <DropableCell style={{ backgroundColor: 'white', width: "20%", borderRadius: "10px" }} cellId={cellItem.id} capacity={cellItem.capacity} dogsInCell={dogs.length}>
         <Box
           zIndex={open ? 1301 : 1}
           onClick={handleOpen}
@@ -52,6 +64,7 @@ export default function Cell({ cellItem }) {
           <Box sx={{
             position: 'absolute',
             width: '100%',
+            height: '100%'
           }}>
             {open && cellItem.dogsInCell.map((d, i) =>
               <DraggableDog key={d.numberId} dog={d}>
@@ -79,9 +92,23 @@ export default function Cell({ cellItem }) {
                     </Box>
                   </Grow>
                 </Box>
+
               </DraggableDog>
             )}
+            {open && dogs.length == 0 && <IconButton onClick={() => deleteCell(cellItem.id)}
+              sx={{
+                position: 'absolute',
+                bottom: '-40px',
+                left: '75px',
+                color: 'red',
+                scale: '1.3',
+              }}
+            >
+              <DeleteForeverIcon fontSize="small" sx={{ '&:hover': { scale: '1.3' } }} />
+            </IconButton>}
           </Box>
+
+
 
         </Box >
         <Modal
