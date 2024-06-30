@@ -32,7 +32,7 @@ export default function AdoptionDogCard({ dog }) {
           </Box>
             <Typography><b>מידע נוסף:</b>{dog.note} </Typography>
         </div>
-        <IconButton sx={{width:'fit-content' , alignSelf:'flex-end', height: '30px' }} onClick={()=>navigate("/admin/shelter/whosHome/DogProfile")}>
+        <IconButton sx={{width:'fit-content' , alignSelf:'flex-end', height: '30px' }} onClick={()=>navigate("/admin/shelter/whosHome/DogProfile/"+dog.numberId)}>
           <ArrowCircleLeft color={'primary'} fontSize='large' />
         </IconButton>
       </CardContent>

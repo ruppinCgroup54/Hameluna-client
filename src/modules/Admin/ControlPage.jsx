@@ -9,6 +9,7 @@ import { DndContext, closestCenter, pointerWithin } from "@dnd-kit/core";
 import { putFetch } from "../../Data/Fetches";
 import BackgroundLayout from "../../layouts/BackgroundLayout";
 import CellsSkeleton from "../../components/CellsSkeleton";
+import { ToDoList } from "./components/ToDoList";
 
 export default function ControlPage() {
   const bImg ='images/Layouts/RequestBackground.png'
@@ -36,9 +37,11 @@ export default function ControlPage() {
   return (
     <BackgroundLayout image={bImg} style={{ display: "block" }}>
       <DndContext onDragEnd={endDrag} collisionDetection={pointerWithin}>
-        <Box display={"flex"} mt={"120px"} >
-          <Box width={"36%"} display={"flex"}></Box>
-          <Grid container width={"60%"} display={"flex"} rowSpacing={1}>
+        <Box display={"flex"} mt={"120px"} gap={'2%'} justifyContent={'center'} >
+          <Box width={"30%"} display={"flex"} sx={{marginBottom:'15px'}}>
+            <ToDoList/>
+          </Box>
+          <Grid container width={"63%"} display={"flex"} rowSpacing={1}>
             <Grid item md={12} display={"flex"} justifyContent={"space-between"}>
               <Typography variant="h5">הכלבייה שלנו</Typography>
               <Typography variant="h5">סה"כ כלבים: {dogs?.length}</Typography>

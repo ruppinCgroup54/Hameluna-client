@@ -62,6 +62,8 @@ export default function SendRequest() {
     watch,
     register,
     handleSubmit,
+    setValue,
+    reset,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm({
     defaultValues: defaultRequest,
@@ -95,6 +97,28 @@ export default function SendRequest() {
     console.log('watch', watch())
   })
 
+  const getUser = async (e) => {
+    console.log('e', e)
+    const res = await fetch(import.meta.env.VITE_APP_SERVERURL + "adopters/"+e.currentTarget.value);
+    if (res.ok) {
+      const ans = await res.json();
+      
+      console.log('res', ans)
+      setValue("adopter", ans, {
+        shouldDirty: true,
+        shouldValidate:true
+      })
+
+    }
+    else{
+      console.log('reserr', res)
+      setValue("adopter", {phoneNumber:e.currentTarget.value,email:""}, {
+        shouldDirty: true,
+        shouldValidate:true
+      })
+
+    }
+  }
 
   return (
     <AdoptersLayout>
@@ -105,7 +129,9 @@ export default function SendRequest() {
         <Textinput
           size="small"
           // onBlur={fetchAdpterData}
-          {...register("adopter.phoneNumber")}
+          {...register("adopter.phoneNumber",{
+            onBlur: (e) => ( getUser(e))
+          })}
           label="מספר פלאפון"
           error={!!errors.adopter?.phoneNumber}
           helperText={errors.adopter?.phoneNumber?.message}

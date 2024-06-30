@@ -142,7 +142,7 @@ export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDo
             לשליחת פרטים
           </Button>
         </Link>
-        <AlertComp text={"כלב התווסף לרשימה"} isOpen={open} handleClose={handleClose} />
+        <AlertComp text={"כלב התווסף לרשימה"} isOpen={open} handleClose={handleClose} color="success" />
       </CardContent>
     </DogCardStyle>
   );
