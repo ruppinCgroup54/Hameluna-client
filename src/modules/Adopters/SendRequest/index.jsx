@@ -15,6 +15,8 @@ import useAdoptersContext from "../../../utilis/useAdoptersContext";
 import { AdopterContext } from "../../../context/AdoptersContext";
 import { postFetch } from "../../../Data/Fetches";
 import { getDatabase, ref, set } from "firebase/database";
+import { adoptionRequestSchema } from "../../../Data/Schemas";
+import { object } from "prop-types";
 
 const formStyle = {
   backgroundColor: "rgba(255,255,255,0.5)",
@@ -28,123 +30,133 @@ const formStyle = {
   padding: "5%",
 };
 
-const requestSchema = z.object({
-  firstName: z
-    .string()
-    .regex(
-      new RegExp("^[a-zA-Z\u0590-\u05FF\u200f\u200e ]+$"),
-      "שם חייב להכיל אותיות בעברית או באנגלית"
-    ),
-  lastName: z
-    .string()
-    .regex(
-      new RegExp("^[a-zA-Z\u0590-\u05FF\u200f\u200e ]+$"),
-      "שם חייב להכיל אותיות בעברית או באנגלית"
-    ),
-  phoneNumber: z.string().regex(new RegExp("^05+[0-9]{8}$"), "מספר לא תקין"),
-  email: z.string().email("אימייל לא תקין"),
-});
 
 export default function SendRequest() {
   const { state } = useLocation();
-  const {dog}=state;
+  const { dog } = state;
   const { RemoveFromFavorites } = useContext(AdopterContext);
-  const adopter = useLoaderData();
-
-  const [Alert, setAlert] = useState(false);
+  let adopter = useLoaderData();
+  console.log('adopter', adopter)
+  const [Alert, setAlert] = useState({open:false,message:""});
 
   const navigate = useNavigate();
-
+  adopter = typeof adopter === 'object' ? adopter : {}
   let defaultRequest = {
     requestId: -1,
-    adopter: {...adopter, address: { id: -1, region: "" } },
+    adopter: {
+      ...adopter,
+      "dateOfBirth": "",
+      "houseMembers": "",
+      "dogsPlace": "",
+      "additionalPets": "",
+      "experience": "",
+      "note": "",
+      address:null
+    },
     sendate: new Date().toISOString(),
+    status: 'pending',
     dog: dog,
   }
 
-    const {
+  const {
+    watch,
     register,
     handleSubmit,
+    setValue,
+    reset,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm({
-    defaultValues:defaultRequest,
-    resolver: zodResolver(requestSchema),
+    defaultValues: defaultRequest,
+    resolver: zodResolver(adoptionRequestSchema),
   });
 
   const formSubmit = async (data) => {
- 
 
-    localStorage.setItem("adopter", data.phoneNumber);
+    localStorage.setItem("adopter", data.adopter.phoneNumber);
 
     const sucPostRequest = (data) => {
+
+
       const db = getDatabase();
-      set(ref(db, 'requests/' + dog.shelterNumber + '/' + id), data);
+      set(ref(db, 'requests/' + dog.shelterNumber + '/' + data.requestId), data);
+
+      RemoveFromFavorites({ numberId: dog.numberId });
+      navigate(-1);
+
 
     }
     const errorPostRequest = (err) => {
-      alert(JSON.stringify(err))
-      setAlert(true);
-
+      setAlert({open:true,message:err});
     }
-    postFetch("AdoptionRequests", request, sucPostRequest, errorPostRequest)
-    // await fetch(import.meta.env.VITE_APP_SERVERURL + "AdoptionRequests", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json", dataType: "json" },
-    //   body: JSON.stringify(request),
-    // }).then((res) => {
-    //   if (res.status === 409) {
-    //     throw new Error(res.text());
-    //   }
-    // });
+    postFetch("AdoptionRequests", data, sucPostRequest, errorPostRequest)
+
   };
 
   useEffect(() => {
-    if (isSubmitSuccessful) {
-      RemoveFromFavorites({ numberId: dog.numberId });
-      navigate(-1);
-    }
-  }, [isSubmitSuccessful]);
+    console.log('errors', errors)
+    console.log('watch', watch())
+  })
 
-  const handleSubmitAndError = (e) => {
-    handleSubmit(formSubmit)(e).catch((err) => {
-    });
-  };
+  const getUser = async (e) => {
+    console.log('e', e)
+    const res = await fetch(import.meta.env.VITE_APP_SERVERURL + "adopters/"+e.currentTarget.value);
+    if (res.ok) {
+      const ans = await res.json();
+      
+      console.log('res', ans)
+      setValue("adopter", ans, {
+        shouldDirty: true,
+        shouldValidate:true
+      })
+
+    }
+    else{
+      console.log('reserr', res)
+      setValue("adopter", {phoneNumber:e.currentTarget.value,email:""}, {
+        shouldDirty: true,
+        shouldValidate:true
+      })
+
+    }
+  }
 
   return (
     <AdoptersLayout>
-      <form onSubmit={handleSubmitAndError} style={formStyle}>
+      <form onSubmit={handleSubmit(formSubmit)} style={formStyle}>
         <Typography variant="body1" textAlign={"center"} fontWeight={900}>
           שלח לנו את הפרטים שלך לגבי <u>{dog.name}</u>
         </Typography>
         <Textinput
           size="small"
           // onBlur={fetchAdpterData}
-          {...register("adoper.phoneNumber")}
+          {...register("adopter.phoneNumber",{
+            onBlur: (e) => ( getUser(e))
+          })}
           label="מספר פלאפון"
-          error={!!errors.phoneNumber}
-          helperText={errors.phoneNumber?.message}
+          error={!!errors.adopter?.phoneNumber}
+          helperText={errors.adopter?.phoneNumber?.message}
         />
         <Textinput
           size="small"
           InputProps={{ ...register("adopter.firstName") }}
           label="שם פרטי"
-          error={!!errors.firstName}
-          helperText={errors.firstName?.message}
+          error={!!errors.adopter?.firstName}
+          helperText={errors.adopter?.firstName?.message}
         />
         <Textinput
           size="small"
           {...register("adopter.lastName")}
           label="שם משפחה"
-          error={!!errors.lastName}
-          helperText={errors.lastName?.message}
+          error={!!errors.adopter?.lastName}
+          helperText={errors.adopter?.lastName?.message}
         />
 
         <Textinput
           size="small"
           {...register("adopter.email")}
           label="אימייל"
-          error={!!errors.email}
-          helperText={errors.email?.message}
+          error={!!errors.adopter?.email}
+          helperText={errors.adopter?.email?.message}
         />
 
         <Button
@@ -157,11 +169,11 @@ export default function SendRequest() {
           שלח פרטים
         </Button>
         <AlertComp
-          handleClose={() => setAlert(false)}
-          isOpen={Alert}
+          handleClose={() => setAlert({open:false})}
+          isOpen={Alert.open}
           type="error"
           color="error"
-          text={"כבר שלחת בקשה על הכלב הזה, נווו...."}
+          text={Alert.message}
         />
       </form>
     </AdoptersLayout>
