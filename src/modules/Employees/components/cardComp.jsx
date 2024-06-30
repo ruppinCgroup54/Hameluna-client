@@ -31,7 +31,7 @@ export default function CardComp({ image1, cell, dogsName, dogId }) {
         display: 'flex',
         flexDirection: 'column',
         height: 'auto',
-        width: { xs: '90%', sm: '70%', md: '50%', lg: 435 },
+        width: { xs: '90%', sm: '70%', md: '50%', lg: 380 },
         position: 'relative',
         overflow: 'visible',
         borderRadius: 6,
@@ -39,20 +39,46 @@ export default function CardComp({ image1, cell, dogsName, dogId }) {
         boxShadow: theme.shadows[10],
         marginLeft: 'auto',
         marginRight: 'auto',
-        zIndex:1
+        zIndex: 1
       }}>
-        <CardActionArea sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, padding: 1 }}>
-          <CardMedia
-            component="img"
-            sx={{ width: { xs: '100%', sm: 120 }, height: 120, objectFit: 'cover', borderRadius: 6 }}
-            image={`${image1}`}
-            alt="dogs pic"
-          />
-          <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginLeft: { sm: 2 }, width: '100%' }}>
-            <Typography gutterBottom variant="h5" component="div">
+        <CardActionArea sx={{ display: 'flex', flexDirection: 'column', padding: 1 }}>
+          <Box sx={{ position: 'relative', width: '100%', '&:hover .hoverOverlay': { opacity: 1 } }}>
+            <CardMedia
+              component="img"
+              sx={{ width: '100%', height: 250, objectFit: 'cover', borderRadius: 6 }}
+              image={`${image1}`}
+              alt="dogs pic"
+              onClick={() => navigate("/employees/dogsid/" + dogId)}
+            />
+            <Box
+              className="hoverOverlay"
+              sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 6,
+                opacity: 0,
+                transition: 'opacity 0.5s',
+                cursor: 'pointer',
+                fontSize: '30px'
+              }}
+              onClick={() => navigate("/employees/dogsid/" + dogId)}
+            >
+              מעבר לכרטיס כלב
+            </Box>
+          </Box>
+          <CardContent sx={{ display: 'flex',marginTop:-1, flexDirection: 'column', justifyContent: 'center', marginLeft: { sm: 2 }, width: '100%' }}>
+            <Typography gutterBottom variant="h5" component="div" textAlign="center">
               {`${dogsName}`}  |   תא {`${cell}`}
             </Typography>
-            <Stack spacing={2} direction="row" paddingTop={2} justifyContent="space-between">
+            <Stack spacing={1} direction="row" paddingTop={0.3} justifyContent="center">
               <Button variant='contained' sx={{
                 backgroundColor: '#EADCCF',
                 color: 'common.black',
@@ -60,19 +86,7 @@ export default function CardComp({ image1, cell, dogsName, dogId }) {
                 borderColor: 'black',
                 '&:hover': { backgroundColor: 'primary.light' },
                 maxHeight: 50,
-                width: '48%',
-                fontSize: 11
-              }} onClick={() => navigate("/employees/dogsid/" + dogId)}>
-               <PetsIcon sx={{ position: "relative", right: 9 }}/> כרטיס כלב
-              </Button>
-              <Button variant='contained' sx={{
-                backgroundColor: '#EADCCF',
-                color: 'common.black',
-                boxShadow: theme.shadows[12],
-                borderColor: 'black',
-                '&:hover': { backgroundColor: 'primary.light' },
-                maxHeight: 50,
-                width: '48%',
+                width: '90%',
                 fontSize: 11
               }} onClick={() => setOpen(prev => !prev)}>
                 {completed ? (
@@ -86,7 +100,7 @@ export default function CardComp({ image1, cell, dogsName, dogId }) {
           </CardContent>
         </CardActionArea>
       </Card>
-      <Collapse in={open} sx={{ width: '85%', margin: 'auto', mt: -1 ,backgroundColor: '#EADCCF', borderRadius: 6}}>
+      <Collapse in={open} sx={{ width: '85%', margin: 'auto', mt: -1, backgroundColor: '#EADCCF', borderRadius: 6 }}>
         <ChacklistCollapse dogsID={dogId} onComplete={handleComplete} />
       </Collapse>
     </>

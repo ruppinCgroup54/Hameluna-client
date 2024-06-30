@@ -28,8 +28,11 @@ export default function ChacklistComp({ dogsId, onSubmit }) {
     setNotes(event.target.value);
   };
 
-  const queryArr = [ // Example array of questions given by shelter
-    "האם יצא לטיול?", "האם עשה צרכים?", , "האם אכל ושתה?", "האם נראה חיוני?"
+  const queryArr = [
+    "האם יצא לטיול?",
+    "האם עשה צרכים?",
+    "האם אכל ושתה?",
+    "האם נראה חיוני?"
   ];
 
   const handleSubmit = () => {
