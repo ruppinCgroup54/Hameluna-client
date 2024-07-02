@@ -1,4 +1,5 @@
-import { z } from "zod";
+import dayjs from "dayjs";
+import { date, z } from "zod";
 
 
 export const dogSchema = z.object({
@@ -103,4 +104,17 @@ export const adoptionRequestSchema=z.object({
   "sendDate":  z.preprocess((val) => new Date().toISOString(), z.string().datetime()),
   "dog":dogSchema ,
   "status": z.string()
+})
+
+export const toDoSchema =z.object({
+  "toDoId": z.number(),
+  "done": z.boolean().default(false),
+  "doDate":  z.preprocess((val) => {
+    console.log( dayjs(val).format('YYYY-MM-DDTHH:mm:ss.sss[Z]'))
+    return  dayjs(val).format('YYYY-MM-DDTHH:mm:ss.sss[Z]')
+  }, z.string().datetime()),
+  "title":z.string() ,
+  "repetition": z.coerce.number(),
+  "shelterNumber": z.number(),
+  "description": z.string()
 })

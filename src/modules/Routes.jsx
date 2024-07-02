@@ -34,6 +34,7 @@ import AdoptionPage from "./Admin/AdoptionPage";
 import RequestsPage from "./Admin/RequestsPage";
 import AdminDogPage from "./Admin/AdminDogPage";
 import ReportsPage from "./Admin/ReportsPage";
+import { ToDosPage } from "./Admin/ToDosPage";
 
 
 export const pathes = [
@@ -64,8 +65,8 @@ export const pathes = [
     id: "מי בבית"
   },
   {
-    path: "/admin/shelter/whosHome/",
-    element: <WhosHome />,
+    path: "/admin/shelter/todos/",
+    element: <ToDosPage />,
     id: "משימות"
   },
   {

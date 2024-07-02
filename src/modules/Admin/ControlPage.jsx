@@ -1,4 +1,4 @@
-import Cell from "../Admin/components/Cell";
+import Cell from "./components/Cell";
 
 import { Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
 import { useLoaderData } from "react-router-dom";
