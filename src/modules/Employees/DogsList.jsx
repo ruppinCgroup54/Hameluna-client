@@ -9,7 +9,7 @@ import useImageURL from "../../utilis/useImageURL";
 export default function DogsList() {
   const cells = useLoaderData();
   console.log(cells);
-
+  
   const dogsToRender = [];
 
   for (let i = 0; i < cells.length; i++) {
