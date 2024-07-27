@@ -103,6 +103,6 @@ export default function CardComp({ image1, cell, dogsName, dogId }) {
       <Collapse in={open} sx={{ width: '85%', margin: 'auto', mt: -1, backgroundColor: '#EADCCF', borderRadius: 6 }}>
         <ChacklistCollapse dogsID={dogId} onComplete={handleComplete} />
       </Collapse>
-    </>
+    </> 
   );
 }
