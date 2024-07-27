@@ -18,9 +18,9 @@ export default function AdoptionDogCard({ dog }) {
         <img src={useImageURL(dog.profileImage)} alt="" style={{ height: '100%', width: '100%', objectFit: 'cover' }} />
 
       </CardMedia>
-      <CardContent>
+      <CardContent >
         <div style={{ height: { xs: "100%", md: "80%" }, overflow: "auto",margin:'10px' }}>
-          <Typography variant='h6' fontWeight={'bold'} textAlign={'center'} mb={'15px'}>{dog.name}</Typography>
+          <Typography variant='h6' fontWeight={'bold'} textAlign={'center'} >{dog.name}</Typography>
           <Box sx={{ display: 'grid', gridTemplateColumns: 'auto auto', padding: '20px 20px', gap: '20px 15px',}}>
 
             {keysToShow.map((key) => {
@@ -30,7 +30,7 @@ export default function AdoptionDogCard({ dog }) {
               </Box>
             })}
           </Box>
-            <Typography><b>מידע נוסף:</b>{dog.note} </Typography>
+            <Typography><b>מידע נוסף: </b>{dog.note} </Typography>
         </div>
         <IconButton sx={{width:'fit-content' , alignSelf:'flex-end', height: '30px' }} onClick={()=>navigate("/admin/shelter/whosHome/DogProfile/"+dog.numberId)}>
           <ArrowCircleLeft color={'primary'} fontSize='large' />
