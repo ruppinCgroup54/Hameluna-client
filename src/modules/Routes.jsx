@@ -189,6 +189,9 @@ export const employeesRoutes = [
   {
     path: "/employees/empsignup",
     element: <EmpSignUp />,
+    loader: async ({ params }) => {
+      return fetch(import.meta.env.VITE_APP_SERVERURL + "shelters");
+    },
   },
   {
     path: "/employees/dogslist/:shelterId",
