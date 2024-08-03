@@ -125,7 +125,7 @@ export default function SignIn({ updateDetails }) {
           </Link>
         </Grid>
         <Grid item xl={7}>
-          <Link href="#" variant="body2" sx={{ color: "#fff" }}>
+          <Link href="#/admin/register" variant="body2" sx={{ color: "#fff" }}>
             {"לא רשום? לחץ ליצירת משתמש"}
           </Link>
         </Grid>

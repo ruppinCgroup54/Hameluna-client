@@ -7,21 +7,25 @@ import SheltersList from './SheltersList'
 const WebsiteBackgroud =  'images/Layouts/background.png';
 
 import { Typography } from '@mui/material'
+import { useLoaderData } from 'react-router-dom';
 
 
 //temp array of shelter 
-const List = [
-  {
-    image:"images/Shelter1.jpeg",
-    name:"הרצליה אוהבת חיות"
-  } ,
-   {
-    image:"images/Shelter2.jpeg",
-    name:"נתניה אוהבת חיות"
-  }
-]
+// const List = [
+//   {
+//     image:"images/Shelter1.jpeg",
+//     name:"הרצליה אוהבת חיות"
+//   } ,
+//    {
+//     image:"images/Shelter2.jpeg",
+//     name:"נתניה אוהבת חיות"
+//   }
+// ]
 
 export default function AdoptersHomePage() {
+
+  const List = useLoaderData();
+
   return (
     <BackgroundLayout image={WebsiteBackgroud} dir={'col'} style={{gap:'7vh',padding:'40px 0'}} >
       

@@ -76,7 +76,7 @@ export const ToDoList = () => {
                 backgroundColor: 'white', fontSize: '20px', width: '40%', borderRadius: '10px', color: 'black',
                 "& .MuiSvgIcon-root": { fontSize: '1.6em', color: 'palette.primary' }
               }} >
-              {" היום " + todaysCount?.countItems}
+              {" היום " + !!todaysCount?.countItems * 1}
             </Button>
             <Button startIcon={<Loop fontSize='large' color='primary' />}
 
@@ -84,7 +84,7 @@ export const ToDoList = () => {
                 backgroundColor: 'white', fontSize: '20px', width: '40%', borderRadius: '10px', color: 'black',
                 "& .MuiSvgIcon-root": { fontSize: '1.6em', color: 'palette.primary' }
               }} >
-              {' סה"כ ' + nextDaysCount}
+              {' סה"כ ' + !!nextDaysCount *1}
             </Button>
           </Box>
 

@@ -180,7 +180,7 @@ export default function Register() {
         <form onSubmit={handleSubmit(submit)} style={{ width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flexGrow: 1 }}  >
           {activeStep === forms.length ? (
             <Stack spacing={2} useFlexGap>
-              <img src="/images/WelcomeDog.png" width={200} />
+              <img src="images/WelcomeDog.png" width={200} />
               <Typography variant="h5">ברוכים הבאים למלונה</Typography>
               <Typography variant="body1" color="text.secondary">
                 איזה כיף שהצטרפתם אלינו,

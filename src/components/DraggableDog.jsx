@@ -7,13 +7,22 @@ export default function DraggableDog({ children, dog }) {
 
     const { attributes, listeners, setNodeRef, transform, isDragging, active } = useDraggable({
         id: dog.numberId.toString(),
-        data: {dog: dog}
+        data: {dog: dog},
+    attributes:{
+        activationConstraint:{
+            delay: 250,
+            tolerance: 5,
+        }
+    }
+        
+      
     });
     const style = {
         transform: CSS.Translate.toString(transform),
     };
     return (
         <Box ref={setNodeRef} style={style} {...listeners} {...attributes}
+    
             sx={{
                 visibility: active === null || isDragging ? 'visible' : 'collapse'
             }}>

@@ -8,7 +8,7 @@ export const dogSchema = z.object({
   "name": z.string(),
   "dateOfBirth": z.preprocess((val) => new Date(val).toISOString(), z.string().datetime()),
   "gender": z.string(),
-  "entranceDate": z.preprocess((val) => new Date().toISOString(), z.string().datetime()),
+  "entranceDate": z.preprocess((val) => new Date(val).toISOString(), z.string().datetime()),
   "size": z.string(),
   "adopted": z.boolean(),
   "isReturned": z.boolean(),

@@ -9,6 +9,7 @@ import { date } from 'zod';
 import { Edit, Save } from '@mui/icons-material';
 import useFetch, { DEFAULT_OPTIONS } from '../../../utilis/useFetch';
 import { set } from 'firebase/database';
+import DateInput from '../../../components/DateInput';
 
 export default function DogData({ dog }) {
 
@@ -92,10 +93,10 @@ export default function DogData({ dog }) {
 
     return filedsToShow.map((f, i) => {
 
-      if (f.isDate) {
-        // return <DateInput label={f.name} setVal={setArrivalDate}/>
+      // if (f.isDate) {
+      //   return <DateInput label={f.name} />
 
-      }
+      // }
 
       if (f.isDropDown) {
         console.log('f.data', f.data)
@@ -138,7 +139,7 @@ export default function DogData({ dog }) {
     <>
       <Box component={'form'} onSubmit={handleSubmit(submit)} sx={{
         display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', rowGap: '5vh', height: '70%', marginTop: '5vh', alignItems: 'center',
-        "&>.MuiTextField-root, &>.MuiAutocomplete-root": { width: '22%' },
+        "&>.MuiTextField-root, &>.MuiAutocomplete-root,&>.MuiBox-root": { width: '22%' },
         // "& *.Mui-disabled ": { WebkitTextFillColor:'black', borderColor:(theme)=>theme.palette.primary.main }
       }}>
         {renderFileds()}

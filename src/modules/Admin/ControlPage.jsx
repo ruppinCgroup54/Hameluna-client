@@ -37,11 +37,11 @@ export default function ControlPage() {
   return (
     <BackgroundLayout image={bImg} style={{ display: "block" }}>
       <DndContext onDragEnd={endDrag} collisionDetection={pointerWithin}>
-        <Box display={"flex"} mt={"120px"} gap={'2%'} justifyContent={'center'} >
-          <Box width={"30%"} display={"flex"} sx={{marginBottom:'15px'}}>
+        <Box display={"flex"} mt={"120px"} gap={'2%'} justifyContent={'center'} height={"calc( 100% - 150px)"}  >
+          <Box width={"30%"} display={"flex"} sx={{marginBottom:'15px',height:'100%'}}>
             <ToDoList/>
           </Box>
-          <Grid container width={"63%"} display={"flex"} rowSpacing={1}>
+          <Grid container width={"63%"} display={"flex"} rowSpacing={1} height={"100%"}>
             <Grid item md={12} display={"flex"} justifyContent={"space-between"}>
               <Typography variant="h5">הכלבייה שלנו</Typography>
               <Typography variant="h5">סה"כ כלבים: {dogs?.length}</Typography>
@@ -61,7 +61,7 @@ export default function ControlPage() {
                 ))}
               </Box>
             </Grid>
-            <Grid item md={12}>
+            <Grid item md={12} sx={{alignContent:'flex-end'}}>
               <Button
                 onClick={handleOpen}
                 variant='outlined'
@@ -73,7 +73,7 @@ export default function ControlPage() {
                   borderRadius: "10px",
                   textAlign: "center",
                   boxShadow: (theme) => theme.shadows[10],
-                  my: '15px'
+                  mt: '15px'
                 }}
               >
                 הוספת תא חדש +
