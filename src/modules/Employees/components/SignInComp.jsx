@@ -1,21 +1,12 @@
-import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import { Alert, AlertTitle, Collapse, TextField } from "@mui/material";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import useFetch from "../../../utilis/useFetch";
-import { Height } from "@mui/icons-material";
-import Code from "./Code";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button, Box, TextField, Grid, Alert, AlertTitle, Collapse } from "@mui/material";
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const StyledTextfield = {
   bgcolor: "rgba(255,255,255,0.7)",
   borderRadius: "7px",
   "& .MuiInputLabel-root": {
     fontSize: "14px",
-    
   },
   "& .MuiInputBase-root": {
     background: "none",
@@ -28,45 +19,37 @@ const StyledTextfield = {
 
 export default function SignIn() {
   const navigate = useNavigate();
-
-  const [openAlert, setOpenAlert] = useState(false)
+  const [openAlert, setOpenAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    let loginDet = {
-      phone: data.get("phone"),
-      // password: data.get("password"),
-      
-    };
+    let phone = data.get("phone");
+    let inputPassword = data.get("password");
 
-    fetch("https://localhost:7280/api/cells/Employees/login", {
-      method: "POST",
+    fetch(import.meta.env.VITE_APP_SERVERURL/+"Volunteers/"+phone, {
+      method: "GET",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(loginDet),
     })
-      .then((res) => {
-        console.log("res", res);
-
-        return res.ok ? res.json() : Promise.reject(res);
-      })
-      .then((data) => {
-        console.log("data", data);
-        navigate("/Employee/dogslist");
-      })
-      .catch((rej) => setOpenAlert(true));
+    .then((res) => res.json())
+    .then((data) => {
+      if (data && data.password === inputPassword) {
+        navigate(`/Employees/dogslist/${data.shelterNumber}`);
+      } else {
+        setAlertMessage("מספר פלאפון או סיסמא שגויים.");
+        setOpenAlert(true);
+      }
+    })
+    .catch((error) => {
+      console.error("Login error:", error);
+      setAlertMessage("שגיאה בהתחברות");
+      setOpenAlert(true);
+    });
   };
 
   return (
-   
-
-    
-    <Box 
-      component="form"
-      onSubmit={handleSubmit}
-      noValidate
-      sx={{ mt: 1, width: "85%", position: "relative" ,left:"7%" , top: -20}}
-    >
+    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: "85%", position: "relative", left: "7%", top: -20 }}>
       <TextField
         margin="normal"
         required
@@ -79,7 +62,7 @@ export default function SignIn() {
         variant="filled"
         sx={StyledTextfield}
       />
-      {/* <TextField
+      <TextField
         margin="normal"
         required
         fullWidth
@@ -91,11 +74,10 @@ export default function SignIn() {
         size="small"
         variant="filled"
         sx={StyledTextfield}
-      /> */}
+      />
       <Button
         type="submit"
         variant="contained"
-        onClick={()=>navigate('/employees/code')}
         sx={{
           mx: "auto",
           display: "block",
@@ -107,42 +89,25 @@ export default function SignIn() {
         size="small"
         color="info"
       >
-         לחץ לקבלת קוד 
+        התחבר
       </Button>
-      <Grid
-        container
-        sx={{ pt: "10px", "& *": { color: "#fff" }}}
-          justifyContent="space-between"
-      >
-       
+      <Grid container sx={{ pt: "10px", "& *": { color: "#fff" }}} justifyContent="space-between">
         <Grid item>
-          {/* <Link href="/#/employees/empsignup" variant="caption" sx={{  paddingLeft: 6,fontSize: 16,color: "#fff" }}>
-            {"פעם ראשונה שלי"}
-          </Link> */}
           <Button
-          variant="text"
-          sx={{ paddingLeft: 6, fontSize: 16, color: "#fff" , backgroundcolor: "#000"}}
-          onClick={() => navigate('/employees/empSignUp')}>
+            variant="text"
+            sx={{ paddingLeft: 6, fontSize: 16, color: "#fff", backgroundColor: "#000" }}
+            onClick={() => navigate('/employees/empSignUp')}
+          >
             פעם ראשונה שלי
           </Button>
         </Grid>
       </Grid>
-      <Collapse in={false}>
+      <Collapse in={openAlert}>
         <Alert severity="error">
           <AlertTitle>שגיאה בהתחברות</AlertTitle>
-          מספר פלאפון או סיסמא שגויים.
+          {alertMessage}
         </Alert>
       </Collapse>
     </Box>
-    
   );
-}
-
-SignIn.code =()=>{
-  
- return(
-<Code></Code>
-
- );  
-
 }

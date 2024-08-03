@@ -1,13 +1,8 @@
-import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import { Alert, AlertTitle, Collapse, TextField, Select, MenuItem } from "@mui/material";
+import React, { useState } from "react";
+import { Button, Box, TextField, Select, MenuItem, Collapse, Alert, AlertTitle } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import Code from "./Code";
 
-// TODO remove, this demo shouldn't need to reset the theme.
+// סגנונות מותאמים לשדות טקסט
 const StyledTextfield = {
   bgcolor: "rgba(255,255,255,0.7)",
   borderRadius: "7px",
@@ -35,12 +30,11 @@ export default function SignUpComp({ shelters }) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     let signInDat = {
+      phone: data.get("EmpPhone"),
+      email: data.get("EmpEmail"),
       firstName: data.get("EmpFIName"),
       lastName: data.get("EmpLName"),
-      email: data.get("EmpEmail"),
-      phone: data.get("EmpPhone"),
       password: data.get("password"),
-      shelter: selectedShelter,
       shelterId: selectedShelterId,
     };
 
@@ -51,48 +45,51 @@ export default function SignUpComp({ shelters }) {
       return;
     }
 
-    // בדיקת קיום מספר טלפון במערכת
-    fetch(import.meta.env.VITE_APP_SERVERURL+`Volunteers/${signInDat.phone}`, {
+    fetch(`${import.meta.env.VITE_APP_SERVERURL}Volunteers/${signInDat.phone}`, {
       method: "GET",
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     })
-    .then((res) => {
-      if (!res.ok) {
-        return Promise.reject(res);
-      }
-      return res.json();
-    })
-    .then((data) => {
-      if (data.exists) {
-        setAlertMessage("המספר טלפון כבר קיים במערכת");
-        setOpenAlert(true);
-      } else {
-        // שליחת הטופס לשרת אם מספר הטלפון לא קיים
-        fetch(import.meta.env.VITE_APP_SERVERURL+"Volunteers", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(signInDat),
-        })
-        .then((res) => {
-          if (!res.ok) {
-            return Promise.reject(res);
+      .then((res) => {
+        if (res.status === 404) {
+          // אם קיבלנו 404, מספר הטלפון לא קיים
+          // שליחת הטופס לשרת אם מספר הטלפון לא קיים
+          console.log("POST Request Body:", JSON.stringify(signInDat));
+          return fetch(import.meta.env.VITE_APP_SERVERURL + "Volunteers", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(signInDat),
+          });
+        } else if (!res.ok) {
+          return Promise.reject(res);
+        }
+        return res.json();
+      })
+      .then((res) => {
+        console.log("POST Response Status:", res.status);
+        return res.text(); // קבל את התגובה כטקסט
+      })
+      .then((text) => {
+        console.log("POST Response Text:", text);
+        try {
+          const data = JSON.parse(text); // נסה להמיר ל-JSON
+          console.log("Parsed Data:", data);
+          if (data.PhoneNumber) {
+            setAlertMessage("המספר טלפון כבר קיים במערכת");
+            setOpenAlert(true);
+          } else {
+            navigate("/Employees");
           }
-          return res.json();
-        })
-        .then((data) => {
-          console.log("data", data);
-          navigate("/Employees");
-        })
-        .catch((rej) => {
-          setAlertMessage("שגיאה בעת שליחת הטופס");
+        } catch (error) {
+          console.error("JSON Parse Error:", error);
+          setAlertMessage("שגיאה בעת עיבוד התגובה מהשרת");
           setOpenAlert(true);
-        });
-      }
-    })
-    .catch((rej) => {
-      setAlertMessage("שגיאה בבדיקת מספר הטלפון");
-      setOpenAlert(true);
-    });
+        }
+      })
+      .catch((error) => {
+        console.error("POST Error:", error);
+        setAlertMessage("שגיאה בעת שליחת הטופס");
+        setOpenAlert(true);
+      });
   };
 
   return (
@@ -130,7 +127,7 @@ export default function SignUpComp({ shelters }) {
         margin="normal"
         required
         fullWidth
-        id="EmpPhoneNum"
+        id="EmpPhone"
         label="טלפון נייד"
         name="EmpPhone"
         autoComplete="phone"
@@ -138,22 +135,24 @@ export default function SignUpComp({ shelters }) {
         variant="filled"
         sx={StyledTextfield}
       />
-       <Select
+      <Select
         value={selectedShelter}
         onChange={(e) => {
           setSelectedShelter(e.target.value);
-          const selectedShelterObject = shelters.find(shelter => shelter.name === e.target.value);
-          setSelectedShelterId(selectedShelterObject.id); // שמירת ה-ID של הכלביה
+          const selectedShelterObject = shelters.find(
+            (shelter) => shelter.name === e.target.value
+          );
+          setSelectedShelterId(selectedShelterObject.shelterId); // שמירת ה-ID של הכלביה
+          console.log(selectedShelterObject.shelterId);
         }}
         displayEmpty
         fullWidth
-        // variant="filled"
         sx={{
           ...StyledTextfield,
           marginTop: 2,
           marginBottom: 1.5,
           height: 46,
-          fontSize: 14, 
+          fontSize: 14,
         }}
       >
         <MenuItem value="" disabled>
@@ -186,7 +185,6 @@ export default function SignUpComp({ shelters }) {
         label="סיסמא"
         type="password"
         id="password"
-        // autoComplete="current-password"
         size="small"
         variant="filled"
         sx={StyledTextfield}
@@ -199,7 +197,6 @@ export default function SignUpComp({ shelters }) {
         label="אימות סיסמא"
         type="password"
         id="conPassword"
-        // autoComplete="current-password"
         size="small"
         variant="filled"
         sx={StyledTextfield}
@@ -219,9 +216,9 @@ export default function SignUpComp({ shelters }) {
         size="small"
         color="info"
       >
-       סיום
+        סיום
       </Button>
-    
+
       <Collapse in={openAlert}>
         <Alert severity="error">
           <AlertTitle>שגיאה</AlertTitle>
@@ -231,9 +228,3 @@ export default function SignUpComp({ shelters }) {
     </Box>
   );
 }
-
-SignUpComp.code = () => {
-  return (
-    <Code></Code>
-  );
-};

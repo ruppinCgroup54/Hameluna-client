@@ -8,6 +8,14 @@ import { useState } from 'react';
 import dayjs from 'dayjs';
 
 export default function ChacklistComp({ dogsId, onSubmit }) {
+  
+  useEffect(() => {
+    fetch(import.meta.env.VITE_APP_SERVERURL/+"Volunteers/"+phone, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+  }, [])
+  
   const [checked, setChecked] = useState([]);
   const [notes, setNotes] = useState('');
 
