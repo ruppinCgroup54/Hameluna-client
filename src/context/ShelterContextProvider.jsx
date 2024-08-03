@@ -16,7 +16,6 @@ export default function ShelterContextProvider(props) {
   const cells = useFetch(`${import.meta.env.VITE_APP_SERVERURL}Cells/shelter/` + loginDet.shelterNumber, {}, [triggerFetch])
   // const [cells, setCells] = useState(cellsData?cellsData.value:[]);
 
-
   const [dogs, setDogs] = useState([]);
   useEffect(() => {
     const allDogs = [];
