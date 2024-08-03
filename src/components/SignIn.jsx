@@ -50,7 +50,6 @@ export default function SignIn({ updateDetails }) {
       body: JSON.stringify(loginDet),
     })
       .then((res) => {
-        debugger
         if (res.ok) {
           return res.json()
         }
