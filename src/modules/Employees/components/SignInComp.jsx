@@ -116,9 +116,15 @@ export default function SignIn() {
       >
        
         <Grid item>
-          <Link href="empsignup" variant="caption" sx={{  paddingLeft: 6,fontSize: 16,color: "#fff" }}>
+          {/* <Link href="/#/employees/empsignup" variant="caption" sx={{  paddingLeft: 6,fontSize: 16,color: "#fff" }}>
             {"פעם ראשונה שלי"}
-          </Link>
+          </Link> */}
+          <Button
+          variant="text"
+          sx={{ paddingLeft: 6, fontSize: 16, color: "#fff" , backgroundcolor: "#000"}}
+          onClick={() => navigate('/employees/empSignUp')}>
+            פעם ראשונה שלי
+          </Button>
         </Grid>
       </Grid>
       <Collapse in={false}>

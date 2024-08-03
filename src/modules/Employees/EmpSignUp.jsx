@@ -3,8 +3,10 @@ import * as React from 'react';
 import bcgImg from "../../assets/images/Layouts/background.png"
 import TopBarMobile from "./components/TopbarEmp";
 import SignIn from "../../components/SignIn";
-import SignInComp from "./components/SignInComp";
+import SignUpComp from "./components/SignUpComp";
 import { position } from "stylis";
+import { useLoaderData } from "react-router-dom";
+
 
 const phoneStyle = {
     width: "90%",
@@ -12,6 +14,8 @@ const phoneStyle = {
 };
 export default function EmpSignUp() {
 
+      const shelters = useLoaderData();
+        console.log(shelters);
 
     return (
         <BackgroundLayout image={bcgImg} style={{ display: "block" }}>
@@ -26,11 +30,12 @@ export default function EmpSignUp() {
             }}>
                 <div>
                     <h2 style={{ color: "white", marginTop: "5px" }}>
-                        איזה כיף שהצטרפתם אלינו!
+                        ברוכים הבאים
                     </h2>
+                    <h3 style={{ color: "white" , marginTop:-3,}}>כמה פרטים ומתחילים</h3>
                 </div>
                 <div>
-
+<SignUpComp shelters={shelters}></SignUpComp>
                 </div>
             </div>
         </BackgroundLayout>
