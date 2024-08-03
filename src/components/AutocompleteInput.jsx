@@ -6,7 +6,7 @@ import { Textinput } from './Textinput';
 import PropTypes from 'prop-types';
 
 
-export default function AutocompleteInput({ control, formState, name, label, data, isMulti = false, disabled = false }) {
+export default function AutocompleteInput({ control, name, label, data, isMulti = false, disabled = false }) {
 
 
   return (

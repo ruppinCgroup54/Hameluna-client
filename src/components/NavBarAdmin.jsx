@@ -13,6 +13,7 @@ import {
 import { pathes } from "../modules/Routes";
 import RequestsList from "../modules/Admin/components/RequestsList";
 import ExceptionsList from "../modules/Admin/components/ExceptionsList";
+import { Password } from "@mui/icons-material";
 
 export default function NavBarAdmin() {
   const navigate = useNavigate();
@@ -56,6 +57,10 @@ export default function NavBarAdmin() {
     setAnchorElUserExc(null);
   };
 
+  const exit = () => {
+    localStorage.removeItem("loginDet") ;
+    navigate("/admin/") ;
+  }
 
 
   const [badgeNum, setBadgeNum] = useState(0);
@@ -89,7 +94,7 @@ export default function NavBarAdmin() {
             {/* לשנות צבע רקע לאייטם בהתאם לנתיב הדף */}
             <Grid
               item
-              xs={9}
+              xs={8}
               pr={5}
               sx={{ display: { xs: "none", md: "block" } }}
             >
@@ -212,6 +217,11 @@ export default function NavBarAdmin() {
                   </Menu>
                 </Box>
               </Box>
+            </Grid>
+            <Grid item xs={1} sx={{ mt: '10px', cursor: 'pointer' }} onClick={exit}>
+              <div>
+                <p>התנתקות</p>
+              </div>
             </Grid>
           </Grid>
         </Toolbar>

@@ -20,7 +20,7 @@ export default function AddImage({ getImage = () => { }, style = {}, defaultImg 
     }
 
     return (
-        <div onClick={handleImage} style={{ position: 'absolute', top: '-60px', right: '-90px', cursor: 'pointer', ...style }}>
+        <Box onClick={handleImage} sx={{ position: 'absolute', top: '-60px', left: '-90px', cursor: 'pointer', ...style }}>
             <Box sx={{ position: 'relative' }}>
                 <Avatar
                     src={src != img && src!==defaultImg ? URL.createObjectURL(src) : src}
@@ -44,6 +44,6 @@ export default function AddImage({ getImage = () => { }, style = {}, defaultImg 
                     }}> <AddAPhotoOutlinedIcon fontSize="large" sx={{ color: 'primary.main' }} /> </Avatar>
             </Box>
 
-        </div>
+        </Box>
     )
 }

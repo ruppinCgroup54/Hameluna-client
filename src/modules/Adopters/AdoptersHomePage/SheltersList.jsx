@@ -6,7 +6,7 @@ import { ImageList, Typography } from "@mui/material";
 
 export default function SheltersList({ ListOfShelters }) {
 
-  const firstShelters = ListOfShelters.slice(0,5);
+  const firstShelters = ListOfShelters.slice(0,3);
   const renderList = firstShelters.map(shelter =>
     <SheltersImage {...shelter} key={shelter.name}/>
   )

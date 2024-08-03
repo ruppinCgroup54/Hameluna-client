@@ -120,6 +120,9 @@ export const adopterRoutes = [
   {
     path: "/",
     element: <AdoptersHomePage />,
+    loader: async () => {
+      return fetch(`${import.meta.env.VITE_APP_SERVERURL}Shelters`);
+    },
 
   },
   {

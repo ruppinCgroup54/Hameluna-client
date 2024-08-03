@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 
 
 import { Box, useTheme } from '@mui/material';
+import useImageURL from '../../../utilis/useImageURL';
 
 const defaultShelter ="images/Shelter1.jpeg"
 
@@ -13,13 +14,13 @@ const imageStyle = {
   borderRadius: '20px'
 }
 
-export default function SheltersImage({ image, Website, name }) {
+export default function SheltersImage({ photoUrl, Website, name }) {
 
   const theme = useTheme();
   return (
-    <a href={Website} style={{ width: '90vw' }} >
+    <a href={ Website} style={{ width: '90vw' }} >
 
-      <Box component={'img'} src={image} alt={name} sx={imageStyle} boxShadow={theme.shadows[5]}/>
+      <Box component={'img'} src={useImageURL(photoUrl)} alt={name} sx={imageStyle} boxShadow={theme.shadows[5]}/>
 
     </a>
   )
