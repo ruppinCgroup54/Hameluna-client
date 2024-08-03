@@ -200,6 +200,7 @@ export const employeesRoutes = [
     path: "/employees/dogslist/:shelterId",
     element: <DogsList />,
     loader: async ({ params }) => {
+      localStorage.setItem("shelterId", JSON.stringify(params));
       return fetch(import.meta.env.VITE_APP_SERVERURL + "cells/shelter/" + params.shelterId);
     },
 

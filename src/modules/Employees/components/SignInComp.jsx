@@ -31,9 +31,7 @@ export default function SignIn() {
     fetch(import.meta.env.VITE_APP_SERVERURL/+"Volunteers/"+phone, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-    })
-<<<<<<< Updated upstream
-    .then((res) => res.json())
+    }).then((res) => res.json())
     .then((data) => {
       if (data && data.password === inputPassword) {
         navigate(`/Employees/dogslist/${data.shelterNumber}`);
@@ -47,18 +45,6 @@ export default function SignIn() {
       setAlertMessage("שגיאה בהתחברות");
       setOpenAlert(true);
     });
-=======
-      .then((res) => {
-        console.log("res", res);
-
-        return res.ok ? res.json() : Promise.reject(res);
-      })
-      .then((data) => {
-        console.log("data", data);
-        navigate("/Employees");
-      })
-      .catch((rej) => setOpenAlert(true));
->>>>>>> Stashed changes
   };
 
   return (

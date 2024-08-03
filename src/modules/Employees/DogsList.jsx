@@ -5,8 +5,10 @@ import CardComp from "./components/CardComp";
 
 const bcgImg = "images/Layouts/background.png";
 import useImageURL from "../../utilis/useImageURL";
+import useFetch from "../../utilis/useFetch";
 
 export default function DogsList() {
+
   const cells = useLoaderData();
   console.log(cells);
   

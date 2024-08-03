@@ -7,15 +7,12 @@ import { Box, TextField, Button } from '@mui/material';
 import { useState } from 'react';
 import dayjs from 'dayjs';
 import useFetch from '../../../utilis/useFetch';
+import { useParams } from 'react-router-dom';
 
 export default function ChacklistComp({ dogsId, onSubmit }) {
-  
-  useEffect(() => {
-    fetch(import.meta.env.VITE_APP_SERVERURL/+"Volunteers/"+phone, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    })
-  }, [])
+  const {shelterId} = JSON.parse(localStorage.getItem("shelterId"));
+
+  const items = useFetch(import.meta.env.VITE_APP_SERVERURL + "DailyRoutines/shelter/" + shelterId);
   
   const [checked, setChecked] = useState([]);
   const [notes, setNotes] = useState('');
@@ -37,18 +34,18 @@ export default function ChacklistComp({ dogsId, onSubmit }) {
     setNotes(event.target.value);
   };
 
-  const queryArr = [
-    "האם יצא לטיול?",
-    "האם עשה צרכים?",
-    "האם אכל ושתה?",
-    "האם נראה חיוני?"
-  ];
+  // const queryArr = [
+  //   "האם יצא לטיול?",
+  //   "האם עשה צרכים?",
+  //   "האם אכל ושתה?",
+  //   "האם נראה חיוני?"
+  // ];
 
   const handleSubmit = () => {
     const result = [
       { key: "מזהה כלב", value: dogsId },
       { key: "תאריך", value: dayjs().format('YYYY-MM-DD') },
-      ...queryArr.map((question, index) => ({
+      ...!items.loading&&items.value.map((question, index) => ({
         key: question,
         value: checked.includes(index.toString()) ? 1 : 0
       })),
@@ -61,7 +58,7 @@ export default function ChacklistComp({ dogsId, onSubmit }) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <List sx={{ width: '100%', maxWidth: 360, bgcolor: '#EADCCF' }}>
-        {queryArr.map((question, index) => (
+        {!items.loading&&items.value.map((question, index) => (
           <ListItem key={index}>
             <ListItemText primary={question} />
             <Switch
