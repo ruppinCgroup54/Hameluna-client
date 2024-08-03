@@ -89,7 +89,7 @@ export default function NavBarAdmin() {
             {/* לשנות צבע רקע לאייטם בהתאם לנתיב הדף */}
             <Grid
               item
-              xs={9}
+              xs={8}
               pr={5}
               sx={{ display: { xs: "none", md: "block" } }}
             >
@@ -212,6 +212,9 @@ export default function NavBarAdmin() {
                   </Menu>
                 </Box>
               </Box>
+            </Grid>
+            <Grid item xs={1}>
+                    <p>התנתקות</p>
             </Grid>
           </Grid>
         </Toolbar>
