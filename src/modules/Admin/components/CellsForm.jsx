@@ -42,8 +42,8 @@ export default function CellsForm({ register, formState, control }) {
               <Textinput
                 {...register(`cells[${i}].capacity`)}
                 label="קיבולת"
-                error={!!errors.name}
-                helperText={errors.name?.message}
+                error={!!errors.cells?.[i].capacity}
+                helperText={errors.cells?.[i].capacity}
                 type='number'
 
               />

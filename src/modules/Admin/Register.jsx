@@ -13,6 +13,7 @@ import CellsForm from './components/CellsForm'
 import { ChevronLeftRounded, ChevronRightRounded, ForkRightOutlined } from '@mui/icons-material'
 import { ShelterSchema } from '../../Data/Schemas'
 import { useNavigate } from 'react-router-dom'
+import { ErrorMessage } from "@hookform/error-message"
 
 
 const BackgroundImage = 'images/Layouts/LogIn.png'
@@ -63,7 +64,7 @@ const uploadFile = async (image) => {
       data.append("images", files[i]);
     }
   }
-  else{
+  else {
 
   }
 
@@ -107,10 +108,10 @@ export default function Register() {
         return <AdminForm {...methods} />;
       case 1:
         return <>
-          <AddImage getImage={setImage} {...methods} style={{  top: "-5vh", right: '-5vh' }} />
+          <AddImage getImage={setImage} {...methods} style={{ top: "-5vh", right: '-5vh' }} />
           <ShelterForm {...methods} />
           <br />
-          <AddressForm {...methods} methods={methods}/>
+          <AddressForm {...methods} methods={methods} />
         </>;
       case 2:
         return <CellsForm {...methods} />;
@@ -234,9 +235,11 @@ export default function Register() {
             </Button>}
 
           </Box>}
+          
         </form>
 
       </FormStyle>
+
 
     </BackgroundLayout >
   )
