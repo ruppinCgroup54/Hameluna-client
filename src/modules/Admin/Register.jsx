@@ -63,6 +63,9 @@ const uploadFile = async (image) => {
       data.append("images", files[i]);
     }
   }
+  else{
+
+  }
 
   const res = await fetch(import.meta.env.VITE_APP_SERVERURL + 'Images/shelterImage', {
     method: "POST",
@@ -104,7 +107,7 @@ export default function Register() {
         return <AdminForm {...methods} />;
       case 1:
         return <>
-          <AddImage getImage={setImage} {...methods} style={{ top: "-5vh", right: '-5vh' }} />
+          <AddImage getImage={setImage} {...methods} style={{  top: "-5vh", right: '-5vh' }} />
           <ShelterForm {...methods} />
           <br />
           <AddressForm {...methods} methods={methods}/>
@@ -123,10 +126,6 @@ export default function Register() {
   } = methods;
 
   const watchRoutine = watch();
-
-  // useEffect(() => {
-  //   console.log(watchRoutine)
-  // })
 
   console.log('errors', errors)
   const submit = async (data) => {

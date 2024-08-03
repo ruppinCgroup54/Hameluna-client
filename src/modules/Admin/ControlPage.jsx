@@ -1,17 +1,31 @@
-import Cell from "./components/cell";
+import Cell from "./components/Cell";
 
 import { Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
 import { useLoaderData } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { ShelterContext } from "../../context/ShelterContextProvider";
 import useShelterContext from "../../utilis/useShelterContext";
-import { DndContext, closestCenter, pointerWithin } from "@dnd-kit/core";
+import { DndContext, pointerWithin ,useSensor,MouseSensor, TouchSensor, useSensors} from "@dnd-kit/core";
 import { putFetch } from "../../Data/Fetches";
 import BackgroundLayout from "../../layouts/BackgroundLayout";
 import CellsSkeleton from "../../components/CellsSkeleton";
 import { ToDoList } from "./components/ToDoList";
 
 export default function ControlPage() {
+
+  const sensors = useSensors(
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        delay: 1000,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+      },
+    }),
+  );
+
   const bImg ='images/Layouts/RequestBackground.png'
 
   const { cells, dogs, newCell, setTriggerFetch } = useShelterContext();
@@ -36,7 +50,7 @@ export default function ControlPage() {
   }
   return (
     <BackgroundLayout image={bImg} style={{ display: "block" }}>
-      <DndContext onDragEnd={endDrag} collisionDetection={pointerWithin}>
+      <DndContext onDragEnd={endDrag} collisionDetection={pointerWithin} sensors={sensors}>
         <Box display={"flex"} mt={"120px"} gap={'2%'} justifyContent={'center'} height={"calc( 100% - 150px)"}  >
           <Box width={"30%"} display={"flex"} sx={{marginBottom:'15px',height:'100%'}}>
             <ToDoList/>

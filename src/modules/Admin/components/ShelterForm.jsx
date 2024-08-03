@@ -4,18 +4,26 @@ import { Textinput } from '../../../components/Textinput'
 import { Controller } from 'react-hook-form';
 import { Autocomplete, Box, InputAdornment, Typography } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
+import AutocompleteInput from '../../../components/AutocompleteInput';
+import useFetch from '../../../utilis/useFetch';
 
 
 
 export default function ShelterForm({ register, formState, control }) {
   const { errors } = formState;
 
+  const getList = (name) => {
+    let data = useFetch(import.meta.env.VITE_APP_SERVERURL + 'Data/' + name)
+    console.log('first', data.error)
+    return data.value
+  }
+
   return (
     <>
       <Typography variant='h3' color='primary.dark' sx={{ textAlign: 'center', mb: 3 }}>
         פרטי הכלבייה
       </Typography>
-      < Box sx={{ width: '100%', gap: "30px 10%", display: 'flex' ,flexWrap:'wrap',justifyContent:'center'}}>
+      < Box sx={{ width: '100%', gap: "30px 10%", display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignContent: 'end' }}>
 
         <Textinput {...register("name")}
           sx={{ width: '45%' }}
@@ -38,7 +46,10 @@ export default function ShelterForm({ register, formState, control }) {
           helperText={errors.timeToReport?.message}
         />
 
-        <Controller
+        <Box sx={{width:'50%'}}>
+          <AutocompleteInput control={control} name={'dailyRoutine'} isMulti={true} label={"שגרת כלב"} data={getList("DailyRoutines")}/>
+        </Box>
+        {/* <Controller
           control={control}
           name='dailyRoutine'
           render={({ field: { onChange, value } }) => (
@@ -64,7 +75,7 @@ export default function ShelterForm({ register, formState, control }) {
           )}
 
 
-        />
+        /> */}
 
         {/* <Autocomplete
 

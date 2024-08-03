@@ -17,7 +17,8 @@ export const dogSchema = z.object({
   "breed": z.array(z.string()),
   "attributes": z.array(z.string()),
   "profileImage": z.string(),
-  "shelterNumber":z.number()
+  "shelterNumber":z.number(),
+  "note":z.string()
 })
 
 const adminSchema = z.object({

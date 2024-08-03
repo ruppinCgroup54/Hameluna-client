@@ -81,7 +81,7 @@ export default function Cell({ cellItem }) {
                   <Grow in={open} timeout={(i + 1) * 1000}>
                     <Box>
                       <Avatar
-                        onClick={() => navigate('/admin/shelter/whosHome/dogProfile', { state: { dog: d } })}
+                        onClick={() => navigate('/admin/shelter/whosHome/dogProfile/'+d.numberId, { state: { dog: d } })}
                         sx={{
                           width: '7vw',
                           height: '7vw',
