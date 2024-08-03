@@ -13,6 +13,7 @@ import CellsForm from './components/CellsForm'
 import { ChevronLeftRounded, ChevronRightRounded, ForkRightOutlined } from '@mui/icons-material'
 import { ShelterSchema } from '../../Data/Schemas'
 import { useNavigate } from 'react-router-dom'
+import { ErrorMessage } from "@hookform/error-message"
 
 
 const BackgroundImage = 'images/Layouts/LogIn.png'
@@ -63,6 +64,9 @@ const uploadFile = async (image) => {
       data.append("images", files[i]);
     }
   }
+  else {
+
+  }
 
   const res = await fetch(import.meta.env.VITE_APP_SERVERURL + 'Images/shelterImage', {
     method: "POST",
@@ -107,7 +111,7 @@ export default function Register() {
           <AddImage getImage={setImage} {...methods} style={{ top: "-5vh", right: '-5vh' }} />
           <ShelterForm {...methods} />
           <br />
-          <AddressForm {...methods} methods={methods}/>
+          <AddressForm {...methods} methods={methods} />
         </>;
       case 2:
         return <CellsForm {...methods} />;
@@ -123,10 +127,6 @@ export default function Register() {
   } = methods;
 
   const watchRoutine = watch();
-
-  // useEffect(() => {
-  //   console.log(watchRoutine)
-  // })
 
   console.log('errors', errors)
   const submit = async (data) => {
@@ -235,9 +235,11 @@ export default function Register() {
             </Button>}
 
           </Box>}
+          
         </form>
 
       </FormStyle>
+
 
     </BackgroundLayout >
   )
