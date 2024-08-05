@@ -34,6 +34,7 @@ export default function SignIn() {
     }).then((res) => res.json())
     .then((data) => {
       if (data && data.password === inputPassword) {
+        localStorage.setItem("VolunteerObj", JSON.stringify(data));
         navigate(`/Employees/dogslist/${data.shelterNumber}`);
       } else {
         setAlertMessage("מספר פלאפון או סיסמא שגויים.");

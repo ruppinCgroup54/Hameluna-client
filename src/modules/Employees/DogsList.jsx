@@ -11,7 +11,7 @@ export default function DogsList() {
 
   const cells = useLoaderData();
   console.log(cells);
-  
+  const Volunteer = JSON.parse(localStorage.getItem("VolunteerObj")); 
   const dogsToRender = [];
 
   for (let i = 0; i < cells.length; i++) {
@@ -29,6 +29,8 @@ export default function DogsList() {
         <div>
           <TopbarEmp></TopbarEmp>
         </div>
+        
+        
         <div style={{
           padding: "50px 0",
           display: "flex",
@@ -39,6 +41,9 @@ export default function DogsList() {
           margin: "auto",
           paddingTop: "100px",
         }}>
+          {/* <h2 style={{ color: "white", marginTop: "5px", fontFamily: "sans-serif"}}>
+        היי {Volunteer.firstName}
+                    </h2> */}
           {dogsToRender}
         </div>
       </BackgroundLayout>
