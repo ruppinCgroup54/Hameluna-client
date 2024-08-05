@@ -53,6 +53,7 @@ export default function ChacklistComp({ dogsId, onSubmit }) {
     ];
     console.log(result);
     onSubmit(result);
+    
   };
 
   return (

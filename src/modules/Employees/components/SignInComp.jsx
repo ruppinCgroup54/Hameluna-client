@@ -28,7 +28,7 @@ export default function SignIn() {
     let phone = data.get("phone");
     let inputPassword = data.get("password");
 
-    fetch(import.meta.env.VITE_APP_SERVERURL/+"Volunteers/"+phone, {
+    fetch(import.meta.env.VITE_APP_SERVERURL+"Volunteers/"+phone, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }).then((res) => res.json())
