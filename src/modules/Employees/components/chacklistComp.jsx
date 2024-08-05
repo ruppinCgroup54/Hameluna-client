@@ -8,12 +8,13 @@ import { useState } from 'react';
 import dayjs from 'dayjs';
 import useFetch from '../../../utilis/useFetch';
 import { useParams } from 'react-router-dom';
+import { Restaurant } from '@mui/icons-material';
 
 export default function ChacklistComp({ dogsId, onSubmit }) {
-  const {shelterId} = JSON.parse(localStorage.getItem("shelterId"));
+  const { shelterId } = JSON.parse(localStorage.getItem("shelterId"));
 
   const items = useFetch(import.meta.env.VITE_APP_SERVERURL + "DailyRoutines/shelter/" + shelterId);
-  
+
   const [checked, setChecked] = useState([]);
   const [notes, setNotes] = useState('');
 
@@ -45,21 +46,41 @@ export default function ChacklistComp({ dogsId, onSubmit }) {
     const result = [
       { key: "מזהה כלב", value: dogsId },
       { key: "תאריך", value: dayjs().format('YYYY-MM-DD') },
-      ...!items.loading&&items.value.map((question, index) => ({
+      { key: "הערות", value: notes },
+      ...!items.loading && items.value.map((question, index) => ({
         key: question,
         value: checked.includes(index.toString()) ? 1 : 0
-      })),
-      { key: "הערות", value: notes }
+      }))
+
     ];
+
+    const volPhoneNumber = JSON.parse(localStorage.getItem("VolunteerObj"));
+
+    const dailyRoutine = {
+      routineId: 0,
+      fillDate: result[1].value,
+      note: result[2].value,
+      dogNumberId: result[0].value,
+      volunteerPhoneNumber: volPhoneNumber.phone,
+      shelterNumber: volPhoneNumber.shelterNumber,
+      dogExceptions: [
+        {
+          routineId: 0,
+          itemId: 0,
+          isOk: true,
+          isHandled: true
+        }
+      ]
+    }
     console.log(result);
     onSubmit(result);
-    
+
   };
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <List sx={{ width: '100%', maxWidth: 360, bgcolor: '#EADCCF' }}>
-        {!items.loading&&items.value.map((question, index) => (
+        {!items.loading && items.value.map((question, index) => (
           <ListItem key={index}>
             <ListItemText primary={question} />
             <Switch
