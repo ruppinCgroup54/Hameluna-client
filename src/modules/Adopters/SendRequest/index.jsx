@@ -81,12 +81,15 @@ export default function SendRequest() {
       set(ref(db, 'requests/' + dog.shelterNumber + '/' + data.requestId), data);
 
       RemoveFromFavorites({ numberId: dog.numberId });
-      navigate(-1);
+
+      setAlert({open:true,message:"בקשה נשלחה בהצלחה",type:"success",color:"success",closeFunc:()=>navigate(-1)});
+
+      
 
 
     }
     const errorPostRequest = (err) => {
-      setAlert({open:true,message:err});
+      setAlert({open:true,message:err,type:"error",color:"error",closeFunc:()=>setAlert({open:false})});
     }
     postFetch("AdoptionRequests", data, sucPostRequest, errorPostRequest)
 
@@ -169,10 +172,10 @@ export default function SendRequest() {
           שלח פרטים
         </Button>
         <AlertComp
-          handleClose={() => setAlert({open:false})}
+          handleClose={Alert.closeFunc}
           isOpen={Alert.open}
-          type="error"
-          color="error"
+          type={Alert.type}
+          color={Alert.color}
           text={Alert.message}
         />
       </form>
