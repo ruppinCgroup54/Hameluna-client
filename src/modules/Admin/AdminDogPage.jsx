@@ -9,15 +9,17 @@ import { useLoaderData, useLocation } from 'react-router-dom'
 import useImageURL from '../../utilis/useImageURL'
 import useFetch from '../../utilis/useFetch'
 import FallbackElement from '../../components/FallbackElement'
+import { object } from 'prop-types'
 
 
 export default function AdminDogPage() {
 
-  // const { state } = useLocation();
-
-  // const { dog } = state;
-
-  // const dogNew = useFetch(import.meta.env.VITE_APP_SERVERURL + 'dogs/' + dog.numberId)
+  const getStatus={
+    '':'ממתין לאימוץ',
+    'pending':'בקשה בהמתנה',
+    'trail periode':'תקופת ניסיון',
+    'adopted':'אומץ'
+  }
 
   const dogNew = useLoaderData();
 
@@ -38,12 +40,12 @@ export default function AdminDogPage() {
 
             <Box sx={{ position: 'relative', marginBottom: '15vw' }}>
 
-              <AddImage style={{ top: "0", right: '50%', translate: '50%' }} defaultImg={useImageURL(dogNew.profileImage)} />
+              <AddImage style={{ top: "0",left:0, translate: '50%' }} defaultImg={useImageURL(dogNew.profileImage)} />
             </Box>
             <Typography variant='h4' textAlign={'center'} fontWeight={'bold'}>{dogNew.name}</Typography>
             <Typography variant='h6' textAlign={'center'} fontWeight={'bold'}>סטטוס אימוץ</Typography>
             {/* need to ad the phase of adoption */}
-            <StepperComponnent options={["pending", "trial period", "adopted"]} currentStep={"pending"} />
+            <StepperComponnent options={Object.values(getStatus)} currentStep={"pending"} />
             <Button variant='contained' color='primary' >פרסם כלב</Button>
           </Box>
         </Grid>

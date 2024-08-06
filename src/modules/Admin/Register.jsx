@@ -108,7 +108,7 @@ export default function Register() {
         return <AdminForm {...methods} />;
       case 1:
         return <>
-          <AddImage getImage={setImage} {...methods} style={{ top: "-5vh", right: '-5vh' }} />
+          <AddImage getImage={setImage} {...methods} style={{ top: "-5vh", right: '-5vh', "& .dogImage":{width:'13vw',height:'13vw'} }} />
           <ShelterForm {...methods} />
           <br />
           <AddressForm {...methods} methods={methods} />

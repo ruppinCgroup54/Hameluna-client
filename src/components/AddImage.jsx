@@ -23,6 +23,7 @@ export default function AddImage({ getImage = () => { }, style = {}, defaultImg 
         <Box onClick={handleImage} sx={{ position: 'absolute', top: '-60px', left: '-90px', cursor: 'pointer', ...style }}>
             <Box sx={{ position: 'relative' }}>
                 <Avatar
+                className="dogImage"
                     src={src != img && src!==defaultImg ? URL.createObjectURL(src) : src}
                     sx={{
                         width: '15vw',
