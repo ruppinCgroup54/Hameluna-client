@@ -44,7 +44,7 @@ export default function SignUpComp({ shelters }) {
       setOpenAlert(true);
       return;
     }
-
+    
     fetch(`${import.meta.env.VITE_APP_SERVERURL}Volunteers/${signInDat.phone}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
