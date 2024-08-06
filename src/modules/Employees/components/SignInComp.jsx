@@ -28,12 +28,13 @@ export default function SignIn() {
     let phone = data.get("phone");
     let inputPassword = data.get("password");
 
-    fetch(import.meta.env.VITE_APP_SERVERURL/+"Volunteers/"+phone, {
+    fetch(import.meta.env.VITE_APP_SERVERURL+"Volunteers/"+phone, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }).then((res) => res.json())
     .then((data) => {
       if (data && data.password === inputPassword) {
+        localStorage.setItem("VolunteerObj", JSON.stringify(data));
         navigate(`/Employees/dogslist/${data.shelterNumber}`);
       } else {
         setAlertMessage("מספר פלאפון או סיסמא שגויים.");

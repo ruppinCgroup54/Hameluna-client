@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button, Box, TextField, Select, MenuItem, Collapse, Alert, AlertTitle } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-// סגנונות מותאמים לשדות טקסט
 const StyledTextfield = {
   bgcolor: "rgba(255,255,255,0.7)",
   borderRadius: "7px",
