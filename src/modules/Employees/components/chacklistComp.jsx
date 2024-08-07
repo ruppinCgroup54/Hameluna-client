@@ -14,7 +14,7 @@ export default function ChacklistComp({ dogsId, onSubmit }) {
   const { shelterId } = JSON.parse(localStorage.getItem("shelterId"));
 
   const items = useFetch(import.meta.env.VITE_APP_SERVERURL + "DailyRoutines/shelter/" + shelterId);
-
+ 
   const [checked, setChecked] = useState([]);
   const [notes, setNotes] = useState('');
 
@@ -44,35 +44,26 @@ export default function ChacklistComp({ dogsId, onSubmit }) {
 
   const handleSubmit = () => {
     const result = [
-      { key: "מזהה כלב", value: dogsId },
-      { key: "תאריך", value: dayjs().format('YYYY-MM-DD') },
-      { key: "הערות", value: notes },
       ...!items.loading && items.value.map((question, index) => ({
-        key: question,
-        value: checked.includes(index.toString()) ? 1 : 0
+        routineId: 0,
+        itemId: question.itemID,
+        isOk: checked.includes(index.toString()),
+        isHandled: false
       }))
-
     ];
 
-    const volPhoneNumber = JSON.parse(localStorage.getItem("VolunteerObj"));
+    const volDet = JSON.parse(localStorage.getItem("VolunteerObj"));
 
     const dailyRoutine = {
       routineId: 0,
-      fillDate: result[1].value,
-      note: result[2].value,
-      dogNumberId: result[0].value,
-      volunteerPhoneNumber: volPhoneNumber.phone,
-      shelterNumber: volPhoneNumber.shelterNumber,
-      dogExceptions: [
-        {
-          routineId: 0,
-          itemId: 0,
-          isOk: true,
-          isHandled: true
-        }
-      ]
+      fillDate: dayjs().format('YYYY-MM-DD'),
+      note: notes,
+      dogNumberId: dogsId,
+      volunteerPhoneNumber: volDet.phoneNumber,
+      shelterNumber: volDet.shelterId,
+      dogExceptions: result
     }
-    console.log(result);
+    console.log(dailyRoutine);
     onSubmit(result);
 
   };
@@ -81,8 +72,8 @@ export default function ChacklistComp({ dogsId, onSubmit }) {
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <List sx={{ width: '100%', maxWidth: 360, bgcolor: '#EADCCF' }}>
         {!items.loading && items.value.map((question, index) => (
-          <ListItem key={index}>
-            <ListItemText primary={question} />
+          <ListItem key={question.itemID}>
+            <ListItemText primary={question.item} />
             <Switch
               edge="end"
               onChange={handleToggle(index.toString())}
