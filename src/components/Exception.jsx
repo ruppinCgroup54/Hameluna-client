@@ -7,7 +7,7 @@ import { getDatabase, ref, set } from "firebase/database";
 import useShelterContext from "../utilis/useShelterContext";
 
 export default function Exception({ exc, close }) {
-    const date = new Date(exc.fillDate).toLocaleDateString('en-GB');
+    const date = new Date(exc.FillDate).toLocaleDateString('en-GB');
     const navigate = useNavigate();
     const { loginDet } = useShelterContext();
     const db = getDatabase();
@@ -17,19 +17,10 @@ export default function Exception({ exc, close }) {
         navigate("/admin/shelter/reportPage/");
     };
 
-    const errPutExc = async (txt, status) => {
-        if (status = 404) {
-            set(ref(db, 'exceptions/' + loginDet.shelterNumber + '/' + exc.routineId + '_' + exc.itemId), null);
-        }
-    };
-
-    const sucPutExc = () => {
-        set(ref(db, 'exceptions/' + loginDet.shelterNumber + '/' + exc.routineId + '_' + exc.itemId), null);
-    };
 
     const completeExc = () => {
-        exc.isHandled = false;
-        putFetch('DailyRoutines/routineId/' + exc.routinId + '/itemId/' + exc.itemId, exc, sucPutExc, errPutExc);
+        exc.IsHandled = true;
+        putFetch('DailyRoutines/shelter/'+ loginDet.shelterNumber +'/routineId/' + exc.RoutineId + '/itemId/' + exc.ItemId, exc);
     }
     return (
         <>
@@ -38,10 +29,10 @@ export default function Exception({ exc, close }) {
                     <ListItemText
                         disableTypography={true}
                         onClick={toReport}
-                        primary={"חריגה חדשה מאת " + exc.volunteerName}
+                        primary={"חריגה חדשה מאת " + exc.VolunteerName}
                         secondary={
                             <>
-                                <Typography variant="subtitle2">{exc.dogName + " לא " + exc.routineItem}</Typography>
+                                <Typography variant="subtitle2">{exc.DogName + " לא " + exc.RoutineItem}</Typography>
                                 <Typography variant="caption">{date}</Typography>
                             </>
                         }

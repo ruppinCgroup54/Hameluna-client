@@ -14,8 +14,12 @@ export default function Request({ req, close }) {
     const { loginDet } = useShelterContext();
     const db = getDatabase();
 
+
+
     const sAdoption = () => {
         close();
+
+
         navigate("/admin/shelter/whosHome/adoption", { state: { request: req } });
     };
 
@@ -51,7 +55,7 @@ export default function Request({ req, close }) {
                             </>
                         }
                     />
-                    <IconButton onClick={() => deleteRequest(req.requestId)}>
+                    <IconButton onClick={() => deleteRequest(req.RequestId)}>
                         <DeleteForeverOutlinedIcon color="error"></DeleteForeverOutlinedIcon>
                     </IconButton>
                 </ListItemButton>
