@@ -8,17 +8,15 @@ import { Style } from '@mui/icons-material';
 import { useState } from 'react';
 import dayjs from 'dayjs';
 
-export default function DateInput({ label, setVal }) {
+export default function DateInput({ label, setVal,defaultVal = dayjs('') }) {
     const theme = useTheme();
 
-    const [value, setValue] = useState(dayjs(''))   
+    const [value, setValue] = useState(defaultVal)   
 
     const handleChange = (e) =>{
         // setValue(dayjs(newValue));
         var date = new Date(e);
-        var finaldate = date.getDate() + '-' +  (date.getMonth() + 1)  + '-' +  date.getFullYear();
         setVal(date.toISOString());
-        console.log('dateeee', date.toISOString());
     }
     return (
         <Box sx={{width:'100%'}}>

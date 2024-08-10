@@ -14,6 +14,7 @@ import { Textinput } from '../../../components/Textinput';
 import DogData from './DogData';
 import DogImages from './DogImages';
 import DogFiles from './DogFiles';
+import { DogExeptions } from './DogExeptions';
 
 const StyleTabs = styled(Tabs)(({ theme }) => ({
   borderBottom: '1px solid #e8e8e8',
@@ -56,7 +57,7 @@ export default function DogProfileDetailes({dog}) {
       component: <DogData dog={dog}/>
     }, {
       name: 'חריגות',
-      component: <Textinput />
+      component: <DogExeptions dog={dog} />
     }, {
       name: 'תמונות',
       component: <DogImages dog={dog}/>
