@@ -10,6 +10,8 @@ import { Edit, Save } from '@mui/icons-material';
 import useFetch, { DEFAULT_OPTIONS } from '../../../utilis/useFetch';
 import { set } from 'firebase/database';
 import DateInput from '../../../components/DateInput';
+import { DateTimeInput } from '../../../components/DateTimeInput';
+import dayjs from 'dayjs';
 
 export default function DogData({ dog }) {
 
@@ -93,13 +95,13 @@ export default function DogData({ dog }) {
 
     return filedsToShow.map((f, i) => {
 
-      // if (f.isDate) {
-      //   return <DateInput label={f.name} />
+      if (f.isDate) {
+        return <DateTimeInput key={i} {...methods} label={f.label} defaultValue={dog[f.name]} name={f.name} disabled={isReadOnly} 
+                      disablePast={false} isDateOnly={true}/>
 
-      // }
+      }
 
       if (f.isDropDown) {
-        console.log('f.data', f.data)
         return <AutocompleteInput key={i} {...methods} label={f.label} name={f.name} data={f.data} isMulti={f.isMulti} disabled={isReadOnly} />
       }
 
@@ -140,14 +142,17 @@ export default function DogData({ dog }) {
         "&>.MuiTextField-root, &>.MuiAutocomplete-root,&>.MuiBox-root": { width: '22%' },
       }}>
         {renderFileds()}
-        <Box sx={{ width: 1, textAlign: 'center' }}>
-          {!isReadOnly ?
-            <Button sx={{ fontSize: '20px', flexGrow: 1 }} type='submit' endIcon={!isLoading ? <Save /> : <CircularProgress />} variant='contained' >שמירה </Button>
-            :
-            <Button sx={{ fontSize: '20px' }} onClick={() => setIsReadOnly(false)} endIcon={<Edit />} variant='contained'>עריכה</Button>}
+        {!isReadOnly &&
+          <Box sx={{ width: 1, textAlign: 'center' }}>
 
-        </Box>
+            <Button sx={{ fontSize: '20px' }} type='submit' endIcon={!isLoading ? <Save /> : <CircularProgress />} variant='contained' >שמירה </Button>
+          </Box>}
       </Box>
+      {isReadOnly &&
+        <Box sx={{ width: 1, textAlign: 'center' }}>
+
+          <Button sx={{ fontSize: '20px' }} type='button' onClick={() => setIsReadOnly(false)} endIcon={<Edit />} variant='contained'>עריכה</Button>
+        </Box>}
       {/* <Box sx={{ width: 1, textAlign: 'center' }}>
         {isReadOnly &&
           <Button sx={{ fontSize: '20px' }} onClick={() => setIsReadOnly(false)} endIcon={<Edit />} variant='contained'>עריכה</Button>

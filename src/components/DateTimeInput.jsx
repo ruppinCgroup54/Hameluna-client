@@ -10,27 +10,29 @@ import 'dayjs/locale/en-gb';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import { deDE } from '@mui/x-date-pickers/locales';
 import dayjs from 'dayjs';
+import { Textinput } from './Textinput';
 
 
 
-export const DateTimeInput =({defaultValue, label, control, name  }) =>{
+export const DateTimeInput = ({ defaultValue, label, control, name, disabled = false,disablePast=true,isDateOnly=false }) => {
 
-  
+
 
     dayjs.extend(utc);
     dayjs.extend(timezone);
-
+    console.log('defaultValue', defaultValue)
     return (
         <Box sx={{ width: '100%' }}>
             <FormControl
                 sx={{
-                    width:'100%',
-                    "& .MuiStack-root>.MuiTextField-root":{minWidth:'0'},
+                    width: '100%',
+                    "& .MuiStack-root>.MuiTextField-root": { minWidth: '0' },
                     top: '-7px',
                     "& .MuiOutlinedInput-notchedOutline": {
                         borderRadius: '20px',
-                        border:theme=> `2px solid ${theme.palette.primary.main}`
+                        border: theme => `2px solid ${theme.palette.primary.main}`
                     },
+
                     "& .MuiSvgIcon-root": {
                         color: 'primary.main'
                     }
@@ -39,35 +41,46 @@ export const DateTimeInput =({defaultValue, label, control, name  }) =>{
                 <Controller
                     name={name}
                     control={control}
-                    defaultValue={defaultValue}
                     render={({ field: { onChange, ...restField } }) =>
 
 
                         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='en-gb'>
                             <DemoContainer components={['DateTimePicker']}>
                                 <DateTimePicker label={label}
-                                    disablePast={ true}
+                                    defaultValue={dayjs(defaultValue)}
+                                    disabled={disabled}
+                                    disablePast={disablePast}
+                                    views={isDateOnly? ['day','month','year']:['year', 'month', 'day', 'hours', 'minutes']}
                                     timezone='Asia/Jerusalem'
-                                    onChange={(date)=> onChange(date)}
+                                    onChange={(date) => onChange(date)}
                                     slots={{
-                                      leftArrowIcon:()=><KeyboardArrowRight/>,
-                                      rightArrowIcon:()=><KeyboardArrowLeft/>
+                                        textField: Textinput,
+                                        leftArrowIcon: () => <KeyboardArrowRight />,
+                                        rightArrowIcon: () => <KeyboardArrowLeft />
                                     }}
                                     slotProps={{
-                                       layout:{
-                                       sx:{ ['.MuiMultiSectionDigitalClock-root']:{
-                                          flexDirection:'row-reverse'
-                                        }}
-                                       }
-                                       }}
+                                        textField: {
+                                            size: 'small',
+                                        },
+                                        layout: {
+                                            sx: {
+                                                ['.MuiMultiSectionDigitalClock-root']: {
+                                                    flexDirection: 'row-reverse'
+                                                }
+                                            }
+                                        },
+
+                                    }}
                                     sx={{
                                         width: '100%',
                                         backgroundColor: '#fff',
                                         borderRadius: '20px',
                                         "& .MuiFormLabel-root": {
                                             fontSize: '14px'
-                                        },
-                                       
+                                        }
+
+
+
 
                                     }} />
                             </DemoContainer>
