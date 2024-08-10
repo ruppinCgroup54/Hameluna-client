@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { update } from '@react-spring/web';
 import { DEFAULT_OPTIONS } from '../../../utilis/useFetch';
 import AlertComp from '../../../components/AlertComp';
+import { convertKeysToLowercase } from '../../../utilis/Helper';
 
 
 const AdopterFields = [
@@ -60,14 +61,9 @@ const UpdateAdoptionRequest = async (data) => {
 export default function AdoptionForm({ defaultRequest, setOpenModal }) {
 const [openError, setOpenError] = useState(false)
 
+defaultRequest.adopter=convertKeysToLowercase(defaultRequest.adopter)
 
-for (const key in defaultRequest.adopter) {
-  defaultRequest.adopter[key.charAt(0).toLowerCase()+key.substring(1)] = defaultRequest.adopter[key];
-}
-
-for (const key in defaultRequest.adopter.address) {
-  defaultRequest.adopter.address[key.charAt(0).toLowerCase()+key.substring(1)] = defaultRequest.adopter.address[key];
-}
+defaultRequest.adopter.address =convertKeysToLowercase(defaultRequest.adopter.address)
 
   const methods = useForm({
     defaultValues: defaultRequest,

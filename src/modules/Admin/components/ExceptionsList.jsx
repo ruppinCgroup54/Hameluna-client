@@ -5,6 +5,7 @@ import { app } from "../../../../FirebaseConfig";
 import { useEffect, useState } from "react";
 import useShelterContext from "../../../utilis/useShelterContext";
 import Exception from "../../../components/Exception";
+import { convertKeysToLowercase } from "../../../utilis/Helper";
 
 
 export default function ExceptionsList({ close = () => { }, setBadge = () => { } }) {
@@ -19,7 +20,7 @@ export default function ExceptionsList({ close = () => { }, setBadge = () => { }
         onValue(exceptionsRef, (snapshot) => {
             const data = snapshot.val();
             const exceptionsList = data ? Object.values(data) : [];
-            setExceptions(exceptionsList);
+            setExceptions(convertKeysToLowercase(exceptionsList));
             console.log('first', exceptionsList)
             setBadge(exceptionsList.length);
         });

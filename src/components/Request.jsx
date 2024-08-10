@@ -24,12 +24,12 @@ export default function Request({ req, close }) {
     };
 
     const sucDeleteReq = async (id) => {
-        set(ref(db, 'requests/' + loginDet.shelterNumber + '/' + req.requestId), null);
+        // set(ref(db, 'requests/' + loginDet.shelterNumber + '/' + req.requestId), null);
     };
 
     const errDeleteReq = (message, status) => {
         if (status === 404) {
-            set(ref(db, 'requests/' + loginDet.shelterNumber + '/' + req.requestId), null);
+            // set(ref(db, 'requests/' + loginDet.shelterNumber + '/' + req.requestId), null);
 
         }
         alert(JSON.stringify(message));
