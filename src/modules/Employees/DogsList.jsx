@@ -14,14 +14,17 @@ export default function DogsList() {
   const Volunteer = JSON.parse(localStorage.getItem("VolunteerObj")); 
   const dogsToRender = [];
 
-  for (let i = 0; i < cells.length; i++) {
-    let dogis = cells[i].dogsInCell;
-
-    for (let c = 0; c < dogis.length; c++) {
-      let dog = <CardComp key={dogis[c].numberId} dogsName={dogis[c].name} cell={cells[i].number} age={dogis[c].age} image1={useImageURL(dogis[c].profileImage)} dogId={dogis[c].numberId} />
-      dogsToRender.push(dog);
+  if (cells != undefined) {
+    for (let i = 0; i < cells.length; i++) {
+      let dogis = cells[i].dogsInCell;
+  
+      for (let c = 0; c < dogis.length; c++) {
+        let dog = <CardComp key={dogis[c].numberId} dogsName={dogis[c].name} cell={cells[i].number} age={dogis[c].age} image1={useImageURL(dogis[c].profileImage)} dogId={dogis[c].numberId} />
+        dogsToRender.push(dog);
+      }
     }
   }
+
 
   return (
     <>

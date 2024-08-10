@@ -33,9 +33,10 @@ export default function SignIn() {
       headers: { "Content-Type": "application/json" },
     }).then((res) => res.json())
     .then((data) => {
+      debugger
       if (data && data.password === inputPassword) {
         localStorage.setItem("VolunteerObj", JSON.stringify(data));
-        navigate(`/Employees/dogslist/${data.shelterNumber}`);
+        navigate(`/Employees/dogslist/${data.shelterId}`);
       } else {
         setAlertMessage("מספר פלאפון או סיסמא שגויים.");
         setOpenAlert(true);

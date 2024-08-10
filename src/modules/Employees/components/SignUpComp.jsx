@@ -36,14 +36,14 @@ export default function SignUpComp({ shelters }) {
       password: data.get("password"),
       shelterId: selectedShelterId,
     };
-
+    
     // בדיקת התאמה בין הסיסמאות
     if (signInDat.password !== data.get("conPassword")) {
       setAlertMessage("הסיסמא ואימות הסיסמא אינן זהות");
       setOpenAlert(true);
       return;
     }
-
+    
     fetch(`${import.meta.env.VITE_APP_SERVERURL}Volunteers/${signInDat.phone}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
