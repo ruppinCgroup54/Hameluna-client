@@ -40,8 +40,14 @@ export default function AdoptionPage() {
   
   let { dog, request } = state;
 
-  dog = (dog === undefined ? request.dog : dog)
+  dog = (dog === undefined ? request.Dog : dog)
   
+
+  for (const key in dog) {
+    dog[key.charAt(0).toLowerCase()+key.substring(1)] = dog[key];
+  }
+
+
   const navigate = useNavigate()
   
   let defaultRequest = request ? request : {

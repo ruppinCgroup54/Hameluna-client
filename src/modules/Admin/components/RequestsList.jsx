@@ -10,8 +10,7 @@ export default function RequestsList({close=()=>{}, setBadge=()=>{}}) {
     const [requests, setRequests] = useState([]);
     const {loginDet} = useShelterContext();
     const db = getDatabase();
-    // const dbRef = ref(db, "requests/1");
-    // const snapshot = await get(dbRef);
+
 
 
     useEffect(() => {
@@ -37,7 +36,7 @@ export default function RequestsList({close=()=>{}, setBadge=()=>{}}) {
             boxShadow:(theme)=>theme.shadows[7],
             overflow:'scroll'
         }}>
-            {requests.map((r,i) => <Box key={r.requestId}><Request  req={r} close={close}/>{i!=requests.length-1&&<Divider />}</Box>)}
+            {requests.map((r,i) => <Box key={r.RequestId}><Request  req={r} close={close}/>{i!=requests.length-1&&<Divider />}</Box>)}
         </List>
     )
 }
