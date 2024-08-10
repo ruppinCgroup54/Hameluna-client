@@ -17,19 +17,10 @@ export default function Exception({ exc, close }) {
         navigate("/admin/shelter/reportPage/");
     };
 
-    const errPutExc = async (txt, status) => {
-        if (status = 404) {
-            console.log('txt', txt);
-        }
-    };
-
-    const sucPutExc = () => {
-        console.log('txt', txt);
-    };
 
     const completeExc = () => {
         exc.IsHandled = true;
-        putFetch('DailyRoutines/shelter/'+ loginDet.ShelterNumber +'/routineId/' + exc.RoutineId + '/itemId/' + exc.ItemId, exc, sucPutExc, errPutExc);
+        putFetch('DailyRoutines/shelter/'+ loginDet.shelterNumber +'/routineId/' + exc.RoutineId + '/itemId/' + exc.ItemId, exc);
     }
     return (
         <>

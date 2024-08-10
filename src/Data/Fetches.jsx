@@ -32,7 +32,7 @@ export const deleteFetch = async (api, id, success, error) => {
     });
 };
 
-export const putFetch = async (api, data, success, error) => {
+export const putFetch = async (api, data, success=()=>{}, error=()=>{}) => {
     fetch(url + api, {
         method: "PUT",
         headers: { "Content-Type": "application/json", dataType: "json" },
