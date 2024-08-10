@@ -120,8 +120,6 @@ export default function DogData({ dog }) {
 
   const submit = async (data) => {
 
-    console.log('data12', data)
-
     const res = await fetch(import.meta.env.VITE_APP_SERVERURL + 'dogs/' + dog.numberId, {
       method: "PUT",
       ...DEFAULT_OPTIONS,
@@ -134,24 +132,26 @@ export default function DogData({ dog }) {
       setIsReadOnly(true)
     }
   }
-  console.log('errors', errors)
+
   return (
     <>
       <Box component={'form'} onSubmit={handleSubmit(submit)} sx={{
         display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', rowGap: '5vh', height: '70%', marginTop: '5vh', alignItems: 'center',
         "&>.MuiTextField-root, &>.MuiAutocomplete-root,&>.MuiBox-root": { width: '22%' },
-        // "& *.Mui-disabled ": { WebkitTextFillColor:'black', borderColor:(theme)=>theme.palette.primary.main }
       }}>
         {renderFileds()}
         <Box sx={{ width: 1, textAlign: 'center' }}>
-          {!isReadOnly &&
-            <Button sx={{ fontSize: '20px' }} type='submit' endIcon={!isLoading ? <Save /> : <CircularProgress />} variant='contained' >שמירה </Button>}
-            </Box>
+          {!isReadOnly ?
+            <Button sx={{ fontSize: '20px', flexGrow: 1 }} type='submit' endIcon={!isLoading ? <Save /> : <CircularProgress />} variant='contained' >שמירה </Button>
+            :
+            <Button sx={{ fontSize: '20px' }} onClick={() => setIsReadOnly(false)} endIcon={<Edit />} variant='contained'>עריכה</Button>}
+
+        </Box>
       </Box>
-      <Box sx={{ width: 1, textAlign: 'center' }}>
+      {/* <Box sx={{ width: 1, textAlign: 'center' }}>
         {isReadOnly &&
           <Button sx={{ fontSize: '20px' }} onClick={() => setIsReadOnly(false)} endIcon={<Edit />} variant='contained'>עריכה</Button>
-        }</Box>
+        }</Box> */}
     </>
 
   )
