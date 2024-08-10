@@ -13,7 +13,6 @@ export default function Cell({ cellItem }) {
   const {setTriggerFetch} = useShelterContext();
   const navigate = useNavigate();
   const dogs = cellItem.dogsInCell;
-  const passDaily = 0;
 
   const { active } = useDraggable({
     id: '888',
@@ -43,7 +42,7 @@ export default function Cell({ cellItem }) {
             position: 'relative',
             cursor: 'pointer',
             //maxWidth:'185px',
-            bgcolor: `${dogs.length > passDaily ? "rgba(240,22,22,0.2)" : "primary.main"
+            bgcolor: `${dogs.length > cellItem.sumPassDaily ? "rgba(240,22,22,0.2)" : "primary.main"
               }`,
             height: "160px",
             borderRadius: "10px",
@@ -51,7 +50,7 @@ export default function Cell({ cellItem }) {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            color: `${dogs.length > passDaily ? "#000" : "#fff"}`,
+            color: `${dogs.length > cellItem.sumPassDaily ? "#000" : "#fff"}`,
             boxShadow: (theme) => theme.shadows[10]
           }}
         >
@@ -59,7 +58,7 @@ export default function Cell({ cellItem }) {
           <Typography sx={{ fontSize: "20px" }}>
             מס' כלבים: {dogs.length}/{cellItem.capacity}
             <br />
-            סטטוס שגרה: {passDaily}/{dogs.length}
+            סטטוס שגרה: {cellItem.sumPassDaily}/{dogs.length}
           </Typography>
           <Box sx={{
             position: 'absolute',
@@ -76,6 +75,7 @@ export default function Cell({ cellItem }) {
                     top: '50%',
                     right: '50%',
                     transform: `translate(${(i + 1) * -125}%,-50%)`,
+                    color: '#000'
                   }}
                 >
                   <Grow in={open} timeout={(i + 1) * 1000}>
@@ -85,6 +85,8 @@ export default function Cell({ cellItem }) {
                         sx={{
                           width: '7vw',
                           height: '7vw',
+                          border: `${d.passDailyRoutin ? '5px solid #7CFC00' : '5px solid red'}`
+                          
                         }}
                         src={useImageURL(d.profileImage)}
                       ></Avatar>
