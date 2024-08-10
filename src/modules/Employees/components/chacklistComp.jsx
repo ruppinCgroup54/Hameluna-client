@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import useFetch from '../../../utilis/useFetch';
 import { useParams } from 'react-router-dom';
 import { Restaurant } from '@mui/icons-material';
+import { postFetch } from '../../../Data/Fetches';
 
 export default function ChacklistComp({ dogsId, onSubmit }) {
   const { shelterId } = JSON.parse(localStorage.getItem("shelterId"));
@@ -35,13 +36,6 @@ export default function ChacklistComp({ dogsId, onSubmit }) {
     setNotes(event.target.value);
   };
 
-  // const queryArr = [
-  //   "האם יצא לטיול?",
-  //   "האם עשה צרכים?",
-  //   "האם אכל ושתה?",
-  //   "האם נראה חיוני?"
-  // ];
-
   const handleSubmit = () => {
     const result = [
       ...!items.loading && items.value.map((question, index) => ({
@@ -66,6 +60,15 @@ export default function ChacklistComp({ dogsId, onSubmit }) {
     console.log(dailyRoutine);
     onSubmit(result);
 
+    const suc = (data) => {
+      console.log('gooddd', data)
+    };
+    const err = (data) => {
+      console.log('errorrrrr', data)
+    };
+
+    postFetch('DailyRoutines', dailyRoutine, suc, err);
+    
   };
 
   return (
