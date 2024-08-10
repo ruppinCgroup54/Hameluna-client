@@ -10,10 +10,12 @@ import useFetch from '../../../utilis/useFetch';
 import { useParams } from 'react-router-dom';
 import { Restaurant } from '@mui/icons-material';
 import { postFetch } from '../../../Data/Fetches';
+import AlertComp from '../../../components/AlertComp';
 
-export default function ChacklistComp({ dogsId, onSubmit }) {
+export default function ChacklistComp({ dogsId, onSubmit, openCheck }) {
   const { shelterId } = JSON.parse(localStorage.getItem("shelterId"));
 
+  const [openErr, setOpenErr] = useState(false);
   const items = useFetch(import.meta.env.VITE_APP_SERVERURL + "DailyRoutines/shelter/" + shelterId);
  
   const [checked, setChecked] = useState([]);
@@ -61,10 +63,11 @@ export default function ChacklistComp({ dogsId, onSubmit }) {
     onSubmit(result);
 
     const suc = (data) => {
-      console.log('gooddd', data)
+      openCheck(false);
+    
     };
     const err = (data) => {
-      console.log('errorrrrr', data)
+      setOpenErr(true);
     };
 
     postFetch('DailyRoutines', dailyRoutine, suc, err);
@@ -97,6 +100,7 @@ export default function ChacklistComp({ dogsId, onSubmit }) {
       <Button variant="contained" sx={{ marginTop: 2 }} onClick={handleSubmit}>
         שלח
       </Button>
+      <AlertComp handleClose={()=>{setOpenErr(false)}} isOpen={openErr} type='error' color='error' text={'שליחה נכשלה.'}></AlertComp>
     </Box>
   );
 }

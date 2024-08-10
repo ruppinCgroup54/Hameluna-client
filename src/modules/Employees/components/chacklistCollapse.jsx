@@ -4,7 +4,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Chcklcomp from "./chacklistComp";
 import { Box } from '@mui/material';
 
-export default function ChacklistCollapse({ dogsID, onComplete }) {
+export default function ChacklistCollapse({ dogsID, onComplete, openChecklist }) {
 
   const handleSubmit = (result) => {
     console.log(result);
@@ -15,7 +15,7 @@ export default function ChacklistCollapse({ dogsID, onComplete }) {
     <Box sx={{ width: '100%' ,borderRadius:3}}>
       <Accordion defaultExpanded sx={{ width: '100%',backgroundColor: '#EADCCF', borderRadius: 9 }}>
         <AccordionDetails sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-          <Chcklcomp dogsId={dogsID} onSubmit={handleSubmit} />
+          <Chcklcomp dogsId={dogsID} onSubmit={handleSubmit} openCheck={openChecklist}/>
         </AccordionDetails>
       </Accordion>
     </Box>

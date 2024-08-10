@@ -44,9 +44,6 @@ export default function DogsList() {
           margin: "auto",
           paddingTop: "100px",
         }}>
-          {/* <h2 style={{ color: "white", marginTop: "5px", fontFamily: "sans-serif"}}>
-        היי {Volunteer.firstName}
-                    </h2> */}
           {dogsToRender}
         </div>
       </BackgroundLayout>
