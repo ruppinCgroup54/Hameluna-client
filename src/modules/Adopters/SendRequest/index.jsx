@@ -78,7 +78,7 @@ export default function SendRequest() {
 
 
       const db = getDatabase();
-      set(ref(db, 'requests/' + dog.shelterNumber + '/' + data.requestId), data);
+      // set(ref(db, 'requests/' + dog.shelterNumber + '/' + data.requestId), data);
 
       RemoveFromFavorites({ numberId: dog.numberId });
 

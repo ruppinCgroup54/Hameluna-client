@@ -7,9 +7,9 @@ import { getDatabase, ref, set } from "firebase/database";
 import useShelterContext from "../utilis/useShelterContext";
 
 export default function Request({ req, close }) {
-    const fullName = req.adopter.firstName + " " + req.adopter.lastName;
-    const dog = req.dog.name;
-    const date = new Date(req.sendDate).toLocaleDateString('en-GB');
+    const fullName = req.Adopter.FirstName + " " + req.Adopter.LastName;
+    const dog = req.Dog.Name;
+    const date = new Date(req.SendDate).toLocaleDateString('en-GB');
     const navigate = useNavigate();
     const { loginDet } = useShelterContext();
     const db = getDatabase();
