@@ -59,6 +59,16 @@ const UpdateAdoptionRequest = async (data) => {
 
 export default function AdoptionForm({ defaultRequest, setOpenModal }) {
 const [openError, setOpenError] = useState(false)
+
+
+for (const key in defaultRequest.adopter) {
+  defaultRequest.adopter[key.charAt(0).toLowerCase()+key.substring(1)] = defaultRequest.adopter[key];
+}
+
+for (const key in defaultRequest.adopter.address) {
+  defaultRequest.adopter.address[key.charAt(0).toLowerCase()+key.substring(1)] = defaultRequest.adopter.address[key];
+}
+
   const methods = useForm({
     defaultValues: defaultRequest,
     resolver: zodResolver(adoptionRequestSchema),

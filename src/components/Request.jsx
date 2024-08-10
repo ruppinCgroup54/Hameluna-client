@@ -19,6 +19,7 @@ export default function Request({ req, close }) {
     const sAdoption = () => {
         close();
 
+
         navigate("/admin/shelter/whosHome/adoption", { state: { request: req } });
     };
 

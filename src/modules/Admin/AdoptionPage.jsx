@@ -47,6 +47,7 @@ export default function AdoptionPage() {
     dog[key.charAt(0).toLowerCase()+key.substring(1)] = dog[key];
   }
 
+ 
 
   const navigate = useNavigate()
   
@@ -58,7 +59,9 @@ export default function AdoptionPage() {
   }
 
   defaultRequest.status = "trial period";
-
+  for (const key in defaultRequest) {
+    defaultRequest[key.charAt(0).toLowerCase()+key.substring(1)] = defaultRequest[key];
+  }
 
   return (
     <>
