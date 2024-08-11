@@ -15,7 +15,7 @@ export const ToDoGroup = ({ title, date }) => {
 
   const [trigger, setTrigger] = useState(0)
 
-  const todos = useFetch(import.meta.env.VITE_APP_SERVERURL + `ToDos/shelter/${loginDet.shelterNumber}/date/${date}`, {}, [trigger])
+  const todos = useFetch(import.meta.env.VITE_APP_SERVERURL + `ToDos/shelter/${loginDet.shelterNumber}/date/${dayjs(date).format('YYYY-MM-DD')}`, {}, [trigger])
 
 
 
@@ -49,7 +49,7 @@ ToDoGroup.Calender = ({ date }) => {
 
   const [modalData, setModalData] = useState(null)
 
-  const todos = useFetch(import.meta.env.VITE_APP_SERVERURL + `ToDos/shelter/${loginDet.shelterNumber}/date/${date}`)
+  const todos = useFetch(import.meta.env.VITE_APP_SERVERURL + `ToDos/shelter/${loginDet.shelterNumber}/date/${dayjs(date).format('YYYY-MM-DD')}`)
 
   let numOnButton = todos.value?.length - 2
 

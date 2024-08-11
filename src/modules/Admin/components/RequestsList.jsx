@@ -4,6 +4,7 @@ import { get, getDatabase, onValue, ref } from "firebase/database";
 import { app } from "../../../../FirebaseConfig";
 import { useEffect, useState } from "react";
 import useShelterContext from "../../../utilis/useShelterContext";
+import { convertKeysToLowercase } from "../../../utilis/Helper";
 
 
 export default function RequestsList({close=()=>{}, setBadge=()=>{}}) {
@@ -19,7 +20,7 @@ export default function RequestsList({close=()=>{}, setBadge=()=>{}}) {
         onValue(requestsRef, (snapshot) => {
           const data = snapshot.val();
           const requestsList = data ? Object.values(data) : [];
-          setRequests(requestsList);
+          setRequests(convertKeysToLowercase( requestsList));
           console.log('first', requestsList)
           setBadge(requestsList.length);
         });
@@ -36,7 +37,7 @@ export default function RequestsList({close=()=>{}, setBadge=()=>{}}) {
             boxShadow:(theme)=>theme.shadows[7],
             overflow:'scroll'
         }}>
-            {requests.map((r,i) => <Box key={r.RequestId}><Request  req={r} close={close}/>{i!=requests.length-1&&<Divider />}</Box>)}
+            {requests.map((r,i) => <Box key={r.requestId}><Request  req={r} close={close}/>{i!=requests.length-1&&<Divider />}</Box>)}
         </List>
     )
 }

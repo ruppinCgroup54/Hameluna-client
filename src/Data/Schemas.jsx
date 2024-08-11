@@ -13,9 +13,9 @@ export const dogSchema = z.object({
   "adopted": z.boolean(),
   "isReturned": z.boolean(),
   "cellId": z.number(),
-  "color": z.array(z.string()),
-  "breed": z.array(z.string()),
-  "attributes": z.array(z.string()),
+  "color": z.array(z.string()).default([""]),
+  "breed": z.array(z.string()).default([""]),
+  "attributes": z.array(z.string()).default([""]),
   "profileImage": z.string(),
   "shelterNumber":z.number(),
   "note":z.string()

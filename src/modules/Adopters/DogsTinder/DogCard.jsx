@@ -101,7 +101,7 @@ export default function DogCard({ dog ,handleSwipeClose=()=>{}, handleSwipeAddDo
     const shareData = {
     title: dog.name,
     text: dog.name + " שלנו לאימוץ !",
-    url: document.location.origin+'/dogs/'+dog.numberId,
+    url: document.location.origin+'/#/dog/'+dog.numberId,
   };
     try {
       await navigator.share(shareData);

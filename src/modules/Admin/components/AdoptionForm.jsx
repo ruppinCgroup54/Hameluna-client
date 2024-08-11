@@ -59,6 +59,7 @@ const UpdateAdoptionRequest = async (data) => {
 }
 
 export default function AdoptionForm({ defaultRequest, setOpenModal }) {
+
 const [openError, setOpenError] = useState(false)
 
 defaultRequest.adopter=convertKeysToLowercase(defaultRequest.adopter)
@@ -79,11 +80,10 @@ defaultRequest.adopter.address =convertKeysToLowercase(defaultRequest.adopter.ad
 
   const formData = watch();
 
-  useEffect(() => {
-    console.log('formData', formData)
-  }, [formData])
-
   const submitForm = async (data) => {
+    console.log('formData', formData)
+
+    data.dog.isAdopted=true;
 
     const requestAns = defaultRequest.requestId === -1 ? await createNewAdoptionRequest(data) : await UpdateAdoptionRequest(data);
 
@@ -121,7 +121,6 @@ defaultRequest.adopter.address =convertKeysToLowercase(defaultRequest.adopter.ad
           <Textinput
             size='small'
             xs={3}
-            // onBlur={fetchAdpterData}
             {...register("adopter.phoneNumber", {
               onBlur: (e) => (defaultRequest.adopter?.phoneNumber === undefined && getUser(e))
             })}

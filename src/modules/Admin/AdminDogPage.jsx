@@ -1,20 +1,15 @@
 import { Box, Button, CircularProgress, Grid, Modal, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import AddImage from '../../components/AddImage'
-import { position } from 'stylis'
-import { to } from '@react-spring/web'
 import StepperComponnent from '../../components/StepperComponnent'
 import DogProfileDetailes from './components/DogProfileDetailes'
-import { useLoaderData, useLocation } from 'react-router-dom'
+import { useLoaderData, useRevalidator } from 'react-router-dom'
 import useImageURL from '../../utilis/useImageURL'
-import useFetch from '../../utilis/useFetch'
 import FallbackElement from '../../components/FallbackElement'
-import { object } from 'prop-types'
 import { postFetch, putFetch } from '../../Data/Fetches'
 import { FormStyle } from './components/ModalAddDog'
 import { Textinput } from '../../components/Textinput'
-import DogImages from './components/DogImages'
-import { update } from 'firebase/database'
+
 
 
 export default function AdminDogPage() {
@@ -23,13 +18,16 @@ export default function AdminDogPage() {
 
   const [loading, setLoading] = useState(false)
 
+  let revalidator = useRevalidator();
+
   const getStatus = {
     '': 'ממתין לאימוץ',
     'pending': 'בקשה בהמתנה',
-    'trail periode': 'תקופת ניסיון',
+    'trial period': 'תקופת ניסיון',
     'adopted': 'אומץ'
   }
   const dogNew = useLoaderData();
+  
 
   const [status, setStatus] = useState("");
 
@@ -69,10 +67,18 @@ export default function AdminDogPage() {
 
   }
 
+const noteSucc =()=>{
+  setOpen(false);
+  revalidator.revalidate()
+}
+
   const handlePublish = ()=>{
     console.log('dognew', dogNew)
-    putFetch('Dogs/' + dogNew.numberId, dogNew,()=>setOpen(false),(err)=>alert(err))
+    dogNew.isAdoptable=true;
+    putFetch('Dogs/' + dogNew.numberId, dogNew,noteSucc,(err)=>alert(err))
   }
+
+
 
   return (
     <Grid sx={{
@@ -94,7 +100,7 @@ export default function AdminDogPage() {
               <Typography variant='h4' textAlign={'center'} fontWeight={'bold'}>{dogNew.name}</Typography>
               <Typography variant='h6' textAlign={'center'} fontWeight={'bold'}>סטטוס אימוץ</Typography>
               {/* need to ad the phase of adoption */}
-              <StepperComponnent options={Object.values(getStatus)} currentStep={getStatus[status]} />
+             { dogNew.isAdoptable ? <StepperComponnent options={Object.values(getStatus)} currentStep={getStatus[status]} />:
               <Box sx={{ m: 1, position: 'relative' }}>
                 <Button
                   variant="contained"
@@ -116,7 +122,7 @@ export default function AdminDogPage() {
                     }}
                   />
                 )}
-              </Box>
+              </Box>}
             </Box>
           </Grid>
           <Grid item xs={9.5}>

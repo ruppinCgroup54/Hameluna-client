@@ -11,18 +11,18 @@ import { Box, Modal } from '@mui/material';
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
 import { ToDoGroup } from '../../../components/ToDoGroup';
+import useShelterContext from '../../../utilis/useShelterContext';
 
 
 const initialValue = dayjs();
 
 function ServerDay(props) {
   const { countTodos = [], day, outsideCurrentMonth, ...other } = props;
-
   const count = countTodos.filter(item => dayjs(item.dayInMonth).diff(day, 'd') == 0)[0];
 
   return (
     <Box
-      key={props.day.toString()}
+      key={dayjs(day).toISOString()}
       sx={{
         padding: '5px',
         width: 'calc(100% / 7)',
@@ -51,7 +51,7 @@ function ServerDay(props) {
 
         </PickersDay>
       </Badge>
-      <ToDoGroup.Calender date={day.locale('he').toISOString()} />
+      <ToDoGroup.Calender date={ dayjs(day).toISOString()} />
     </Box>
   );
 }
@@ -65,6 +65,7 @@ export default function TodoCalendar() {
 
   const weekdays = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת']
 
+  const { loginDet } = useShelterContext()
 
 
   dayjs.extend(utc)
@@ -77,8 +78,8 @@ export default function TodoCalendar() {
   const [isLoading, setIsLoading] = useState(false);
   const [countTodos, setCountToDos] = useState([]);
 
-  const fetchHighlightedDays = () => {
-    fetch(import.meta.env.VITE_APP_SERVERURL + 'ToDos/counts/shelter/1/date/2024-07-07')
+  const fetchHighlightedDays = (date) => {
+    fetch(import.meta.env.VITE_APP_SERVERURL + 'ToDos/counts/shelter/'+loginDet.shelterNumber+'/date/'+dayjs(date).format('YYYY-MM-DD'))
       .then((res) => {
         if (res.ok) {
           return res.json()
@@ -91,6 +92,8 @@ export default function TodoCalendar() {
       .then((data) => {
         setIsLoading(false)
         setCountToDos(data)
+      }).catch(()=>{
+        setIsLoading(false)
       })
   };
 
