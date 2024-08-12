@@ -13,6 +13,7 @@ import { update } from '@react-spring/web';
 import { DEFAULT_OPTIONS } from '../../../utilis/useFetch';
 import AlertComp from '../../../components/AlertComp';
 import { convertKeysToLowercase } from '../../../utilis/Helper';
+import useShelterContext from '../../../utilis/useShelterContext';
 
 
 const AdopterFields = [
@@ -50,7 +51,7 @@ const createNewAdoptionRequest = async (data) => {
 
 const UpdateAdoptionRequest = async (data) => {
 
-  return await fetch(requestUrl + "", {
+  return await fetch(requestUrl+"/" + data.requestId, {
     ...DEFAULT_OPTIONS,
     method: "PUT",
     body: JSON.stringify(data)
@@ -61,6 +62,8 @@ const UpdateAdoptionRequest = async (data) => {
 export default function AdoptionForm({ defaultRequest, setOpenModal }) {
 
 const [openError, setOpenError] = useState(false)
+
+const {setTriggerFetch}=useShelterContext();
 
 defaultRequest.adopter=convertKeysToLowercase(defaultRequest.adopter)
 
@@ -86,9 +89,9 @@ defaultRequest.adopter.address =convertKeysToLowercase(defaultRequest.adopter.ad
     data.dog.isAdopted=true;
 
     const requestAns = defaultRequest.requestId === -1 ? await createNewAdoptionRequest(data) : await UpdateAdoptionRequest(data);
-
     if (requestAns.ok) {
-      const ans = await requestAns.json();
+      // const ans = await requestAns.json();
+      setTriggerFetch(prev=>prev+1);
       setOpenModal();
     }
     else {
@@ -100,17 +103,22 @@ defaultRequest.adopter.address =convertKeysToLowercase(defaultRequest.adopter.ad
   }
   const getUser = async (e) => {
     console.log('e', e)
-    const res = await fetch(import.meta.env.VITE_APP_SERVERURL + "adopters/"+e.currentTarget.value);
+    const res = await fetch(import.meta.env.VITE_APP_SERVERURL + `AdoptionRequests/adopter/${e.currentTarget.value}/dog/${defaultRequest.dog.numberId}/`);
     if (res.ok) {
       const ans = await res.json();
       
       console.log('res', ans)
-      setValue("adopter", ans, {
+      setValue("adopter", ans.adopter, {
         shouldDirty: true,
         shouldValidate:true
-      })
+      })     
+       setValue("sendDate", ans.sendDate)
+       setValue("requestId", ans.requestId)
+       setValue("dog", ans.dog)
     }
   }
+
+  console.log('watch()', watch())
 
   return (
     <FormStyle sx={{ width: '100%', height: '100%', margin: 0, backgroundColor: '#D9D9D9' }}>
