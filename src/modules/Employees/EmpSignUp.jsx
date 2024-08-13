@@ -1,6 +1,6 @@
 import BackgroundLayout from "../../layouts/BackgroundLayout";
 import * as React from 'react';
-import bcgImg from "../../assets/images/Layouts/background.png"
+const bcgImg = "images/Layouts/background.png"
 import TopBarMobile from "./components/TopbarEmp";
 import SignIn from "../../components/SignIn";
 import SignUpComp from "./components/SignUpComp";
@@ -14,8 +14,8 @@ const phoneStyle = {
 };
 export default function EmpSignUp() {
 
-      const shelters = useLoaderData();
-        console.log(shelters);
+    const shelters = useLoaderData();
+    console.log(shelters);
 
     return (
         <BackgroundLayout image={bcgImg} style={{ display: "block" }}>
@@ -32,10 +32,10 @@ export default function EmpSignUp() {
                     <h2 style={{ color: "white", marginTop: "5px" }}>
                         ברוכים הבאים
                     </h2>
-                    <h3 style={{ color: "white" , marginTop:-3,}}>כמה פרטים ומתחילים</h3>
+                    <h3 style={{ color: "white", marginTop: -3, }}>כמה פרטים ומתחילים</h3>
                 </div>
                 <div>
-<SignUpComp shelters={shelters}></SignUpComp>
+                    <SignUpComp shelters={shelters}></SignUpComp>
                 </div>
             </div>
         </BackgroundLayout>

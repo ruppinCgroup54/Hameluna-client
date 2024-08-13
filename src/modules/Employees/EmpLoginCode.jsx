@@ -1,6 +1,6 @@
 import BackgroundLayout from "../../layouts/BackgroundLayout";
 import * as React from 'react';
-import bcgImg from "../../assets/images/Layouts/background.png"
+const bcgImg = "images/Layouts/background.png";
 import TopBarMobile from "./components/TopbarEmp";
 import SignIn from "../../components/SignIn";
 import SignInComp from "./components/SignInComp";
@@ -29,11 +29,6 @@ export default function EmpLogin() {
         flexDirection: "column",
         marginTop: "70px",
       }}>
-        {/* <Logo.Full style={logoTextStyle} /> */}
-        {/* <div>
-        <h2 style={{ color: "white", marginTop: "5px" }}>
-ברוכים הבאים!                    </h2>
-        </div> */}
         <div>
 
           <h1>הזן את הקוד</h1>
