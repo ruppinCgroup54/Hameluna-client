@@ -1,6 +1,6 @@
 import BackgroundLayout from "../../layouts/BackgroundLayout";
 import * as React from 'react';
-import bcgImg from "../../assets/images/Layouts/background.png"
+const bcgImg = "images/Layouts/background.png";
 import TopBarMobile from "./components/TopbarEmp";
 // import SignIn from "../../components/SignIn";
 import SignInComp from "./components/SignInComp";
@@ -33,15 +33,8 @@ export default function EmpLogin() {
       <TopBarMobile.woLogo></TopBarMobile.woLogo>
       <div style={divStyle}>
         <Logo.Full style={logoTextStyle} />
-        {/* <div>
-        <h2 style={{ color: "white", marginTop: "5px" }}>
-ברוכים הבאים!                    </h2>
-        </div> */}
         <div>
           <SignInComp></SignInComp>
-          {/* <SignInComp.phoneCode></SignInComp.phoneCode> */}
-          {/* <SmsCodeInput></SmsCodeInput> */}
-          {/* <SignInComp.code></SignInComp.code> */}
         </div>
       </div>
     </BackgroundLayout>

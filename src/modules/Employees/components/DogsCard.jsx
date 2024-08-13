@@ -59,15 +59,6 @@ export default function MediaCard({ dog }) {
     return <CancelIcon sx={{ color: red[300] }} />;
   }
 
-//   function checkCalevet(date){
-//     let att=7;
-// if((getDate(Today)-date)<365){
-//   att=1;
-// }
-// else att=0;
-
-// return bulliAttribue(att);
-//   }
   
   const attributes = [
     { label: "גיל", value: dog.age },

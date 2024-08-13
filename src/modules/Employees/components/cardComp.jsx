@@ -93,7 +93,7 @@ export default function CardComp({ image1, cell, dogsName, dogId }) {
                 '&:hover': { backgroundColor: 'primary.light' },
                 maxHeight: 50,
                 width: '90%',
-                fontSize: 11
+                fontSize: 15
               }} onClick={() => setOpen(prev => !prev)}>
                 {(completed || routine?.value?.routineId!==0) ? (
                   <CheckCircleIcon sx={{ position: "relative", right: 15 }} />
