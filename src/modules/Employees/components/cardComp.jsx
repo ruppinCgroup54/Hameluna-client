@@ -14,6 +14,8 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useTheme } from '@emotion/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import useFetch from '../../../utilis/useFetch';
 
 export default function CardComp({ image1, cell, dogsName, dogId }) {
   const theme = useTheme();
@@ -24,6 +26,10 @@ export default function CardComp({ image1, cell, dogsName, dogId }) {
   const handleComplete = () => {
     setCompleted(true);
   };
+
+  const routine = useFetch(import.meta.env.VITE_APP_SERVERURL + "DailyRoutines/today/" + dogId,{},[completed]);
+  console.log('routine', routine)
+
 
   return (
     <>
@@ -89,7 +95,7 @@ export default function CardComp({ image1, cell, dogsName, dogId }) {
                 width: '90%',
                 fontSize: 11
               }} onClick={() => setOpen(prev => !prev)}>
-                {completed ? (
+                {(completed || routine?.value?.routineId!==0) ? (
                   <CheckCircleIcon sx={{ position: "relative", right: 15 }} />
                 ) : (
                   <RadioButtonUncheckedIcon sx={{ position: "relative", right: 15 }} />
@@ -101,8 +107,8 @@ export default function CardComp({ image1, cell, dogsName, dogId }) {
         </CardActionArea>
       </Card>
       <Collapse in={open} sx={{ width: '85%', margin: 'auto', mt: -1, backgroundColor: '#EADCCF', borderRadius: 6 }}>
-        <ChacklistCollapse dogsID={dogId} onComplete={handleComplete} openChecklist={setOpen}/>
+        <ChacklistCollapse dogsID={dogId} onComplete={handleComplete} openChecklist={setOpen} routine={routine}/>
       </Collapse>
     </> 
-  );
+  )
 }

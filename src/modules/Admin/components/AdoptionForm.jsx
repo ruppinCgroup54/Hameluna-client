@@ -51,7 +51,7 @@ const createNewAdoptionRequest = async (data) => {
 
 const UpdateAdoptionRequest = async (data) => {
 
-  return await fetch(requestUrl+"/" + data.requestId, {
+  return await fetch(requestUrl + "/" + data.requestId, {
     ...DEFAULT_OPTIONS,
     method: "PUT",
     body: JSON.stringify(data)
@@ -61,13 +61,13 @@ const UpdateAdoptionRequest = async (data) => {
 
 export default function AdoptionForm({ defaultRequest, setOpenModal }) {
 
-const [openError, setOpenError] = useState(false)
+  const [openError, setOpenError] = useState(false)
 
-const {setTriggerFetch}=useShelterContext();
+  const { setTriggerFetch } = useShelterContext();
 
-defaultRequest.adopter=convertKeysToLowercase(defaultRequest.adopter)
+  defaultRequest.adopter = convertKeysToLowercase(defaultRequest.adopter)
 
-defaultRequest.adopter.address =convertKeysToLowercase(defaultRequest.adopter.address)
+  defaultRequest.adopter.address = convertKeysToLowercase(defaultRequest.adopter.address)
 
   const methods = useForm({
     defaultValues: defaultRequest,
@@ -78,7 +78,7 @@ defaultRequest.adopter.address =convertKeysToLowercase(defaultRequest.adopter.ad
     handleSubmit,
     register,
     setValue,
-    formState: { errors ,dirtyFields}
+    formState: { errors, dirtyFields }
   } = methods;
 
   const formData = watch();
@@ -86,35 +86,55 @@ defaultRequest.adopter.address =convertKeysToLowercase(defaultRequest.adopter.ad
   const submitForm = async (data) => {
     console.log('formData', formData)
 
-    data.dog.isAdopted=true;
+    data.dog.isAdopted = true;
+    debugger
 
-    const requestAns = defaultRequest.requestId === -1 ? await createNewAdoptionRequest(data) : await UpdateAdoptionRequest(data);
+    const requestAns = data.requestId === -1 ? await createNewAdoptionRequest(data) : await UpdateAdoptionRequest(data);
     if (requestAns.ok) {
       // const ans = await requestAns.json();
-      setTriggerFetch(prev=>prev+1);
+      setTriggerFetch(prev => prev + 1);
       setOpenModal();
     }
     else {
-      if (requestAns.status===409) {
+      if (requestAns.status === 409) {
         setOpenError(true)
       }
+
+
     }
 
   }
   const getUser = async (e) => {
     console.log('e', e)
-    const res = await fetch(import.meta.env.VITE_APP_SERVERURL + `AdoptionRequests/adopter/${e.currentTarget.value}/dog/${defaultRequest.dog.numberId}/`);
+
+    const adopterPhone = e.currentTarget.value;
+
+    const res = await fetch(import.meta.env.VITE_APP_SERVERURL + `AdoptionRequests/adopter/${adopterPhone}/dog/${defaultRequest.dog.numberId}/`);
     if (res.ok) {
       const ans = await res.json();
-      
       console.log('res', ans)
       setValue("adopter", ans.adopter, {
         shouldDirty: true,
-        shouldValidate:true
-      })     
-       setValue("sendDate", ans.sendDate)
-       setValue("requestId", ans.requestId)
-       setValue("dog", ans.dog)
+        shouldValidate: true
+      })
+      setValue("sendDate", ans.sendDate)
+      setValue("requestId", ans.requestId)
+      setValue("dog", ans.dog)
+    }
+    else {
+      const getAdopter = await fetch(import.meta.env.VITE_APP_SERVERURL + `Adopters/${adopterPhone}`);
+      if (getAdopter.ok) {
+        const ansAdopter = await getAdopter.json();
+debugger
+        setValue("adopter", ansAdopter, {
+          shouldDirty: true,
+          shouldValidate: true
+        })
+
+      }
+
+
+
     }
   }
 
@@ -145,7 +165,7 @@ defaultRequest.adopter.address =convertKeysToLowercase(defaultRequest.adopter.ad
             error={!!errors.adopter?.firstName}
             helperText={errors.adopter?.firstName?.message}
             InputLabelProps={{
-              shrink:dirtyFields.adopter?.firstName
+              shrink: dirtyFields.adopter?.firstName
             }}
           />
         </Grid>
@@ -158,7 +178,7 @@ defaultRequest.adopter.address =convertKeysToLowercase(defaultRequest.adopter.ad
             error={!!errors.adopter?.lastName}
             helperText={errors.adopter?.lastName?.message}
             InputLabelProps={{
-              shrink:dirtyFields.adopter?.lastName
+              shrink: dirtyFields.adopter?.lastName
             }}
           />
         </Grid>
@@ -171,7 +191,7 @@ defaultRequest.adopter.address =convertKeysToLowercase(defaultRequest.adopter.ad
             error={!!errors.adopter?.email}
             helperText={errors.adopter?.email?.message}
             InputLabelProps={{
-              shrink:dirtyFields.adopter?.email
+              shrink: dirtyFields.adopter?.email
             }}
           />
         </Grid>
@@ -188,7 +208,7 @@ defaultRequest.adopter.address =convertKeysToLowercase(defaultRequest.adopter.ad
             error={!!errors.adopter?.dateOfBirth}
             helperText={errors.adopter?.dateOfBirth?.message}
             InputLabelProps={{
-              shrink:dirtyFields.adopter?.dateOfBirth
+              shrink: dirtyFields.adopter?.dateOfBirth
             }}
           />
         </Grid>
@@ -208,7 +228,7 @@ defaultRequest.adopter.address =convertKeysToLowercase(defaultRequest.adopter.ad
             error={!!errors.adopter?.note}
             helperText={errors.adopter?.note?.message}
             InputLabelProps={{
-              shrink:dirtyFields.adopter?.note
+              shrink: dirtyFields.adopter?.note
             }}
           />
         </Grid>
@@ -236,7 +256,7 @@ defaultRequest.adopter.address =convertKeysToLowercase(defaultRequest.adopter.ad
           <Button variant='contained' type='submit' sx={{ width: '100px' }} >סיום</Button>
         </Grid>
       </Grid>
-      <AlertComp isOpen={openError} color={'warning'} text={"פרטי משתמש שגויים"} type='error'  handleClose={()=>setOpenError(false)}/>
+      <AlertComp isOpen={openError} color={'warning'} text={"פרטי משתמש שגויים"} type='error' handleClose={() => setOpenError(false)} />
     </FormStyle>
   )
 }

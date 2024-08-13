@@ -220,7 +220,7 @@ export default function NavBarAdmin() {
             </Grid>
             <Grid item xs={1} sx={{ mt: '10px', cursor: 'pointer' }} onClick={exit}>
               <div>
-                <p>התנתקות</p>
+                <p style={{textAlign:'center'}}>התנתקות</p>
               </div>
             </Grid>
           </Grid>

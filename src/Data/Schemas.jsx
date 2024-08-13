@@ -45,7 +45,7 @@ const addressSchema = z.object({
   city: z.string(),
   streetName: z.string(),
   houseNumber: z.coerce.number(),
-  "region": z.string()
+  "region": z.string().default("")
 }).nullable()
 
 const cellSchema = z.object({

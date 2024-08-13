@@ -11,28 +11,39 @@ import { useParams } from 'react-router-dom';
 import { Restaurant } from '@mui/icons-material';
 import { postFetch } from '../../../Data/Fetches';
 import AlertComp from '../../../components/AlertComp';
+import { useEffect } from 'react';
 
-export default function ChacklistComp({ dogsId, onSubmit, openCheck }) {
+export default function ChacklistComp({ dogsId, onSubmit, openCheck, routine }) {
   const { shelterId } = JSON.parse(localStorage.getItem("shelterId"));
 
   const [openErr, setOpenErr] = useState(false);
   const items = useFetch(import.meta.env.VITE_APP_SERVERURL + "DailyRoutines/shelter/" + shelterId);
  
-  const [checked, setChecked] = useState([]);
+  const [checked, setChecked] = useState({});
   const [notes, setNotes] = useState('');
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+  const handleToggle = (itemId, value) => {
 
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
+    const newChecked = {...checked, [itemId] : value};
 
     setChecked(newChecked);
   };
+
+useEffect(() => {
+
+if (!routine.loading) {
+
+  let checkedObj={};
+
+  routine.value.dogExceptions.map(({itemId,isOk})=>{
+    checkedObj[itemId] = isOk;
+  })
+
+  setChecked(checkedObj);
+}
+
+}, [routine])
+
 
   const handleNotesChange = (event) => {
     setNotes(event.target.value);
@@ -43,7 +54,7 @@ export default function ChacklistComp({ dogsId, onSubmit, openCheck }) {
       ...!items.loading && items.value.map((question, index) => ({
         routineId: 0,
         itemId: question.itemID,
-        isOk: checked.includes(index.toString()),
+        isOk: checked[question.itemID],
         isHandled: false
       }))
     ];
@@ -82,8 +93,8 @@ export default function ChacklistComp({ dogsId, onSubmit, openCheck }) {
             <ListItemText primary={question.item} />
             <Switch
               edge="end"
-              onChange={handleToggle(index.toString())}
-              checked={checked.includes(index.toString())}
+              onChange={(e)=>handleToggle(question.itemID, e.currentTarget.checked)}
+              checked={checked[question.itemID]}
             />
           </ListItem>
         ))}

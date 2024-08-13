@@ -50,7 +50,7 @@ export default function DogsId() {
             {/* <AvatarList></AvatarList> */}
             
             </div>
-          </BackgroundLayout>;
+          </BackgroundLayout>
 </>
     );
     

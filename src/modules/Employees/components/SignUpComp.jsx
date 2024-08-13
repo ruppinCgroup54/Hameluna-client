@@ -29,7 +29,7 @@ export default function SignUpComp({ shelters }) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     let signInDat = {
-      phone: data.get("EmpPhone"),
+      phoneNumber: data.get("EmpPhone"),
       email: data.get("EmpEmail"),
       firstName: data.get("EmpFIName"),
       lastName: data.get("EmpLName"),
