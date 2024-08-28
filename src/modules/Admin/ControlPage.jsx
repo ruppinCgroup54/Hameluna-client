@@ -1,7 +1,7 @@
 import Cell from "./components/Cell";
 
 import { Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { ShelterContext } from "../../context/ShelterContextProvider";
 import useShelterContext from "../../utilis/useShelterContext";
@@ -25,6 +25,8 @@ export default function ControlPage() {
       },
     }),
   );
+
+  const navigate = useNavigate();
 
   const bImg ='images/Layouts/RequestBackground.png'
 
@@ -57,7 +59,10 @@ export default function ControlPage() {
           </Box>
           <Grid container width={"63%"} display={"flex"} rowSpacing={1} height={"100%"}>
             <Grid item md={12} display={"flex"} justifyContent={"space-between"}>
-              <Typography variant="h5">הכלבייה שלנו</Typography>
+              <Typography variant="h5">הכלבייה שלנו
+                <Button onClick={()=>navigate("/")}>לאתר המאמצים</Button>
+                <Button onClick={()=>navigate("/employees")} >למילוי שגרה</Button>
+              </Typography>
               <Typography variant="h5">סה"כ כלבים: {dogs?.length}</Typography>
             </Grid>
             <Grid item md={12}>

@@ -78,7 +78,7 @@ export const pathes = [
     path: "/admin/shelter/reportPage/",
     element: <ReportsPage />,
     id: "חריגות"
-  },
+  }
 ];
 
 export const adminRouts = [

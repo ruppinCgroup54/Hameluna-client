@@ -94,7 +94,8 @@ export default function NavBarAdmin() {
             {/* לשנות צבע רקע לאייטם בהתאם לנתיב הדף */}
             <Grid
               item
-              xs={8}
+              xs={2}
+              md={8}
               pr={5}
               sx={{ display: { xs: "none", md: "block" } }}
             >
@@ -132,7 +133,7 @@ export default function NavBarAdmin() {
               </Box>
             </Grid>
 
-            <Grid item xs={1}>
+            <Grid item xs={5} md={1}>
               <Box
                 sx={{
                   gap: "15px",
@@ -218,7 +219,7 @@ export default function NavBarAdmin() {
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={1} sx={{ mt: '10px', cursor: 'pointer' }} onClick={exit}>
+            <Grid item xs={5} md={1} sx={{ mt: '10px', cursor: 'pointer' }} onClick={exit}>
               <div>
                 <p style={{textAlign:'center'}}>התנתקות</p>
               </div>

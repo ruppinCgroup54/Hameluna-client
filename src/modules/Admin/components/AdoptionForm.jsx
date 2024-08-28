@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { adoptionRequestSchema } from '../../../Data/Schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormStyle } from './ModalAddDog';
-import { Autocomplete, Box, Button, Checkbox, FormControlLabel, Grid, Typography } from '@mui/material';
+import { Autocomplete, Box, Button, Checkbox, CircularProgress, FormControlLabel, Grid, Typography } from '@mui/material';
 import AddressForm from './AddressForm';
 import AutocompleteInput from '../../../components/AutocompleteInput';
 import { EmailOutlined, MarkEmailRead, MarkEmailUnreadOutlined, Print, PrintOutlined } from '@mui/icons-material';
@@ -14,6 +14,7 @@ import { DEFAULT_OPTIONS } from '../../../utilis/useFetch';
 import AlertComp from '../../../components/AlertComp';
 import { convertKeysToLowercase } from '../../../utilis/Helper';
 import useShelterContext from '../../../utilis/useShelterContext';
+import useImageURL from '../../../utilis/useImageURL';
 
 
 const AdopterFields = [
@@ -61,7 +62,7 @@ const UpdateAdoptionRequest = async (data) => {
 
 export default function AdoptionForm({ defaultRequest, setOpenModal }) {
 
-  const [openError, setOpenError] = useState(false)
+  const [openError, setOpenError] = useState({ open: false, text: "" })
 
   const { setTriggerFetch } = useShelterContext();
 
@@ -78,7 +79,7 @@ export default function AdoptionForm({ defaultRequest, setOpenModal }) {
     handleSubmit,
     register,
     setValue,
-    formState: { errors, dirtyFields }
+    formState: { errors, dirtyFields, isSubmitting }
   } = methods;
 
   const formData = watch();
@@ -87,17 +88,40 @@ export default function AdoptionForm({ defaultRequest, setOpenModal }) {
     console.log('formData', formData)
 
     data.dog.isAdopted = true;
-    debugger
+
 
     const requestAns = data.requestId === -1 ? await createNewAdoptionRequest(data) : await UpdateAdoptionRequest(data);
     if (requestAns.ok) {
       // const ans = await requestAns.json();
+      if (formData.mail) {
+        await fetch(import.meta.env.VITE_APP_SERVERURL + `Mail`, {
+          ...DEFAULT_OPTIONS,
+          method: "POST",
+          body: JSON.stringify(data)
+        }).then(res => {
+          if (!res.ok) {
+            setOpenError({ open: true, text: "אופס, לא הצלחנו לשלוח את התעודה" })
+
+          }
+        })
+      }
+
+      if (formData.print) {
+
+        let pdfw = window.open(useImageURL(`Files/${data.dog.shelterNumber}/${data.dog.numberId}_${data.dog.name}_אימוץ.pdf`), '_blank', 'fullscreen=1,channelmode=1,status=1,resizable=1');
+        pdfw.onload=()=>window.print();
+        pdfw.focus();
+       // you need to call print after window loads like this
+  
+
+      }
+
       setTriggerFetch(prev => prev + 1);
       setOpenModal();
     }
     else {
       if (requestAns.status === 409) {
-        setOpenError(true)
+        setOpenError({ open: true, text: "פרטי משתמש שגויים" })
       }
 
 
@@ -125,7 +149,6 @@ export default function AdoptionForm({ defaultRequest, setOpenModal }) {
       const getAdopter = await fetch(import.meta.env.VITE_APP_SERVERURL + `Adopters/${adopterPhone}`);
       if (getAdopter.ok) {
         const ansAdopter = await getAdopter.json();
-debugger
         setValue("adopter", ansAdopter, {
           shouldDirty: true,
           shouldValidate: true
@@ -237,6 +260,7 @@ debugger
             <FormControlLabel
               control={
                 <Checkbox
+                  {...register("mail")}
                   icon={<EmailOutlined />}
                   checkedIcon={<MarkEmailRead />}
                 />
@@ -246,6 +270,8 @@ debugger
             <FormControlLabel
               control={
                 <Checkbox
+                  {...register("print")}
+
                   icon={<PrintOutlined />}
                   checkedIcon={<Print />}
                 />
@@ -253,10 +279,32 @@ debugger
               label="הדפסת תעודה"
             />
           </Box>
-          <Button variant='contained' type='submit' sx={{ width: '100px' }} >סיום</Button>
+          <Box sx={{ m: 1, position: 'relative' }}>
+            <Button
+              variant="contained"
+              type='submit'
+              disabled={isSubmitting}
+              sx={{ width: '100px' }}
+            >
+              סיום
+            </Button>
+            {isSubmitting && (
+              <CircularProgress
+                size={24}
+                sx={{
+                  color: 'primary.light',
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  marginTop: '-12px',
+                  marginLeft: '-12px',
+                }}
+              />
+            )}
+          </Box>
         </Grid>
       </Grid>
-      <AlertComp isOpen={openError} color={'warning'} text={"פרטי משתמש שגויים"} type='error' handleClose={() => setOpenError(false)} />
+      <AlertComp isOpen={openError.open} color={'warning'} text={openError.text} type='error' handleClose={() => setOpenError({ open: false, text: "" })} />
     </FormStyle>
   )
 }
