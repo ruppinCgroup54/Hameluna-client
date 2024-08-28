@@ -107,13 +107,7 @@ export default function AdoptionForm({ defaultRequest, setOpenModal }) {
       }
 
       if (formData.print) {
-
         let pdfw = window.open(useImageURL(`Files/${data.dog.shelterNumber}/${data.dog.numberId}_${data.dog.name}_אימוץ.pdf`), '_blank', 'fullscreen=1,channelmode=1,status=1,resizable=1');
-        pdfw.onload=()=>window.print();
-        pdfw.focus();
-       // you need to call print after window loads like this
-  
-
       }
 
       setTriggerFetch(prev => prev + 1);

@@ -19,7 +19,7 @@ const initialValue = dayjs();
 function ServerDay(props) {
   const { countTodos = [], day, outsideCurrentMonth, ...other } = props;
   const count = countTodos.filter(item => dayjs(item.dayInMonth).diff(day, 'd') == 0)[0];
-
+console.log('count', count)
   return (
     <Box
       key={dayjs(day).toISOString()}

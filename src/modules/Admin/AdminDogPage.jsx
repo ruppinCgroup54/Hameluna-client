@@ -160,6 +160,7 @@ export default function AdminDogPage() {
             <Box className="flexBox-row" sx={{gap:'16px'}}>
               <Button variant='contained' href='https://www.facebook.com/' target='_blank' endIcon={<Facebook/>}>פרסם אותי </Button>
               <Button variant='contained' href='https://www.instagram.com/' target='_blank' endIcon={<Instagram/>}>פרסם אותי </Button>
+              <Button variant='contained' type='submit' >סגור</Button>
             </Box>
           </Box>
         </FormStyle>
